@@ -1,11 +1,44 @@
-// Security Challenge Gate
+// Security Challenge Gate - 3 Stages
 (function() {
-    // Check if user has already passed the challenge
+    // Check if user has already passed all challenges
     const hasAccess = sessionStorage.getItem('securityAccess');
     
     if (hasAccess === 'granted') {
         return; // User already passed, show site
     }
+    
+    // Get current stage (default to 1)
+    let currentStage = parseInt(sessionStorage.getItem('challengeStage') || '1');
+    
+    // Challenge data for each stage
+    const challenges = {
+        1: {
+            title: 'SECURITY CHECKPOINT 1/3',
+            label: '> SECURITY QUESTION:',
+            question: 'An attack that compromises database by injecting malicious code?',
+            placeholder: 'Enter your answer...',
+            answers: ['sql injection', 'sqlinjection', 'sql-injection', 'sqli', 'sql inject'],
+            hint: false
+        },
+        2: {
+            title: 'SECURITY CHECKPOINT 2/3',
+            label: '> ENUMERATION SKILLS:',
+            question: 'What is the command to enumerate SMB shares?',
+            placeholder: 'Enter the command...',
+            answers: ['enum4linux', 'smbclient', 'smbmap', 'enum4linux-ng', 'crackmapexec'],
+            hint: false
+        },
+        3: {
+            title: 'FINAL CHALLENGE 3/3',
+            label: '> THE DOOR:',
+            question: 'I\'m about to open the door, but there\'s a password...<br>It doesn\'t look like what it seems:<br><br><code style="color: #00ff41; font-size: 0.9rem;">%56%31%56%35%56%6c%46%57%53%6b%5a%56%61%31%5a%43%55%6b%5a%72%50%51%3d%3d</code>',
+            placeholder: 'Enter the decoded password...',
+            answers: ['youareready', 'you are ready', 'you-are-ready'],
+            hint: false
+        }
+    };
+    
+    const challenge = challenges[currentStage];
     
     // Create challenge overlay
     const overlay = document.createElement('div');
@@ -20,14 +53,14 @@
    ___) |  __/ (__ | |  __/\\__ \\ |_ 
   |____/ \\___|\\___|_|\\___||___/\\__|
                 </pre>
-                <h2>> ACCESS RESTRICTED</h2>
+                <h2>> ${challenge.title}</h2>
                 <p class="challenge-subtitle">[ Prove you're ready for cybersecurity ]</p>
             </div>
             
             <div class="challenge-content">
                 <div class="challenge-question">
-                    <p class="question-label">> SECURITY QUESTION:</p>
-                    <p class="question-text">An attack that compromises database by injecting malicious code?</p>
+                    <p class="question-label">${challenge.label}</p>
+                    <p class="question-text">${challenge.question}</p>
                 </div>
                 
                 <div class="challenge-input-group">
@@ -35,23 +68,17 @@
                         type="text" 
                         id="challengeAnswer" 
                         class="challenge-input" 
-                        placeholder="Enter your answer..."
+                        placeholder="${challenge.placeholder}"
                         autocomplete="off"
                     >
                     <button id="submitChallenge" class="challenge-btn">SUBMIT</button>
                 </div>
                 
                 <div id="challengeError" class="challenge-error"></div>
-                
-                <div class="challenge-hint">
-                    <p style="opacity: 0.5; font-size: 0.85rem; margin-top: 20px;">
-                        Hint: Think of common web vulnerabilities (format: SQL Injection)
-                    </p>
-                </div>
             </div>
             
             <div class="challenge-footer">
-                <p>> root@secinterview:~$ ./verify_access.sh</p>
+                <p>> root@secinterview:~$ ./verify_access.sh --stage=${currentStage}</p>
             </div>
         </div>
     `;
@@ -73,31 +100,38 @@
     function checkAnswer() {
         const answer = answerInput.value.trim().toLowerCase();
         
-        // Accept multiple variations
-        const correctAnswers = [
-            'sql injection',
-            'sqlinjection',
-            'sql-injection',
-            'sqli',
-            'sql inject'
-        ];
-        
-        if (correctAnswers.some(correct => answer === correct)) {
+        if (challenge.answers.some(correct => answer === correct)) {
             // Correct answer!
             errorDiv.style.color = '#00ff41';
-            errorDiv.textContent = '✓ ACCESS GRANTED! Initializing...';
             
-            // Store access
-            sessionStorage.setItem('securityAccess', 'granted');
-            
-            // Animate removal
-            setTimeout(() => {
-                overlay.style.opacity = '0';
+            if (currentStage < 3) {
+                // Not the final stage
+                errorDiv.textContent = `✓ CHECKPOINT ${currentStage} PASSED! Loading next challenge...`;
+                
+                // Save progress
+                sessionStorage.setItem('challengeStage', (currentStage + 1).toString());
+                
+                // Reload to next stage
                 setTimeout(() => {
-                    overlay.remove();
-                    document.body.style.overflow = 'auto';
-                }, 500);
-            }, 1000);
+                    location.reload();
+                }, 1500);
+            } else {
+                // Final stage - grant access
+                errorDiv.textContent = '✓ ALL CHALLENGES COMPLETED! ACCESS GRANTED!';
+                
+                // Store access
+                sessionStorage.setItem('securityAccess', 'granted');
+                sessionStorage.removeItem('challengeStage');
+                
+                // Animate removal
+                setTimeout(() => {
+                    overlay.style.opacity = '0';
+                    setTimeout(() => {
+                        overlay.remove();
+                        document.body.style.overflow = 'auto';
+                    }, 500);
+                }, 1500);
+            }
         } else {
             // Wrong answer
             errorDiv.style.color = '#ff0055';
