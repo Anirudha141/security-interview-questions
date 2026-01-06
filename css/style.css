@@ -91,8 +91,8 @@ a:hover {
     left: 0;
     right: 0;
     z-index: 1000;
-    border-bottom: 2px solid var(--border-color);
-    box-shadow: 0 2px 20px rgba(0, 255, 65, 0.2);
+    border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 255, 65, 0.1);
 }
 
 .nav-container {
@@ -109,20 +109,10 @@ a:hover {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary);
-    text-shadow: 0 0 10px var(--primary);
-    animation: flicker 3s infinite alternate;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
     font-family: 'Courier New', monospace;
 }
 
-@keyframes flicker {
-    0%, 100% { opacity: 1; }
-    41.99% { opacity: 1; }
-    42% { opacity: 0.8; }
-    43% { opacity: 1; }
-    45.99% { opacity: 1; }
-    46% { opacity: 0.7; }
-    46.5% { opacity: 1; }
-}
 
 .nav-links {
     display: flex;
@@ -135,7 +125,6 @@ a:hover {
     font-weight: 500;
     padding: 8px 0;
     position: relative;
-    text-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
 }
 
 .nav-links a:hover,
@@ -177,13 +166,13 @@ a:hover {
 .hero {
     background: 
         linear-gradient(135deg, rgba(13, 2, 8, 0.95) 0%, rgba(26, 15, 26, 0.95) 100%),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><text x="10" y="30" font-family="monospace" font-size="14" fill="%2300ff41" opacity="0.1">01010011 01100101 01100011 01110101 01110010 01101001 01110100 01111001</text><text x="10" y="60" font-family="monospace" font-size="14" fill="%2300ff41" opacity="0.1">11010011 10010001 01010101 11100011 01010101 10101010 11110000 10101010</text><text x="10" y="90" font-family="monospace" font-size="14" fill="%2300ff41" opacity="0.1">01001000 01000001 01000011 01001011 01000101 01010010</text><text x="10" y="120" font-family="monospace" font-size="14" fill="%23ff0055" opacity="0.1">ACCESS GRANTED</text><text x="10" y="150" font-family="monospace" font-size="14" fill="%2300ff41" opacity="0.1">root@security:~$ ./interview_prep.sh</text></svg>');
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><text x="10" y="30" font-family="monospace" font-size="14" fill="%2300ff41" opacity="0.05">01010011 01100101 01100011 01110101 01110010 01101001 01110100 01111001</text><text x="10" y="60" font-family="monospace" font-size="14" fill="%2300ff41" opacity="0.05">11010011 10010001 01010101 11100011 01010101 10101010 11110000 10101010</text><text x="10" y="90" font-family="monospace" font-size="14" fill="%2300ff41" opacity="0.05">01001000 01000001 01000011 01001011 01000101 01010010</text><text x="10" y="120" font-family="monospace" font-size="14" fill="%23ff0055" opacity="0.05">ACCESS GRANTED</text><text x="10" y="150" font-family="monospace" font-size="14" fill="%2300ff41" opacity="0.05">root@security:~$ ./interview_prep.sh</text></svg>');
     background-size: cover;
     background-position: center;
     padding: 150px 20px 80px;
     text-align: center;
-    border-bottom: 2px solid var(--border-color);
-    box-shadow: 0 5px 30px rgba(0, 255, 65, 0.2);
+    border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.1);
     position: relative;
     overflow: hidden;
 }
@@ -196,7 +185,7 @@ a:hover {
     transform: translateX(-50%);
     color: var(--primary);
     font-size: 0.8rem;
-    opacity: 0.3;
+    opacity: 0.15;
     letter-spacing: 2px;
 }
 
@@ -204,28 +193,8 @@ a:hover {
     font-size: 3rem;
     margin-bottom: 20px;
     color: var(--primary);
-    text-shadow: 
-        0 0 10px var(--primary),
-        0 0 20px var(--primary),
-        0 0 30px var(--primary);
-    animation: glow 2s ease-in-out infinite alternate;
+    text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
     font-family: 'Courier New', monospace;
-}
-
-@keyframes glow {
-    from {
-        text-shadow: 
-            0 0 10px var(--primary),
-            0 0 20px var(--primary),
-            0 0 30px var(--primary);
-    }
-    to {
-        text-shadow: 
-            0 0 20px var(--primary),
-            0 0 30px var(--primary),
-            0 0 40px var(--primary),
-            0 0 50px var(--primary);
-    }
 }
 
 .hero-content p {
@@ -256,14 +225,14 @@ a:hover {
 
 .category-card {
     background-color: var(--bg-card);
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 255, 65, 0.3);
     border-radius: 12px;
     padding: 30px;
     text-align: center;
     transition: all 0.3s ease;
     display: block;
     color: var(--text-primary);
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 5px rgba(0, 255, 65, 0.05);
 }
 
 .category-card:hover {
@@ -271,9 +240,7 @@ a:hover {
     border-color: var(--primary);
     transform: translateY(-5px);
     color: var(--text-primary);
-    box-shadow: 
-        0 0 20px rgba(0, 255, 65, 0.4),
-        inset 0 0 20px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
 }
 
 .card-icon {
@@ -295,14 +262,13 @@ a:hover {
 
 .question-count {
     display: inline-block;
-    background-color: rgba(0, 255, 65, 0.2);
+    background-color: rgba(0, 255, 65, 0.15);
     color: var(--primary);
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
-    border: 1px solid var(--primary);
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    border: 1px solid rgba(0, 255, 65, 0.4);
 }
 
 .submit-card {
@@ -324,9 +290,11 @@ a:hover {
 }
 
 .about p {
-    color: var(--text-muted);
+    color: #c0c0c0;
     max-width: 700px;
     margin: 0 auto 15px;
+    font-size: 1.05rem;
+    line-height: 1.8;
 }
 
 /* Questions Page Styles */
@@ -334,8 +302,8 @@ a:hover {
     background: linear-gradient(135deg, var(--bg-dark) 0%, #1a0f1a 100%);
     padding: 120px 20px 50px;
     text-align: center;
-    border-bottom: 2px solid var(--border-color);
-    box-shadow: 0 5px 30px rgba(0, 255, 65, 0.2);
+    border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 255, 65, 0.08);
 }
 
 .page-header h1 {
@@ -403,16 +371,17 @@ a:hover {
 
 .question-card {
     background-color: var(--bg-card);
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(0, 255, 65, 0.2);
     border-radius: 10px;
     margin-bottom: 20px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 5px rgba(0, 255, 65, 0.05);
     transition: all 0.3s ease;
 }
 
 .question-card:hover {
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.15);
+    border-color: rgba(0, 255, 65, 0.4);
 }
 
 .question-header {
@@ -586,16 +555,13 @@ a:hover {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-shadow: 0 0 5px var(--primary);
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
 }
 
 .submit-btn:hover {
     background: var(--primary);
     color: var(--bg-dark);
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
-    text-shadow: none;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
 }
 
 /* Footer */
@@ -624,7 +590,6 @@ a:hover {
 
 .back-link:hover {
     color: var(--primary);
-    text-shadow: 0 0 10px var(--primary);
 }
 
 /* Responsive Design */
