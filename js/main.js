@@ -53,3 +53,64 @@ if (collapseAllBtn) {
         });
     });
 }
+
+// Search Functionality
+const searchBox = document.getElementById('searchBox');
+const searchInfo = document.getElementById('searchInfo');
+const noResults = document.getElementById('noResults');
+
+if (searchBox) {
+    searchBox.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        const questionCards = document.querySelectorAll('.question-card');
+        const toolCards = document.querySelectorAll('.tool-card');
+        let visibleCount = 0;
+        let totalCount = 0;
+
+        // Search in question cards (for question pages)
+        if (questionCards.length > 0) {
+            totalCount = questionCards.length;
+            questionCards.forEach(card => {
+                const questionText = card.querySelector('.question-text').textContent.toLowerCase();
+                const answerText = card.querySelector('.answer-text').textContent.toLowerCase();
+                
+                // Search in both question and answer
+                if (questionText.includes(searchTerm) || answerText.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Search in tool cards (for tools page)
+        if (toolCards.length > 0) {
+            totalCount = toolCards.length;
+            toolCards.forEach(card => {
+                const toolName = card.querySelector('.tool-name').textContent.toLowerCase();
+                const toolDesc = card.querySelector('.tool-description').textContent.toLowerCase();
+                
+                // Search in tool name and description
+                if (toolName.includes(searchTerm) || toolDesc.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Update search info
+        if (searchTerm === '') {
+            searchInfo.textContent = '';
+            if (noResults) noResults.style.display = 'none';
+        } else {
+            const itemType = questionCards.length > 0 ? 'questions' : 'tools';
+            searchInfo.textContent = `Showing ${visibleCount} of ${totalCount} ${itemType}`;
+            if (noResults) {
+                noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+        }
+    });
+}

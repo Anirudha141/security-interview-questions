@@ -89,10 +89,21 @@
     <header class="page-header">
         <h1>Security Tools</h1>
         <p>Essential tools every security professional should know</p>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="searchBox" class="search-box" placeholder="Search tools...">
+            <span class="search-icon">🔍</span>
+        </div>
+        <div id="searchInfo" class="search-results-info"></div>
     </header>
 
     <main class="container">
         <a href="../index.html" class="back-link">&larr; Back to Categories</a>
+        <div id="noResults" class="no-results" style="display: none;">
+            <h3>No results found</h3>
+            <p>Try different keywords or browse all tools below</p>
+        </div>
 
         <!-- Reconnaissance & OSINT -->
         <section class="tools-category">
