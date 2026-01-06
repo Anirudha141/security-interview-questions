@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Essential cybersecurity tools for penetration testing, red teaming, and security assessments">
+    <title>Security Tools | SecInterview</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .tool-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .tool-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        .tool-name {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .tool-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .tool-tag {
+            display: inline-block;
+            background-color: rgba(0, 212, 170, 0.15);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-top: 10px;
+        }
+        .tools-category {
+            margin-top: 50px;
+        }
+        .tools-category:first-of-type {
+            margin-top: 30px;
+        }
+        .tools-category h2 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+        .tools-category > p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">SecInterview</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="pentest.html">Pentest</a></li>
+                <li><a href="redteam.html">Red Team</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+                <li><a href="network.html">Network</a></li>
+                <li><a href="cloud.html">Cloud</a></li>
+                <li><a href="tools.html" class="active">Tools</a></li>
+                <li><a href="submit.html">Submit</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Security Tools</h1>
+        <p>Essential tools every security professional should know</p>
+    </header>
+
+    <main class="container">
+        <a href="../index.html" class="back-link">&larr; Back to Categories</a>
+
+        <!-- Reconnaissance & OSINT -->
+        <section class="tools-category">
+            <h2>Reconnaissance & OSINT</h2>
+            <p>Tools for gathering information and mapping attack surfaces</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Nmap</div>
+                    <div class="tool-description">Network discovery and security auditing. Port scanning, service detection, OS fingerprinting, and NSE scripts.</div>
+                    <span class="tool-tag">Network</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Masscan</div>
+                    <div class="tool-description">Fastest port scanner. Can scan the entire internet in under 6 minutes. Great for large-scale reconnaissance.</div>
+                    <span class="tool-tag">Network</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Amass</div>
+                    <div class="tool-description">In-depth attack surface mapping and asset discovery. Subdomain enumeration using multiple data sources.</div>
+                    <span class="tool-tag">OSINT</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Subfinder</div>
+                    <div class="tool-description">Fast passive subdomain enumeration tool. Uses various sources like Shodan, Censys, and certificate transparency.</div>
+                    <span class="tool-tag">OSINT</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Shodan</div>
+                    <div class="tool-description">Search engine for internet-connected devices. Find exposed services, IoT devices, and vulnerable systems.</div>
+                    <span class="tool-tag">OSINT</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">theHarvester</div>
+                    <div class="tool-description">Gather emails, subdomains, hosts, employee names from public sources like search engines and PGP servers.</div>
+                    <span class="tool-tag">OSINT</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Recon-ng</div>
+                    <div class="tool-description">Full-featured reconnaissance framework. Modular design similar to Metasploit for OSINT gathering.</div>
+                    <span class="tool-tag">OSINT</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">SpiderFoot</div>
+                    <div class="tool-description">Automated OSINT collection tool. Gathers intelligence from 100+ data sources about IPs, domains, emails.</div>
+                    <span class="tool-tag">OSINT</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Web Application Testing -->
+        <section class="tools-category">
+            <h2>Web Application Testing</h2>
+            <p>Tools for testing web application security</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Burp Suite</div>
+                    <div class="tool-description">Industry-standard web security testing platform. Proxy, scanner, intruder, repeater, and extensibility via BApps.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">OWASP ZAP</div>
+                    <div class="tool-description">Free and open-source web app scanner. Great alternative to Burp with active scanning and fuzzing capabilities.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">SQLMap</div>
+                    <div class="tool-description">Automatic SQL injection and database takeover tool. Supports multiple database types and injection techniques.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">ffuf</div>
+                    <div class="tool-description">Fast web fuzzer written in Go. Directory discovery, parameter fuzzing, virtual host discovery.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Gobuster</div>
+                    <div class="tool-description">Directory/file & DNS busting tool. Brute-force URIs, DNS subdomains, and virtual host names.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Feroxbuster</div>
+                    <div class="tool-description">Fast, recursive content discovery tool written in Rust. Auto-filters, auto-recurse, and smart wordlists.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Nuclei</div>
+                    <div class="tool-description">Fast vulnerability scanner based on templates. Huge community template library for CVEs and misconfigs.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Nikto</div>
+                    <div class="tool-description">Web server scanner. Checks for dangerous files, outdated software, and server misconfigurations.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">WPScan</div>
+                    <div class="tool-description">WordPress security scanner. Enumerate users, plugins, themes, and check for known vulnerabilities.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">XSStrike</div>
+                    <div class="tool-description">Advanced XSS detection suite. Fuzzing engine, context analysis, and WAF bypass capabilities.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Dalfox</div>
+                    <div class="tool-description">Fast parameter analysis and XSS scanning tool. Supports DOM XSS detection and blind XSS.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">httpx</div>
+                    <div class="tool-description">Fast HTTP toolkit. Probe for working HTTP servers, extract titles, status codes, technologies.</div>
+                    <span class="tool-tag">Web</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exploitation & Post-Exploitation -->
+        <section class="tools-category">
+            <h2>Exploitation & Post-Exploitation</h2>
+            <p>Tools for exploitation and maintaining access</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Metasploit Framework</div>
+                    <div class="tool-description">World's most used penetration testing framework. Exploits, payloads, auxiliaries, and post-exploitation modules.</div>
+                    <span class="tool-tag">Exploitation</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Cobalt Strike</div>
+                    <div class="tool-description">Commercial adversary simulation platform. Beacon payload, malleable C2, and team collaboration features.</div>
+                    <span class="tool-tag">Red Team</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Sliver</div>
+                    <div class="tool-description">Open-source cross-platform C2 framework. Implants for Windows, Mac, Linux with multiple C2 protocols.</div>
+                    <span class="tool-tag">Red Team</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Havoc</div>
+                    <div class="tool-description">Modern C2 framework. Demon agent with extensive evasion capabilities and team server.</div>
+                    <span class="tool-tag">Red Team</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Mythic</div>
+                    <div class="tool-description">Collaborative, multi-platform red team framework. Modular agents and great UI for team operations.</div>
+                    <span class="tool-tag">Red Team</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Empire</div>
+                    <div class="tool-description">Post-exploitation framework with PowerShell and Python agents. Modules for lateral movement and persistence.</div>
+                    <span class="tool-tag">Post-Exploitation</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Covenant</div>
+                    <div class="tool-description">.NET C2 framework. Grunt implants, task-based operations, and collaborative interface.</div>
+                    <span class="tool-tag">Red Team</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Directory & Windows -->
+        <section class="tools-category">
+            <h2>Active Directory & Windows</h2>
+            <p>Tools for attacking and auditing Active Directory environments</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">BloodHound</div>
+                    <div class="tool-description">AD attack path visualization. Maps relationships and identifies shortest paths to Domain Admin.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Mimikatz</div>
+                    <div class="tool-description">Windows credential extraction tool. Dump passwords, hashes, tickets from memory. Golden/Silver tickets.</div>
+                    <span class="tool-tag">Windows</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Rubeus</div>
+                    <div class="tool-description">Kerberos abuse toolkit. Kerberoasting, AS-REP roasting, ticket manipulation, delegation attacks.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Impacket</div>
+                    <div class="tool-description">Python library for network protocols. Includes psexec, wmiexec, secretsdump, GetUserSPNs, and more.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">CrackMapExec</div>
+                    <div class="tool-description">Swiss army knife for pentesting networks. SMB, WinRM, LDAP, MSSQL enumeration and exploitation.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">PowerView</div>
+                    <div class="tool-description">PowerShell AD enumeration tool. Part of PowerSploit. Domain enumeration, ACL analysis, trust mapping.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Certify</div>
+                    <div class="tool-description">Active Directory Certificate Services (ADCS) enumeration and abuse tool. Find and exploit ESC vulnerabilities.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Certipy</div>
+                    <div class="tool-description">Python tool for ADCS attacks. Enumerate, request, and forge certificates for domain takeover.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">SharpHound</div>
+                    <div class="tool-description">BloodHound data collector. Gathers AD data including users, groups, sessions, ACLs for analysis.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">ADRecon</div>
+                    <div class="tool-description">Active Directory reconnaissance tool. Generates comprehensive Excel report of AD environment.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Responder</div>
+                    <div class="tool-description">LLMNR, NBT-NS, MDNS poisoner. Captures NTLMv1/v2 hashes on the network for cracking or relay.</div>
+                    <span class="tool-tag">Network</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">PetitPotam</div>
+                    <div class="tool-description">Coerce Windows hosts to authenticate via MS-EFSRPC. Used for NTLM relay attacks.</div>
+                    <span class="tool-tag">AD</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Password Attacks -->
+        <section class="tools-category">
+            <h2>Password Attacks</h2>
+            <p>Tools for cracking and attacking passwords</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Hashcat</div>
+                    <div class="tool-description">World's fastest password cracker. GPU-accelerated, supports 300+ hash types, multiple attack modes.</div>
+                    <span class="tool-tag">Cracking</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">John the Ripper</div>
+                    <div class="tool-description">Versatile password cracker. Auto-detects hash types, supports many formats, rule-based attacks.</div>
+                    <span class="tool-tag">Cracking</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Hydra</div>
+                    <div class="tool-description">Online password brute-forcer. Supports 50+ protocols including SSH, FTP, HTTP, SMB, RDP.</div>
+                    <span class="tool-tag">Brute Force</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">CeWL</div>
+                    <div class="tool-description">Custom wordlist generator. Spiders websites to create targeted wordlists for password attacks.</div>
+                    <span class="tool-tag">Wordlist</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Spray</div>
+                    <div class="tool-description">Password spraying tool. Test single passwords against many users to avoid lockouts.</div>
+                    <span class="tool-tag">Brute Force</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Network Attacks -->
+        <section class="tools-category">
+            <h2>Network Attacks & Analysis</h2>
+            <p>Tools for network-level attacks and traffic analysis</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Wireshark</div>
+                    <div class="tool-description">Network protocol analyzer. Capture and analyze network traffic in real-time with deep inspection.</div>
+                    <span class="tool-tag">Analysis</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">tcpdump</div>
+                    <div class="tool-description">Command-line packet analyzer. Lightweight packet capture for quick network debugging.</div>
+                    <span class="tool-tag">Analysis</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Bettercap</div>
+                    <div class="tool-description">Swiss army knife for network attacks. ARP spoofing, DNS spoofing, WiFi attacks, and more.</div>
+                    <span class="tool-tag">MITM</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Ettercap</div>
+                    <div class="tool-description">Comprehensive MITM attack suite. ARP poisoning, DNS spoofing, and traffic manipulation.</div>
+                    <span class="tool-tag">MITM</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">MITMf</div>
+                    <div class="tool-description">Man-in-the-middle framework. Modular framework for various MITM attacks and injections.</div>
+                    <span class="tool-tag">MITM</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">hping3</div>
+                    <div class="tool-description">TCP/IP packet assembler/analyzer. Craft custom packets for testing firewalls and IDS.</div>
+                    <span class="tool-tag">Network</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wireless -->
+        <section class="tools-category">
+            <h2>Wireless Security</h2>
+            <p>Tools for WiFi security testing</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Aircrack-ng</div>
+                    <div class="tool-description">Complete WiFi security suite. Monitor, attack, test, and crack WEP/WPA/WPA2 networks.</div>
+                    <span class="tool-tag">WiFi</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Wifite</div>
+                    <div class="tool-description">Automated wireless attack tool. Automates aircrack-ng attacks against multiple networks.</div>
+                    <span class="tool-tag">WiFi</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Kismet</div>
+                    <div class="tool-description">Wireless network detector and sniffer. Passive monitoring, IDS, and device tracking.</div>
+                    <span class="tool-tag">WiFi</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Fern WiFi Cracker</div>
+                    <div class="tool-description">GUI-based WiFi security tool. WEP/WPA/WPS cracking with graphical interface.</div>
+                    <span class="tool-tag">WiFi</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Fluxion</div>
+                    <div class="tool-description">Evil twin attack tool. Creates rogue AP to capture WPA credentials via social engineering.</div>
+                    <span class="tool-tag">WiFi</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mobile Security -->
+        <section class="tools-category">
+            <h2>Mobile Security</h2>
+            <p>Tools for mobile application security testing</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Frida</div>
+                    <div class="tool-description">Dynamic instrumentation toolkit. Hook functions, trace calls, and modify app behavior at runtime.</div>
+                    <span class="tool-tag">Mobile</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">objection</div>
+                    <div class="tool-description">Runtime mobile exploration toolkit. SSL pinning bypass, root detection bypass, easy Frida usage.</div>
+                    <span class="tool-tag">Mobile</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">MobSF</div>
+                    <div class="tool-description">Mobile Security Framework. Automated static and dynamic analysis for Android and iOS apps.</div>
+                    <span class="tool-tag">Mobile</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">APKTool</div>
+                    <div class="tool-description">Android APK reverse engineering. Decode resources, modify, and rebuild APK files.</div>
+                    <span class="tool-tag">Android</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">jadx</div>
+                    <div class="tool-description">DEX to Java decompiler. Convert Android apps to readable Java source code.</div>
+                    <span class="tool-tag">Android</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Drozer</div>
+                    <div class="tool-description">Android security assessment framework. Test app components, find vulnerabilities, exploit IPC.</div>
+                    <span class="tool-tag">Android</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Hopper</div>
+                    <div class="tool-description">Reverse engineering tool for macOS and iOS binaries. Disassembler and decompiler.</div>
+                    <span class="tool-tag">iOS</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">class-dump</div>
+                    <div class="tool-description">Generate Objective-C headers from iOS binaries. Useful for understanding app structure.</div>
+                    <span class="tool-tag">iOS</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cloud Security -->
+        <section class="tools-category">
+            <h2>Cloud Security</h2>
+            <p>Tools for cloud security assessment</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">ScoutSuite</div>
+                    <div class="tool-description">Multi-cloud security auditing tool. Assess AWS, Azure, GCP against security best practices.</div>
+                    <span class="tool-tag">Multi-Cloud</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Prowler</div>
+                    <div class="tool-description">AWS security best practices assessment. CIS benchmarks, GDPR, HIPAA compliance checks.</div>
+                    <span class="tool-tag">AWS</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Pacu</div>
+                    <div class="tool-description">AWS exploitation framework. Enumerate, escalate privileges, and exploit AWS environments.</div>
+                    <span class="tool-tag">AWS</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">CloudSploit</div>
+                    <div class="tool-description">Cloud security scanning. Detect misconfigurations and security risks in AWS, Azure, GCP.</div>
+                    <span class="tool-tag">Multi-Cloud</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Steampipe</div>
+                    <div class="tool-description">Query cloud resources with SQL. Universal interface to query AWS, Azure, GCP, and more.</div>
+                    <span class="tool-tag">Multi-Cloud</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">CloudMapper</div>
+                    <div class="tool-description">AWS environment visualization. Generate network diagrams and identify exposure.</div>
+                    <span class="tool-tag">AWS</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Checkov</div>
+                    <div class="tool-description">Infrastructure as Code scanner. Scan Terraform, CloudFormation for misconfigurations.</div>
+                    <span class="tool-tag">IaC</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">tfsec</div>
+                    <div class="tool-description">Terraform security scanner. Static analysis for Terraform templates to find security issues.</div>
+                    <span class="tool-tag">IaC</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reverse Engineering -->
+        <section class="tools-category">
+            <h2>Reverse Engineering</h2>
+            <p>Tools for binary analysis and reverse engineering</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Ghidra</div>
+                    <div class="tool-description">NSA's free reverse engineering suite. Disassembler, decompiler, and analysis tool for multiple architectures.</div>
+                    <span class="tool-tag">RE</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">IDA Pro</div>
+                    <div class="tool-description">Industry-standard disassembler. Most widely used tool for binary analysis and reverse engineering.</div>
+                    <span class="tool-tag">RE</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">radare2</div>
+                    <div class="tool-description">Open-source reverse engineering framework. Command-line focused with powerful scripting.</div>
+                    <span class="tool-tag">RE</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">x64dbg</div>
+                    <div class="tool-description">Open-source Windows debugger. User-friendly x64/x32 debugger with plugin support.</div>
+                    <span class="tool-tag">Debugging</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Binary Ninja</div>
+                    <div class="tool-description">Modern reverse engineering platform. Clean UI, powerful analysis, and extensive API.</div>
+                    <span class="tool-tag">RE</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">dnSpy</div>
+                    <div class="tool-description">.NET debugger and assembly editor. Decompile, debug, and edit .NET assemblies.</div>
+                    <span class="tool-tag">.NET</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Engineering -->
+        <section class="tools-category">
+            <h2>Social Engineering & Phishing</h2>
+            <p>Tools for social engineering assessments</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Gophish</div>
+                    <div class="tool-description">Open-source phishing framework. Create campaigns, track clicks, and harvest credentials.</div>
+                    <span class="tool-tag">Phishing</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Evilginx2</div>
+                    <div class="tool-description">Adversary-in-the-middle phishing framework. Bypass MFA by proxying authentication.</div>
+                    <span class="tool-tag">Phishing</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">SET (Social Engineering Toolkit)</div>
+                    <div class="tool-description">Framework for social engineering attacks. Spear phishing, website cloning, infectious media.</div>
+                    <span class="tool-tag">SE</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">King Phisher</div>
+                    <div class="tool-description">Phishing campaign toolkit. Template-based campaigns with detailed tracking and reporting.</div>
+                    <span class="tool-tag">Phishing</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vulnerability Scanners -->
+        <section class="tools-category">
+            <h2>Vulnerability Scanners</h2>
+            <p>Automated vulnerability detection tools</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">Nessus</div>
+                    <div class="tool-description">Industry-leading vulnerability scanner. Comprehensive CVE detection, compliance checks, and reporting.</div>
+                    <span class="tool-tag">Scanner</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">OpenVAS</div>
+                    <div class="tool-description">Open-source vulnerability scanner. Full-featured alternative to commercial scanners.</div>
+                    <span class="tool-tag">Scanner</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Qualys</div>
+                    <div class="tool-description">Cloud-based vulnerability management. Continuous scanning, asset inventory, and compliance.</div>
+                    <span class="tool-tag">Scanner</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Nexpose</div>
+                    <div class="tool-description">Rapid7's vulnerability scanner. Real-time exposure analytics and prioritized remediation.</div>
+                    <span class="tool-tag">Scanner</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">Trivy</div>
+                    <div class="tool-description">Container and IaC vulnerability scanner. Scan images, filesystems, git repos for vulnerabilities.</div>
+                    <span class="tool-tag">Container</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privilege Escalation -->
+        <section class="tools-category">
+            <h2>Privilege Escalation</h2>
+            <p>Tools for finding and exploiting privilege escalation vectors</p>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">LinPEAS</div>
+                    <div class="tool-description">Linux privilege escalation enumeration. Comprehensive script to find privesc vectors on Linux.</div>
+                    <span class="tool-tag">Linux</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">WinPEAS</div>
+                    <div class="tool-description">Windows privilege escalation enumeration. Find misconfigurations and privesc paths on Windows.</div>
+                    <span class="tool-tag">Windows</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">linux-exploit-suggester</div>
+                    <div class="tool-description">Suggest kernel exploits based on OS version. Identify potential kernel-level privilege escalation.</div>
+                    <span class="tool-tag">Linux</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">BeRoot</div>
+                    <div class="tool-description">Privilege escalation checker. Post-exploitation tool to find common misconfigurations.</div>
+                    <span class="tool-tag">Multi</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">GTFOBins</div>
+                    <div class="tool-description">Unix binaries for privilege escalation. Curated list of binaries that can be exploited.</div>
+                    <span class="tool-tag">Linux</span>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">LOLBAS</div>
+                    <div class="tool-description">Living Off The Land Binaries and Scripts. Windows binaries useful for attackers.</div>
+                    <span class="tool-tag">Windows</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SecInterview. Built by security professionals, for security professionals.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

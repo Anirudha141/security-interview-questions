@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="30 Network Security Interview Questions with detailed answers">
+    <title>Network Security Interview Questions | SecInterview</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">SecInterview</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="pentest.html">Pentest</a></li>
+                <li><a href="redteam.html">Red Team</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+                <li><a href="network.html" class="active">Network</a></li>
+                <li><a href="cloud.html">Cloud</a></li>
+                <li><a href="tools.html">Tools</a></li>
+                <li><a href="submit.html">Submit</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Network Security</h1>
+        <p>30 interview questions covering protocols, firewalls, IDS/IPS, and network attacks</p>
+    </header>
+
+    <main class="container questions-container">
+        <a href="../index.html" class="back-link">&larr; Back to Categories</a>
+
+        <!-- Question 1 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q1</span>
+                <span class="question-text">Explain the OSI model and its security relevance.</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>OSI 7 Layers and Security:</strong></p>
+                    <ul>
+                        <li><strong>Layer 7 (Application):</strong> Web attacks (XSS, SQLi), malware, WAF protection</li>
+                        <li><strong>Layer 6 (Presentation):</strong> SSL/TLS encryption, encoding attacks</li>
+                        <li><strong>Layer 5 (Session):</strong> Session hijacking, authentication</li>
+                        <li><strong>Layer 4 (Transport):</strong> TCP/UDP, port scanning, SYN floods, firewalls</li>
+                        <li><strong>Layer 3 (Network):</strong> IP spoofing, routing attacks, IPSec</li>
+                        <li><strong>Layer 2 (Data Link):</strong> ARP spoofing, MAC flooding, 802.1X</li>
+                        <li><strong>Layer 1 (Physical):</strong> Physical access, wiretapping, signal jamming</li>
+                    </ul>
+                    <p><strong>Security controls by layer:</strong></p>
+                    <ul>
+                        <li>L2: Port security, VLAN segmentation, 802.1X</li>
+                        <li>L3/L4: Firewalls, ACLs, IPSec VPN</li>
+                        <li>L7: WAF, IDS/IPS, DLP</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q2</span>
+                <span class="question-text">What is the TCP three-way handshake and how can it be exploited?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>TCP Three-Way Handshake:</strong></p>
+                    <ol>
+                        <li><strong>SYN:</strong> Client sends SYN packet with initial sequence number</li>
+                        <li><strong>SYN-ACK:</strong> Server responds with SYN-ACK, acknowledges client's SYN</li>
+                        <li><strong>ACK:</strong> Client sends ACK, connection established</li>
+                    </ol>
+                    <p><strong>Exploitation - SYN Flood Attack:</strong></p>
+                    <ul>
+                        <li>Attacker sends many SYN packets with spoofed source IPs</li>
+                        <li>Server allocates resources for half-open connections</li>
+                        <li>Server's connection table fills up</li>
+                        <li>Legitimate connections denied</li>
+                    </ul>
+                    <p><strong>Other attacks:</strong></p>
+                    <ul>
+                        <li><strong>TCP Reset:</strong> Send RST to terminate connections</li>
+                        <li><strong>Session hijacking:</strong> Predict sequence numbers</li>
+                        <li><strong>Port scanning:</strong> SYN scan, connect scan, FIN scan</li>
+                    </ul>
+                    <p><strong>Defenses:</strong> SYN cookies, rate limiting, firewall rules, IPS</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q3</span>
+                <span class="question-text">Explain ARP poisoning and how to detect/prevent it.</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>ARP Poisoning</strong> exploits ARP protocol's lack of authentication to associate attacker's MAC with another IP (usually gateway).</p>
+                    <p><strong>Attack flow:</strong></p>
+                    <ol>
+                        <li>Attacker sends gratuitous ARP replies</li>
+                        <li>Victim updates ARP cache with attacker's MAC</li>
+                        <li>Traffic intended for gateway goes to attacker</li>
+                        <li>Attacker forwards to gateway (MITM position)</li>
+                    </ol>
+                    <p><strong>Tools:</strong> arpspoof, Ettercap, Bettercap</p>
+                    <p><strong>Detection:</strong></p>
+                    <ul>
+                        <li>ARP cache monitoring (arpwatch)</li>
+                        <li>Duplicate IP detection</li>
+                        <li>IDS signatures</li>
+                        <li>Check gateway MAC: <code>arp -a</code></li>
+                    </ul>
+                    <p><strong>Prevention:</strong></p>
+                    <ul>
+                        <li>Static ARP entries (small networks)</li>
+                        <li>Dynamic ARP Inspection (DAI)</li>
+                        <li>802.1X authentication</li>
+                        <li>VPN for sensitive traffic</li>
+                        <li>Network segmentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q4</span>
+                <span class="question-text">What is the difference between IDS and IPS?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>IDS (Intrusion Detection System):</strong></p>
+                    <ul>
+                        <li>Passive monitoring</li>
+                        <li>Detects and alerts on suspicious activity</li>
+                        <li>Does NOT block traffic</li>
+                        <li>Typically placed on span/mirror port</li>
+                        <li>No impact on network performance</li>
+                        <li>May have false positives without blocking legitimate traffic</li>
+                    </ul>
+                    <p><strong>IPS (Intrusion Prevention System):</strong></p>
+                    <ul>
+                        <li>Active, inline deployment</li>
+                        <li>Detects AND blocks malicious traffic</li>
+                        <li>Sits in traffic path</li>
+                        <li>Can impact network performance</li>
+                        <li>False positives can block legitimate traffic</li>
+                        <li>Requires careful tuning</li>
+                    </ul>
+                    <p><strong>Detection methods (both):</strong></p>
+                    <ul>
+                        <li><strong>Signature-based:</strong> Known attack patterns</li>
+                        <li><strong>Anomaly-based:</strong> Deviation from baseline</li>
+                        <li><strong>Heuristic:</strong> Behavior analysis</li>
+                    </ul>
+                    <p><strong>Examples:</strong> Snort, Suricata, Zeek (IDS), Palo Alto, Cisco Firepower (IPS)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q5</span>
+                <span class="question-text">How does a firewall work and what types exist?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Firewall</strong> controls network traffic based on predetermined rules, allowing or blocking packets.</p>
+                    <p><strong>Types of firewalls:</strong></p>
+                    <ul>
+                        <li><strong>Packet filtering:</strong> Examines headers (IP, port), stateless, fast but limited</li>
+                        <li><strong>Stateful inspection:</strong> Tracks connection state, more secure than packet filtering</li>
+                        <li><strong>Application layer (proxy):</strong> Deep packet inspection, understands protocols</li>
+                        <li><strong>Next-Gen Firewall (NGFW):</strong> IPS + app awareness + threat intelligence</li>
+                        <li><strong>WAF:</strong> Web Application Firewall, HTTP-specific protection</li>
+                    </ul>
+                    <p><strong>Common firewall rules:</strong></p>
+                    <ul>
+                        <li>Allow established connections</li>
+                        <li>Block all inbound by default</li>
+                        <li>Allow specific services (80, 443)</li>
+                        <li>Log and block suspicious activity</li>
+                    </ul>
+                    <p><strong>Bypass techniques (for testing):</strong></p>
+                    <ul>
+                        <li>Tunneling (DNS, ICMP, HTTP)</li>
+                        <li>Fragmentation</li>
+                        <li>Non-standard ports</li>
+                        <li>Protocol abuse</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q6</span>
+                <span class="question-text">Explain VLAN hopping attacks and prevention.</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>VLAN Hopping</strong> allows attacker to access traffic on other VLANs, bypassing L2 segmentation.</p>
+                    <p><strong>Attack methods:</strong></p>
+                    <p><strong>1. Switch Spoofing:</strong></p>
+                    <ul>
+                        <li>Attacker negotiates trunk link with switch</li>
+                        <li>Uses DTP (Dynamic Trunking Protocol)</li>
+                        <li>Gains access to all VLANs on trunk</li>
+                    </ul>
+                    <p><strong>2. Double Tagging:</strong></p>
+                    <ul>
+                        <li>Attacker sends frame with two 802.1Q tags</li>
+                        <li>First tag matches native VLAN (stripped by first switch)</li>
+                        <li>Second tag specifies target VLAN</li>
+                        <li>One-way attack (can send but not receive replies)</li>
+                    </ul>
+                    <p><strong>Prevention:</strong></p>
+                    <ul>
+                        <li>Disable DTP: <code>switchport nonegotiate</code></li>
+                        <li>Set access ports explicitly: <code>switchport mode access</code></li>
+                        <li>Change native VLAN to unused VLAN</li>
+                        <li>Tag native VLAN traffic: <code>vlan dot1q tag native</code></li>
+                        <li>Disable unused ports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q7</span>
+                <span class="question-text">How does DNS work and what are DNS attacks?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>DNS Resolution Process:</strong></p>
+                    <ol>
+                        <li>Client queries recursive resolver</li>
+                        <li>Resolver checks cache, if miss queries root server</li>
+                        <li>Root directs to TLD server (.com, .org)</li>
+                        <li>TLD directs to authoritative nameserver</li>
+                        <li>Authoritative returns IP address</li>
+                        <li>Resolver caches and returns to client</li>
+                    </ol>
+                    <p><strong>DNS Attacks:</strong></p>
+                    <ul>
+                        <li><strong>DNS Spoofing/Cache Poisoning:</strong> Insert false records into cache</li>
+                        <li><strong>DNS Hijacking:</strong> Modify DNS settings or responses</li>
+                        <li><strong>DNS Tunneling:</strong> Exfiltrate data via DNS queries</li>
+                        <li><strong>DNS Amplification:</strong> DDoS using open resolvers</li>
+                        <li><strong>Domain Hijacking:</strong> Compromise registrar account</li>
+                        <li><strong>Subdomain Takeover:</strong> Claim abandoned DNS records</li>
+                    </ul>
+                    <p><strong>Defenses:</strong></p>
+                    <ul>
+                        <li>DNSSEC (cryptographic signing)</li>
+                        <li>DNS over HTTPS/TLS (DoH/DoT)</li>
+                        <li>Response Rate Limiting</li>
+                        <li>Monitor DNS traffic patterns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q8</span>
+                <span class="question-text">What is a Man-in-the-Middle (MITM) attack?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>MITM Attack</strong> positions attacker between two communicating parties to intercept/modify traffic.</p>
+                    <p><strong>Attack vectors:</strong></p>
+                    <ul>
+                        <li><strong>ARP Spoofing:</strong> Redirect traffic at L2</li>
+                        <li><strong>DNS Spoofing:</strong> Redirect at name resolution</li>
+                        <li><strong>Rogue AP:</strong> Evil twin WiFi access point</li>
+                        <li><strong>BGP Hijacking:</strong> Route internet traffic through attacker</li>
+                        <li><strong>SSL Stripping:</strong> Downgrade HTTPS to HTTP</li>
+                        <li><strong>DHCP Spoofing:</strong> Provide malicious gateway/DNS</li>
+                    </ul>
+                    <p><strong>What attackers can do:</strong></p>
+                    <ul>
+                        <li>Capture credentials</li>
+                        <li>Inject malicious content</li>
+                        <li>Modify transactions</li>
+                        <li>Steal session tokens</li>
+                    </ul>
+                    <p><strong>Prevention:</strong></p>
+                    <ul>
+                        <li>HTTPS with HSTS</li>
+                        <li>Certificate pinning</li>
+                        <li>VPN</li>
+                        <li>Network security controls (DAI, DHCP snooping)</li>
+                        <li>Verify certificate warnings</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q9</span>
+                <span class="question-text">How do you perform network reconnaissance?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Passive Reconnaissance:</strong></p>
+                    <ul>
+                        <li><strong>OSINT:</strong> WHOIS, DNS records, BGP info</li>
+                        <li><strong>Shodan/Censys:</strong> Internet-wide scan data</li>
+                        <li><strong>Certificate transparency:</strong> Discover subdomains</li>
+                        <li><strong>Job postings:</strong> Technology stack hints</li>
+                    </ul>
+                    <p><strong>Active Reconnaissance:</strong></p>
+                    <ul>
+                        <li><strong>Host discovery:</strong>
+                            <pre><code>nmap -sn 192.168.1.0/24</code></pre>
+                        </li>
+                        <li><strong>Port scanning:</strong>
+                            <pre><code>nmap -sS -sV -p- target</code></pre>
+                        </li>
+                        <li><strong>Service enumeration:</strong>
+                            <pre><code>nmap -sC -sV target</code></pre>
+                        </li>
+                        <li><strong>OS detection:</strong>
+                            <pre><code>nmap -O target</code></pre>
+                        </li>
+                        <li><strong>Vulnerability scanning:</strong> Nessus, OpenVAS, Nuclei</li>
+                    </ul>
+                    <p><strong>Protocol-specific:</strong></p>
+                    <ul>
+                        <li>SNMP: <code>snmpwalk</code></li>
+                        <li>SMB: <code>smbclient, enum4linux</code></li>
+                        <li>LDAP: <code>ldapsearch</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q10</span>
+                <span class="question-text">Explain SSL/TLS and common vulnerabilities.</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>TLS Handshake (simplified):</strong></p>
+                    <ol>
+                        <li>Client Hello: Supported cipher suites, random</li>
+                        <li>Server Hello: Selected cipher, certificate</li>
+                        <li>Key Exchange: Generate session keys</li>
+                        <li>Encrypted communication begins</li>
+                    </ol>
+                    <p><strong>Historical vulnerabilities:</strong></p>
+                    <ul>
+                        <li><strong>POODLE:</strong> SSLv3 padding oracle attack</li>
+                        <li><strong>BEAST:</strong> CBC cipher attack in TLS 1.0</li>
+                        <li><strong>Heartbleed:</strong> OpenSSL memory disclosure</li>
+                        <li><strong>CRIME/BREACH:</strong> Compression-based attacks</li>
+                        <li><strong>DROWN:</strong> Cross-protocol attack using SSLv2</li>
+                        <li><strong>ROBOT:</strong> RSA padding oracle</li>
+                    </ul>
+                    <p><strong>Testing:</strong></p>
+                    <pre><code>testssl.sh target.com
+nmap --script ssl-enum-ciphers -p 443 target</code></pre>
+                    <p><strong>Best practices:</strong></p>
+                    <ul>
+                        <li>TLS 1.2+ only (prefer 1.3)</li>
+                        <li>Strong cipher suites (AEAD)</li>
+                        <li>Valid certificates</li>
+                        <li>HSTS enabled</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q11</span>
+                <span class="question-text">What are the different types of port scans?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Nmap Scan Types:</strong></p>
+                    <ul>
+                        <li><strong>TCP Connect (-sT):</strong> Full handshake, logged, reliable</li>
+                        <li><strong>SYN Scan (-sS):</strong> Half-open, stealthy, fast (default with root)</li>
+                        <li><strong>UDP Scan (-sU):</strong> Slow, unreliable responses</li>
+                        <li><strong>FIN Scan (-sF):</strong> Sends FIN, closed ports respond with RST</li>
+                        <li><strong>NULL Scan (-sN):</strong> No flags set</li>
+                        <li><strong>Xmas Scan (-sX):</strong> FIN+PSH+URG flags</li>
+                        <li><strong>ACK Scan (-sA):</strong> Determine firewall rules, not open ports</li>
+                        <li><strong>Idle Scan (-sI):</strong> Use zombie host, very stealthy</li>
+                    </ul>
+                    <p><strong>Port states:</strong></p>
+                    <ul>
+                        <li><strong>Open:</strong> Service listening</li>
+                        <li><strong>Closed:</strong> No service, responds with RST</li>
+                        <li><strong>Filtered:</strong> Firewall blocking, no response</li>
+                        <li><strong>Open|Filtered:</strong> Cannot determine (UDP)</li>
+                    </ul>
+                    <p><strong>Examples:</strong></p>
+                    <pre><code>nmap -sS -p 1-1000 target      # SYN scan top 1000
+nmap -sU -p 53,161,500 target  # UDP specific ports
+nmap -sA target                 # Firewall rule detection</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 12 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q12</span>
+                <span class="question-text">How does NAT work and what are its security implications?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>NAT (Network Address Translation)</strong> maps private IPs to public IPs, conserving IPv4 addresses.</p>
+                    <p><strong>Types:</strong></p>
+                    <ul>
+                        <li><strong>Static NAT:</strong> 1:1 mapping (private to public)</li>
+                        <li><strong>Dynamic NAT:</strong> Pool of public IPs</li>
+                        <li><strong>PAT/NAPT:</strong> Many:1 using port numbers (most common)</li>
+                    </ul>
+                    <p><strong>Security benefits:</strong></p>
+                    <ul>
+                        <li>Hides internal network structure</li>
+                        <li>Blocks unsolicited inbound connections</li>
+                        <li>Creates implicit firewall effect</li>
+                    </ul>
+                    <p><strong>Security limitations:</strong></p>
+                    <ul>
+                        <li>NOT a security control (security through obscurity)</li>
+                        <li>Port forwarding exposes internal services</li>
+                        <li>Breaks IPSec AH, some applications</li>
+                        <li>Doesn't protect outbound malicious traffic</li>
+                    </ul>
+                    <p><strong>NAT traversal for attackers:</strong></p>
+                    <ul>
+                        <li>Reverse shells (outbound connections)</li>
+                        <li>NAT hole punching</li>
+                        <li>Application-layer tunneling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 13 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q13</span>
+                <span class="question-text">What is network segmentation and why is it important?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Network Segmentation</strong> divides a network into smaller, isolated segments to limit lateral movement and contain breaches.</p>
+                    <p><strong>Methods:</strong></p>
+                    <ul>
+                        <li><strong>VLANs:</strong> Logical separation at L2</li>
+                        <li><strong>Subnets:</strong> IP-based separation at L3</li>
+                        <li><strong>Firewalls:</strong> Control traffic between segments</li>
+                        <li><strong>Microsegmentation:</strong> Application-level isolation</li>
+                        <li><strong>DMZ:</strong> Separate zone for public-facing services</li>
+                    </ul>
+                    <p><strong>Benefits:</strong></p>
+                    <ul>
+                        <li>Limits blast radius of breaches</li>
+                        <li>Protects sensitive systems (PCI, healthcare)</li>
+                        <li>Improves monitoring and visibility</li>
+                        <li>Reduces attack surface</li>
+                        <li>Compliance requirements (PCI-DSS)</li>
+                    </ul>
+                    <p><strong>Common segments:</strong></p>
+                    <ul>
+                        <li>User workstations</li>
+                        <li>Servers/databases</li>
+                        <li>Management network</li>
+                        <li>Guest WiFi</li>
+                        <li>IoT devices</li>
+                        <li>DMZ for public services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 14 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q14</span>
+                <span class="question-text">Explain DHCP attacks and defenses.</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>DHCP Attacks:</strong></p>
+                    <p><strong>1. DHCP Starvation:</strong></p>
+                    <ul>
+                        <li>Flood server with DISCOVER messages using spoofed MACs</li>
+                        <li>Exhaust IP address pool</li>
+                        <li>Legitimate clients can't get addresses</li>
+                    </ul>
+                    <p><strong>2. Rogue DHCP Server:</strong></p>
+                    <ul>
+                        <li>Set up malicious DHCP server</li>
+                        <li>Provide attacker-controlled gateway/DNS</li>
+                        <li>Enables MITM attacks</li>
+                    </ul>
+                    <p><strong>Attack tools:</strong> Yersinia, DHCPig</p>
+                    <p><strong>Defenses:</strong></p>
+                    <ul>
+                        <li><strong>DHCP Snooping:</strong> Track legitimate DHCP messages, create binding table</li>
+                        <li><strong>Trusted ports:</strong> Only allow DHCP offers from known server ports</li>
+                        <li><strong>Rate limiting:</strong> Limit DHCP messages per port</li>
+                        <li><strong>Port security:</strong> Limit MACs per port</li>
+                    </ul>
+                    <p><strong>Cisco example:</strong></p>
+                    <pre><code>ip dhcp snooping
+ip dhcp snooping vlan 10
+interface Gi0/1
+  ip dhcp snooping trust</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 15 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q15</span>
+                <span class="question-text">What is BGP and how can it be attacked?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>BGP (Border Gateway Protocol)</strong> is the routing protocol of the internet, exchanging routing information between Autonomous Systems (AS).</p>
+                    <p><strong>BGP Attacks:</strong></p>
+                    <ul>
+                        <li><strong>BGP Hijacking:</strong>
+                            <ul>
+                                <li>Announce routes for IP space you don't own</li>
+                                <li>Traffic rerouted through attacker's AS</li>
+                                <li>Enables mass MITM, traffic interception</li>
+                            </ul>
+                        </li>
+                        <li><strong>Prefix Hijacking:</strong> Announce more specific prefix (wins routing)</li>
+                        <li><strong>Route Leak:</strong> Incorrectly propagate routes</li>
+                        <li><strong>BGP DoS:</strong> Flood with route updates</li>
+                    </ul>
+                    <p><strong>Real incidents:</strong></p>
+                    <ul>
+                        <li>YouTube hijacked by Pakistan Telecom (2008)</li>
+                        <li>Route leaks causing internet outages</li>
+                    </ul>
+                    <p><strong>Defenses:</strong></p>
+                    <ul>
+                        <li>RPKI (Resource Public Key Infrastructure)</li>
+                        <li>BGP Route Origin Validation</li>
+                        <li>IRR filtering</li>
+                        <li>Monitoring (BGPStream, RIPE RIS)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 16 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q16</span>
+                <span class="question-text">How do you analyze network traffic with Wireshark?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Common Wireshark Filters:</strong></p>
+                    <pre><code># By IP
+ip.addr == 192.168.1.100
+ip.src == 10.0.0.1
+
+# By port
+tcp.port == 443
+tcp.dstport == 80
+
+# By protocol
+http
+dns
+tcp.flags.syn == 1
+
+# HTTP specific
+http.request.method == "POST"
+http contains "password"
+
+# Follow streams
+Right-click → Follow → TCP Stream</code></pre>
+                    <p><strong>Security analysis tasks:</strong></p>
+                    <ul>
+                        <li><strong>Identify cleartext credentials</strong></li>
+                        <li><strong>Detect anomalous traffic:</strong> Unusual ports, protocols</li>
+                        <li><strong>Analyze malware C2:</strong> Beacon patterns, DNS tunneling</li>
+                        <li><strong>Verify encryption:</strong> Check TLS versions</li>
+                        <li><strong>Reconstruct files:</strong> Export HTTP objects</li>
+                    </ul>
+                    <p><strong>Useful features:</strong></p>
+                    <ul>
+                        <li>Statistics → Protocol Hierarchy</li>
+                        <li>Statistics → Conversations</li>
+                        <li>File → Export Objects → HTTP</li>
+                        <li>Analyze → Expert Information</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 17 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q17</span>
+                <span class="question-text">What is a DDoS attack and how is it mitigated?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>DDoS (Distributed Denial of Service)</strong> overwhelms target with traffic from multiple sources.</p>
+                    <p><strong>Attack types:</strong></p>
+                    <ul>
+                        <li><strong>Volumetric:</strong> Flood bandwidth (UDP flood, amplification)</li>
+                        <li><strong>Protocol:</strong> Exhaust resources (SYN flood, Ping of Death)</li>
+                        <li><strong>Application layer:</strong> Target specific services (HTTP flood, Slowloris)</li>
+                    </ul>
+                    <p><strong>Amplification attacks:</strong></p>
+                    <ul>
+                        <li>DNS amplification (70x)</li>
+                        <li>NTP amplification (556x)</li>
+                        <li>Memcached amplification (50000x)</li>
+                    </ul>
+                    <p><strong>Mitigation strategies:</strong></p>
+                    <ul>
+                        <li><strong>Scrubbing services:</strong> Cloudflare, Akamai, AWS Shield</li>
+                        <li><strong>Rate limiting:</strong> Limit requests per IP</li>
+                        <li><strong>Anycast:</strong> Distribute traffic globally</li>
+                        <li><strong>Blackholing:</strong> Drop traffic to affected IP (last resort)</li>
+                        <li><strong>CDN:</strong> Absorb traffic at edge</li>
+                        <li><strong>BCP38:</strong> Filter spoofed packets at ISP level</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 18 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q18</span>
+                <span class="question-text">Explain VPN technologies and their security considerations.</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>VPN Types:</strong></p>
+                    <ul>
+                        <li><strong>IPSec:</strong> Network layer, site-to-site or remote access, complex setup</li>
+                        <li><strong>SSL/TLS VPN:</strong> Application layer, easier deployment, works through NAT</li>
+                        <li><strong>WireGuard:</strong> Modern, fast, simpler codebase</li>
+                        <li><strong>OpenVPN:</strong> Open source, flexible, uses TLS</li>
+                    </ul>
+                    <p><strong>IPSec modes:</strong></p>
+                    <ul>
+                        <li><strong>Transport:</strong> Encrypts payload only</li>
+                        <li><strong>Tunnel:</strong> Encrypts entire packet, new IP header</li>
+                    </ul>
+                    <p><strong>Security considerations:</strong></p>
+                    <ul>
+                        <li>Cipher suite configuration</li>
+                        <li>Certificate vs PSK authentication</li>
+                        <li>Split tunneling risks (traffic leakage)</li>
+                        <li>DNS leak prevention</li>
+                        <li>Kill switch functionality</li>
+                        <li>VPN gateway as single point of failure</li>
+                    </ul>
+                    <p><strong>Testing:</strong> Check for IP/DNS leaks, proper encryption, certificate validation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 19 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q19</span>
+                <span class="question-text">What is 802.1X and how does it work?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>802.1X</strong> is a port-based network access control standard that authenticates devices before granting network access.</p>
+                    <p><strong>Components:</strong></p>
+                    <ul>
+                        <li><strong>Supplicant:</strong> Client requesting access</li>
+                        <li><strong>Authenticator:</strong> Switch/AP controlling port</li>
+                        <li><strong>Authentication Server:</strong> RADIUS server validating credentials</li>
+                    </ul>
+                    <p><strong>Process:</strong></p>
+                    <ol>
+                        <li>Supplicant connects to port (blocked state)</li>
+                        <li>Authenticator requests identity</li>
+                        <li>Supplicant provides credentials (EAP)</li>
+                        <li>Authenticator forwards to RADIUS</li>
+                        <li>RADIUS validates, returns accept/reject</li>
+                        <li>Port authorized or remains blocked</li>
+                    </ol>
+                    <p><strong>EAP Methods:</strong></p>
+                    <ul>
+                        <li><strong>EAP-TLS:</strong> Certificate-based (most secure)</li>
+                        <li><strong>PEAP:</strong> Password in TLS tunnel</li>
+                        <li><strong>EAP-TTLS:</strong> Similar to PEAP</li>
+                    </ul>
+                    <p><strong>Security benefits:</strong> Prevents unauthorized access, VLAN assignment, device posture checking</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 20 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q20</span>
+                <span class="question-text">How do you secure a wireless network?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Wireless Security Evolution:</strong></p>
+                    <ul>
+                        <li><strong>WEP:</strong> Broken, never use</li>
+                        <li><strong>WPA:</strong> TKIP, deprecated</li>
+                        <li><strong>WPA2:</strong> AES-CCMP, current standard</li>
+                        <li><strong>WPA3:</strong> SAE, strongest (use if supported)</li>
+                    </ul>
+                    <p><strong>Security measures:</strong></p>
+                    <ul>
+                        <li><strong>Strong encryption:</strong> WPA3 or WPA2-Enterprise</li>
+                        <li><strong>Complex passphrase:</strong> 15+ characters for WPA2-PSK</li>
+                        <li><strong>802.1X authentication:</strong> For enterprise</li>
+                        <li><strong>Disable WPS:</strong> PIN brute-force vulnerability</li>
+                        <li><strong>Client isolation:</strong> Prevent inter-client attacks</li>
+                        <li><strong>Rogue AP detection:</strong> WIDS/WIPS</li>
+                        <li><strong>Separate guest network</strong></li>
+                        <li><strong>Hidden SSID:</strong> Minimal security benefit</li>
+                        <li><strong>MAC filtering:</strong> Easily bypassed, not a security control</li>
+                    </ul>
+                    <p><strong>Attacks to test:</strong> Deauth, evil twin, KRACK (WPA2), dictionary attack</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 21 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q21</span>
+                <span class="question-text">What is SNMP and its security risks?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>SNMP (Simple Network Management Protocol)</strong> is used to manage and monitor network devices.</p>
+                    <p><strong>Versions:</strong></p>
+                    <ul>
+                        <li><strong>SNMPv1/v2c:</strong> Community strings (cleartext passwords)</li>
+                        <li><strong>SNMPv3:</strong> Authentication and encryption</li>
+                    </ul>
+                    <p><strong>Security risks:</strong></p>
+                    <ul>
+                        <li><strong>Default community strings:</strong> public (read), private (write)</li>
+                        <li><strong>Information disclosure:</strong> System info, network topology, routing tables</li>
+                        <li><strong>Configuration modification:</strong> Write access can reconfigure devices</li>
+                        <li><strong>SNMP reflection/amplification:</strong> DDoS attacks</li>
+                    </ul>
+                    <p><strong>Enumeration:</strong></p>
+                    <pre><code>snmpwalk -v2c -c public target
+nmap -sU -p161 --script snmp-brute target
+onesixtyone -c community.txt target</code></pre>
+                    <p><strong>Hardening:</strong></p>
+                    <ul>
+                        <li>Use SNMPv3 with authentication/encryption</li>
+                        <li>Change default community strings</li>
+                        <li>Restrict SNMP access by IP (ACLs)</li>
+                        <li>Disable SNMP if not needed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 22 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q22</span>
+                <span class="question-text">Explain IPv6 security considerations.</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>IPv6 Security Considerations:</strong></p>
+                    <p><strong>New attack surfaces:</strong></p>
+                    <ul>
+                        <li><strong>Neighbor Discovery (ND):</strong> Replaces ARP, similar spoofing attacks</li>
+                        <li><strong>Router Advertisement (RA) attacks:</strong> Rogue router injection</li>
+                        <li><strong>Extension headers:</strong> Can bypass security controls</li>
+                        <li><strong>Tunneling (6to4, Teredo):</strong> May bypass IPv4 security controls</li>
+                    </ul>
+                    <p><strong>Common issues:</strong></p>
+                    <ul>
+                        <li>IPv6 often enabled but not monitored</li>
+                        <li>Firewalls may not filter IPv6</li>
+                        <li>Dual-stack complexity</li>
+                        <li>Large address space complicates scanning</li>
+                    </ul>
+                    <p><strong>Attacks:</strong></p>
+                    <ul>
+                        <li><strong>SLAAC attack:</strong> Fake RA to become default gateway</li>
+                        <li><strong>DHCPv6 spoofing:</strong> Similar to IPv4</li>
+                        <li><strong>NDP exhaustion:</strong> Fill neighbor cache</li>
+                    </ul>
+                    <p><strong>Defenses:</strong></p>
+                    <ul>
+                        <li>RA Guard</li>
+                        <li>DHCPv6 guard</li>
+                        <li>SEND (Secure Neighbor Discovery)</li>
+                        <li>Consistent security policies for v4/v6</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 23 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q23</span>
+                <span class="question-text">What is SMB and common SMB vulnerabilities?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>SMB (Server Message Block)</strong> is a file sharing protocol used extensively in Windows environments.</p>
+                    <p><strong>Notable vulnerabilities:</strong></p>
+                    <ul>
+                        <li><strong>EternalBlue (MS17-010):</strong> Remote code execution, used by WannaCry</li>
+                        <li><strong>SMBGhost (CVE-2020-0796):</strong> SMBv3 compression RCE</li>
+                        <li><strong>SMB Signing disabled:</strong> Enables relay attacks</li>
+                        <li><strong>Null sessions:</strong> Anonymous enumeration</li>
+                        <li><strong>SMBv1:</strong> Multiple vulnerabilities, deprecated</li>
+                    </ul>
+                    <p><strong>Enumeration:</strong></p>
+                    <pre><code>nmap -p445 --script smb-enum-shares target
+smbclient -L //target -N
+enum4linux -a target
+crackmapexec smb target</code></pre>
+                    <p><strong>Security measures:</strong></p>
+                    <ul>
+                        <li>Disable SMBv1</li>
+                        <li>Enable SMB signing</li>
+                        <li>Block port 445 at perimeter</li>
+                        <li>Apply security patches</li>
+                        <li>Restrict null sessions</li>
+                        <li>Use network segmentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 24 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q24</span>
+                <span class="question-text">How do you test network device security?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Network Device Testing Areas:</strong></p>
+                    <ul>
+                        <li><strong>Default credentials:</strong> Admin/admin, cisco/cisco</li>
+                        <li><strong>Management interfaces:</strong> SSH, HTTPS, SNMP, Telnet</li>
+                        <li><strong>Firmware vulnerabilities:</strong> Check CVEs</li>
+                        <li><strong>Configuration review:</strong> Unused services, weak crypto</li>
+                        <li><strong>Access control:</strong> Management ACLs, RBAC</li>
+                    </ul>
+                    <p><strong>Testing approach:</strong></p>
+                    <ol>
+                        <li><strong>Discovery:</strong> Identify devices, versions</li>
+                        <li><strong>Authentication testing:</strong> Default creds, brute force</li>
+                        <li><strong>Service enumeration:</strong> SNMP, HTTP, SSH versions</li>
+                        <li><strong>Vulnerability scanning:</strong> Nessus, Nexpose</li>
+                        <li><strong>Configuration audit:</strong> Against CIS benchmarks</li>
+                    </ol>
+                    <p><strong>Common issues:</strong></p>
+                    <ul>
+                        <li>Unpatched firmware</li>
+                        <li>Default or weak passwords</li>
+                        <li>SNMP with default community</li>
+                        <li>HTTP management (not HTTPS)</li>
+                        <li>Telnet enabled</li>
+                        <li>Verbose banners</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 25 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q25</span>
+                <span class="question-text">What is network forensics?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Network Forensics</strong> involves capturing, recording, and analyzing network traffic to detect intrusions and investigate security incidents.</p>
+                    <p><strong>Data sources:</strong></p>
+                    <ul>
+                        <li>Full packet capture (PCAP)</li>
+                        <li>NetFlow/sFlow/IPFIX</li>
+                        <li>DNS query logs</li>
+                        <li>Firewall logs</li>
+                        <li>IDS/IPS alerts</li>
+                        <li>Proxy logs</li>
+                    </ul>
+                    <p><strong>Analysis tools:</strong></p>
+                    <ul>
+                        <li><strong>Wireshark:</strong> Packet analysis</li>
+                        <li><strong>Zeek (Bro):</strong> Network security monitoring</li>
+                        <li><strong>NetworkMiner:</strong> Host extraction</li>
+                        <li><strong>tcpdump:</strong> Command-line capture</li>
+                        <li><strong>Moloch/Arkime:</strong> Large-scale PCAP</li>
+                    </ul>
+                    <p><strong>Investigation tasks:</strong></p>
+                    <ul>
+                        <li>Identify data exfiltration</li>
+                        <li>Trace attack origin</li>
+                        <li>Reconstruct attacker actions</li>
+                        <li>Extract transferred files</li>
+                        <li>Identify C2 communication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 26 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q26</span>
+                <span class="question-text">Explain Zero Trust Network Architecture.</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Zero Trust</strong> eliminates implicit trust based on network location. "Never trust, always verify."</p>
+                    <p><strong>Core principles:</strong></p>
+                    <ul>
+                        <li><strong>Verify explicitly:</strong> Authenticate and authorize every request</li>
+                        <li><strong>Least privilege access:</strong> Minimum necessary permissions</li>
+                        <li><strong>Assume breach:</strong> Design as if attackers are already inside</li>
+                    </ul>
+                    <p><strong>Key components:</strong></p>
+                    <ul>
+                        <li><strong>Identity verification:</strong> Strong authentication, MFA</li>
+                        <li><strong>Device validation:</strong> Health checks, compliance</li>
+                        <li><strong>Microsegmentation:</strong> Application-level isolation</li>
+                        <li><strong>Continuous monitoring:</strong> Real-time risk assessment</li>
+                        <li><strong>Data protection:</strong> Encryption, DLP</li>
+                    </ul>
+                    <p><strong>Implementation approaches:</strong></p>
+                    <ul>
+                        <li>Software-Defined Perimeter (SDP)</li>
+                        <li>Identity-Aware Proxy</li>
+                        <li>Network Access Control</li>
+                        <li>Cloud Access Security Brokers (CASB)</li>
+                    </ul>
+                    <p><strong>Vendors:</strong> Zscaler, Cloudflare Access, Google BeyondCorp, Microsoft Zero Trust</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 27 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q27</span>
+                <span class="question-text">What is traffic tunneling and how is it detected?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Traffic Tunneling</strong> encapsulates one protocol within another to bypass security controls or exfiltrate data.</p>
+                    <p><strong>Common tunneling methods:</strong></p>
+                    <ul>
+                        <li><strong>DNS tunneling:</strong> Data in DNS queries/responses (iodine, dnscat2)</li>
+                        <li><strong>ICMP tunneling:</strong> Data in ping packets (ptunnel)</li>
+                        <li><strong>HTTP tunneling:</strong> Data in HTTP requests (HTTPTunnel)</li>
+                        <li><strong>SSH tunneling:</strong> Port forwarding through SSH</li>
+                        <li><strong>WebSocket tunneling:</strong> Bidirectional over port 80/443</li>
+                    </ul>
+                    <p><strong>Detection indicators:</strong></p>
+                    <ul>
+                        <li><strong>DNS:</strong> High query volume, long TXT records, unusual domain patterns, high entropy</li>
+                        <li><strong>ICMP:</strong> Large payload sizes, high frequency</li>
+                        <li><strong>HTTP:</strong> Non-standard headers, encoded data</li>
+                    </ul>
+                    <p><strong>Detection tools:</strong></p>
+                    <ul>
+                        <li>Zeek scripts for DNS analysis</li>
+                        <li>Machine learning anomaly detection</li>
+                        <li>Payload inspection</li>
+                        <li>Statistical analysis of traffic patterns</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 28 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q28</span>
+                <span class="question-text">How do you secure network management access?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Network Management Security Best Practices:</strong></p>
+                    <ul>
+                        <li><strong>Use encrypted protocols:</strong> SSH instead of Telnet, HTTPS not HTTP, SNMPv3</li>
+                        <li><strong>Dedicated management network:</strong> Out-of-band management VLAN</li>
+                        <li><strong>Access control lists:</strong> Restrict management access by source IP</li>
+                        <li><strong>Strong authentication:</strong> Complex passwords, MFA, RADIUS/TACACS+</li>
+                        <li><strong>Role-based access:</strong> Limit privileges by job function</li>
+                        <li><strong>Session timeouts:</strong> Automatic logout after inactivity</li>
+                        <li><strong>Logging:</strong> Log all management access, centralize logs</li>
+                        <li><strong>Disable unused services:</strong> Turn off Telnet, HTTP, SNMPv1/2</li>
+                    </ul>
+                    <p><strong>Example Cisco configuration:</strong></p>
+                    <pre><code>line vty 0 4
+  transport input ssh
+  access-class 10 in
+  exec-timeout 5 0
+!
+access-list 10 permit 10.0.0.0 0.0.0.255</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 29 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q29</span>
+                <span class="question-text">What is network segmentation bypass and how do you test for it?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Segmentation bypass</strong> occurs when traffic reaches segments it shouldn't, defeating the purpose of network isolation.</p>
+                    <p><strong>Common bypass methods:</strong></p>
+                    <ul>
+                        <li><strong>Dual-homed hosts:</strong> Systems with NICs in multiple VLANs</li>
+                        <li><strong>Misconfigured firewalls:</strong> Overly permissive rules</li>
+                        <li><strong>VLAN hopping:</strong> Switch spoofing, double tagging</li>
+                        <li><strong>Routing misconfigurations:</strong> Routes between segments</li>
+                        <li><strong>Application-layer tunneling:</strong> Tunnel through allowed ports</li>
+                        <li><strong>Compromised shared services:</strong> DNS, AD bridging segments</li>
+                    </ul>
+                    <p><strong>Testing approach:</strong></p>
+                    <ol>
+                        <li>Map all network segments</li>
+                        <li>Test connectivity between segments</li>
+                        <li>Look for dual-homed systems</li>
+                        <li>Review firewall rules</li>
+                        <li>Test tunneling possibilities</li>
+                        <li>Check shared service access</li>
+                    </ol>
+                    <p><strong>Tools:</strong> nmap, hping3, traceroute, network diagrams review</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 30 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q30</span>
+                <span class="question-text">Describe a complex network attack you've analyzed or mitigated.</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>How to structure your answer:</strong></p>
+                    <ol>
+                        <li><strong>Situation:</strong> Context (pentest, incident response, SOC)</li>
+                        <li><strong>Attack description:</strong> What was happening</li>
+                        <li><strong>Detection/Discovery:</strong> How it was found</li>
+                        <li><strong>Analysis:</strong> Technical investigation steps</li>
+                        <li><strong>Response/Mitigation:</strong> Actions taken</li>
+                        <li><strong>Lessons learned:</strong> Improvements made</li>
+                    </ol>
+                    <p><strong>Good examples to prepare:</strong></p>
+                    <ul>
+                        <li>MITM attack discovery and remediation</li>
+                        <li>DDoS attack mitigation</li>
+                        <li>DNS tunneling detection</li>
+                        <li>Lateral movement through network segments</li>
+                        <li>Rogue device detection</li>
+                        <li>Protocol-based attack (SMB, LLMNR poisoning)</li>
+                    </ul>
+                    <p><strong>Key points to highlight:</strong></p>
+                    <ul>
+                        <li>Technical depth of analysis</li>
+                        <li>Tools and techniques used</li>
+                        <li>Decision-making process</li>
+                        <li>Collaboration with teams</li>
+                        <li>Long-term security improvements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SecInterview. Built by security professionals, for security professionals.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="30 Mobile Security Interview Questions with detailed answers">
+    <title>Mobile Security Interview Questions | SecInterview</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">SecInterview</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="pentest.html">Pentest</a></li>
+                <li><a href="redteam.html">Red Team</a></li>
+                <li><a href="mobile.html" class="active">Mobile</a></li>
+                <li><a href="network.html">Network</a></li>
+                <li><a href="cloud.html">Cloud</a></li>
+                <li><a href="tools.html">Tools</a></li>
+                <li><a href="submit.html">Submit</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Mobile Application Security</h1>
+        <p>30 interview questions covering Android, iOS, reverse engineering, and app security</p>
+    </header>
+
+    <main class="container questions-container">
+        <a href="../index.html" class="back-link">&larr; Back to Categories</a>
+
+        <!-- Question 1 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q1</span>
+                <span class="question-text">What is the OWASP Mobile Top 10?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>OWASP Mobile Top 10 (2024):</strong></p>
+                    <ol>
+                        <li><strong>M1: Improper Credential Usage</strong> - Hardcoded credentials, improper storage</li>
+                        <li><strong>M2: Inadequate Supply Chain Security</strong> - Third-party libraries, SDKs</li>
+                        <li><strong>M3: Insecure Authentication/Authorization</strong> - Weak auth mechanisms</li>
+                        <li><strong>M4: Insufficient Input/Output Validation</strong> - Injection, XSS in WebViews</li>
+                        <li><strong>M5: Insecure Communication</strong> - Cleartext traffic, weak TLS</li>
+                        <li><strong>M6: Inadequate Privacy Controls</strong> - PII exposure, tracking</li>
+                        <li><strong>M7: Insufficient Binary Protections</strong> - Reverse engineering, tampering</li>
+                        <li><strong>M8: Security Misconfiguration</strong> - Debug flags, backup enabled</li>
+                        <li><strong>M9: Insecure Data Storage</strong> - Sensitive data in logs, shared prefs</li>
+                        <li><strong>M10: Insufficient Cryptography</strong> - Weak algorithms, poor key management</li>
+                    </ol>
+                    <p><strong>Related:</strong> OWASP MASTG (Mobile Application Security Testing Guide), MASVS (Verification Standard)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q2</span>
+                <span class="question-text">How do you set up a mobile app testing environment?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Android Environment:</strong></p>
+                    <ul>
+                        <li><strong>Device/Emulator:</strong> Rooted device or emulator (Genymotion, Android Studio)</li>
+                        <li><strong>Proxy:</strong> Burp Suite with certificate installed</li>
+                        <li><strong>Tools:</strong> adb, Frida, objection, apktool, jadx, Drozer</li>
+                        <li><strong>Root tools:</strong> Magisk (recommended) or SuperSU</li>
+                    </ul>
+                    <p><strong>iOS Environment:</strong></p>
+                    <ul>
+                        <li><strong>Device:</strong> Jailbroken iPhone (checkra1n, unc0ver)</li>
+                        <li><strong>Proxy:</strong> Burp Suite with profile installed</li>
+                        <li><strong>Tools:</strong> Frida, objection, Cycript, class-dump, Hopper/IDA</li>
+                        <li><strong>SSH:</strong> OpenSSH on device for file access</li>
+                    </ul>
+                    <p><strong>Certificate installation challenges:</strong></p>
+                    <ul>
+                        <li>Android 7+: User certs not trusted by default</li>
+                        <li>Solutions: Magisk module, patch APK, Frida SSL unpinning</li>
+                        <li>iOS: Install profile + trust in settings</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q3</span>
+                <span class="question-text">Explain SSL/TLS pinning and how to bypass it.</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>SSL Pinning</strong> restricts which certificates an app accepts, preventing MITM attacks even with a trusted CA certificate installed.</p>
+                    <p><strong>Types:</strong></p>
+                    <ul>
+                        <li><strong>Certificate pinning:</strong> Pin entire certificate</li>
+                        <li><strong>Public key pinning:</strong> Pin public key (survives cert renewal)</li>
+                        <li><strong>Hash pinning:</strong> Pin hash of cert/key</li>
+                    </ul>
+                    <p><strong>Bypass techniques:</strong></p>
+                    <ul>
+                        <li><strong>Frida scripts:</strong>
+                            <pre><code>frida -U -f com.app -l ssl-unpin.js</code></pre>
+                        </li>
+                        <li><strong>objection:</strong>
+                            <pre><code>objection -g com.app explore
+android sslpinning disable</code></pre>
+                        </li>
+                        <li><strong>Patch APK:</strong> Modify smali code, repackage, sign</li>
+                        <li><strong>Xposed/Magisk modules:</strong> SSLUnpinning, TrustMeAlready</li>
+                        <li><strong>Network config:</strong> Modify network_security_config.xml</li>
+                    </ul>
+                    <p><strong>iOS:</strong> SSL Kill Switch, Frida scripts, binary patching</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q4</span>
+                <span class="question-text">What is the Android application sandbox?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Android Sandbox</strong> isolates apps from each other and the system using Linux kernel features.</p>
+                    <p><strong>Key components:</strong></p>
+                    <ul>
+                        <li><strong>UID isolation:</strong> Each app gets unique Linux UID</li>
+                        <li><strong>Process isolation:</strong> Apps run in separate processes</li>
+                        <li><strong>File system isolation:</strong> App-specific directories</li>
+                        <li><strong>SELinux:</strong> Mandatory access control policies</li>
+                    </ul>
+                    <p><strong>App data locations:</strong></p>
+                    <ul>
+                        <li><code>/data/data/[package]</code> - Private app storage</li>
+                        <li><code>/data/app/[package]</code> - APK installation</li>
+                        <li><code>/sdcard/Android/data/[package]</code> - External storage</li>
+                    </ul>
+                    <p><strong>Security implications:</strong></p>
+                    <ul>
+                        <li>Apps cannot read other apps' private data (without root)</li>
+                        <li>IPC requires explicit permissions</li>
+                        <li>System resources need runtime permissions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q5</span>
+                <span class="question-text">How do you decompile and analyze an Android APK?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>APK Analysis Workflow:</strong></p>
+                    <ol>
+                        <li><strong>Extract APK contents:</strong>
+                            <pre><code>unzip app.apk -d extracted/</code></pre>
+                        </li>
+                        <li><strong>Decompile to Smali:</strong>
+                            <pre><code>apktool d app.apk -o output/</code></pre>
+                        </li>
+                        <li><strong>Decompile to Java:</strong>
+                            <pre><code>jadx app.apk -d jadx-output/
+# Or use jadx-gui for visual analysis</code></pre>
+                        </li>
+                        <li><strong>Analyze:</strong>
+                            <ul>
+                                <li>AndroidManifest.xml - Permissions, components, configs</li>
+                                <li>strings.xml - Hardcoded strings</li>
+                                <li>Source code - Business logic, API endpoints</li>
+                                <li>lib/ - Native libraries (.so files)</li>
+                                <li>assets/ - Certificates, databases, configs</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Tools:</strong> jadx, apktool, dex2jar, JD-GUI, Bytecode Viewer, MobSF</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q6</span>
+                <span class="question-text">What is Frida and how do you use it for mobile testing?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Frida</strong> is a dynamic instrumentation toolkit that injects JavaScript into running processes to hook functions, trace calls, and modify behavior.</p>
+                    <p><strong>Setup:</strong></p>
+                    <pre><code># Install Frida
+pip install frida-tools
+
+# Push frida-server to device
+adb push frida-server /data/local/tmp/
+adb shell chmod +x /data/local/tmp/frida-server
+adb shell /data/local/tmp/frida-server &</code></pre>
+                    <p><strong>Basic usage:</strong></p>
+                    <pre><code># List processes
+frida-ps -U
+
+# Attach to app
+frida -U com.target.app
+
+# Run script
+frida -U -f com.target.app -l script.js</code></pre>
+                    <p><strong>Example script (hook function):</strong></p>
+                    <pre><code>Java.perform(function() {
+    var Activity = Java.use("com.app.LoginActivity");
+    Activity.checkPassword.implementation = function(pass) {
+        console.log("Password: " + pass);
+        return true; // Always return true
+    };
+});</code></pre>
+                    <p><strong>Use cases:</strong> SSL unpinning, root detection bypass, function tracing, runtime modification</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q7</span>
+                <span class="question-text">How does iOS app signing work?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>iOS Code Signing Components:</strong></p>
+                    <ul>
+                        <li><strong>Certificate:</strong> Developer/distribution certificate from Apple</li>
+                        <li><strong>Provisioning Profile:</strong> Links app ID, device UDIDs, entitlements</li>
+                        <li><strong>Entitlements:</strong> Capabilities (keychain access, push notifications)</li>
+                    </ul>
+                    <p><strong>Signing types:</strong></p>
+                    <ul>
+                        <li><strong>Development:</strong> Limited devices, debugging enabled</li>
+                        <li><strong>Ad Hoc:</strong> Up to 100 devices, no App Store</li>
+                        <li><strong>Enterprise:</strong> Unlimited devices within organization</li>
+                        <li><strong>App Store:</strong> Apple re-signs for distribution</li>
+                    </ul>
+                    <p><strong>Security implications:</strong></p>
+                    <ul>
+                        <li>Cannot run unsigned code (without jailbreak)</li>
+                        <li>Tampering invalidates signature</li>
+                        <li>Re-signing requires valid certificate</li>
+                    </ul>
+                    <p><strong>For testing:</strong> Re-sign with your cert using ios-deploy, iReSign, or manual codesign</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q8</span>
+                <span class="question-text">What are Android content providers and their security risks?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Content Providers</strong> allow apps to share structured data with other apps through a standardized interface (content:// URIs).</p>
+                    <p><strong>Security risks:</strong></p>
+                    <ul>
+                        <li><strong>Exported providers:</strong> <code>android:exported="true"</code> allows any app access</li>
+                        <li><strong>SQL injection:</strong> Improper input sanitization in queries</li>
+                        <li><strong>Path traversal:</strong> In file-based providers</li>
+                        <li><strong>Information disclosure:</strong> Sensitive data exposed</li>
+                        <li><strong>Permission bypass:</strong> Weak permission requirements</li>
+                    </ul>
+                    <p><strong>Testing with Drozer:</strong></p>
+                    <pre><code>run app.provider.info -a com.target.app
+run app.provider.query content://com.app/users
+run app.provider.query content://com.app/users --projection "* FROM users;--"</code></pre>
+                    <p><strong>Mitigations:</strong></p>
+                    <ul>
+                        <li>Set <code>android:exported="false"</code> when not needed</li>
+                        <li>Use signature-level permissions</li>
+                        <li>Parameterized queries</li>
+                        <li>Input validation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q9</span>
+                <span class="question-text">How do you bypass root/jailbreak detection?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Common detection methods:</strong></p>
+                    <ul>
+                        <li>Check for su binary, Superuser.apk</li>
+                        <li>Check for Magisk, Cydia, Sileo</li>
+                        <li>Test directory write permissions</li>
+                        <li>Check system properties (ro.build.tags)</li>
+                        <li>Check for hook frameworks (Frida, Xposed)</li>
+                    </ul>
+                    <p><strong>Android bypass techniques:</strong></p>
+                    <ul>
+                        <li><strong>Magisk Hide / Zygisk DenyList:</strong> Hide root from specific apps</li>
+                        <li><strong>Frida scripts:</strong> Hook detection functions
+                            <pre><code>Java.use("com.app.RootDetection").isRooted.implementation = function() {
+    return false;
+};</code></pre>
+                        </li>
+                        <li><strong>objection:</strong> <code>android root disable</code></li>
+                        <li><strong>Patch APK:</strong> Modify detection logic</li>
+                    </ul>
+                    <p><strong>iOS bypass:</strong></p>
+                    <ul>
+                        <li>Liberty Lite, A-Bypass, Shadow</li>
+                        <li>Frida scripts to hook detection</li>
+                        <li>Binary patching</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q10</span>
+                <span class="question-text">What is the iOS Keychain and how do you assess its security?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>iOS Keychain</strong> is a secure storage container for sensitive data like passwords, tokens, and certificates.</p>
+                    <p><strong>Security classes:</strong></p>
+                    <ul>
+                        <li><code>kSecAttrAccessibleWhenUnlocked</code> - Available when device unlocked</li>
+                        <li><code>kSecAttrAccessibleAfterFirstUnlock</code> - Available after first unlock (common)</li>
+                        <li><code>kSecAttrAccessibleAlways</code> - Always available (deprecated, insecure)</li>
+                        <li><code>kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly</code> - Most secure</li>
+                    </ul>
+                    <p><strong>Testing (jailbroken):</strong></p>
+                    <pre><code># Using keychain-dumper
+./keychain-dumper
+
+# Using objection
+objection -g com.app explore
+ios keychain dump</code></pre>
+                    <p><strong>Common issues:</strong></p>
+                    <ul>
+                        <li>Using <code>AccessibleAlways</code> for sensitive data</li>
+                        <li>Not using <code>ThisDeviceOnly</code> variants</li>
+                        <li>Storing plaintext secrets</li>
+                        <li>Not clearing keychain on logout/uninstall</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q11</span>
+                <span class="question-text">What are WebView vulnerabilities in mobile apps?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>WebView</strong> embeds web content in native apps, creating a bridge between web and native code.</p>
+                    <p><strong>Common vulnerabilities:</strong></p>
+                    <ul>
+                        <li><strong>JavaScript enabled:</strong> <code>setJavaScriptEnabled(true)</code> enables XSS</li>
+                        <li><strong>JavaScript Interface:</strong> <code>addJavascriptInterface()</code> can expose Java methods
+                            <pre><code>// Android < 4.2: Call any public method
+webView.addJavascriptInterface(new Object(), "Android");</code></pre>
+                        </li>
+                        <li><strong>File access:</strong> <code>setAllowFileAccess(true)</code> enables file:// URLs</li>
+                        <li><strong>Universal file access:</strong> Read any file via XSS</li>
+                        <li><strong>Insecure URL loading:</strong> Loading attacker-controlled URLs</li>
+                        <li><strong>SSL errors ignored:</strong> <code>onReceivedSslError</code> calling proceed()</li>
+                    </ul>
+                    <p><strong>Testing:</strong></p>
+                    <ul>
+                        <li>Inject JavaScript through user input</li>
+                        <li>Check WebView settings in decompiled code</li>
+                        <li>Test deep links that open WebViews</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 12 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q12</span>
+                <span class="question-text">How do you test for insecure data storage on mobile?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Android locations to check:</strong></p>
+                    <ul>
+                        <li><code>/data/data/[package]/shared_prefs/</code> - SharedPreferences XML</li>
+                        <li><code>/data/data/[package]/databases/</code> - SQLite databases</li>
+                        <li><code>/data/data/[package]/files/</code> - Internal storage</li>
+                        <li><code>/sdcard/</code> - External storage (world-readable)</li>
+                        <li>Application logs (<code>adb logcat</code>)</li>
+                        <li>Backup files</li>
+                    </ul>
+                    <p><strong>iOS locations to check:</strong></p>
+                    <ul>
+                        <li><code>/var/mobile/Containers/Data/Application/[UUID]/</code></li>
+                        <li>Documents/, Library/, tmp/</li>
+                        <li>NSUserDefaults plist files</li>
+                        <li>Core Data / SQLite databases</li>
+                        <li>Keychain</li>
+                        <li>Cookies, cache</li>
+                    </ul>
+                    <p><strong>What to look for:</strong></p>
+                    <ul>
+                        <li>Plaintext credentials, tokens, PII</li>
+                        <li>Unencrypted databases</li>
+                        <li>Sensitive data in logs</li>
+                        <li>Backup inclusion of sensitive files</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 13 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q13</span>
+                <span class="question-text">What are Android intents and their security implications?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Intents</strong> are messaging objects for inter-component and inter-app communication.</p>
+                    <p><strong>Types:</strong></p>
+                    <ul>
+                        <li><strong>Explicit:</strong> Target specific component</li>
+                        <li><strong>Implicit:</strong> Declare action, system resolves receiver</li>
+                    </ul>
+                    <p><strong>Security issues:</strong></p>
+                    <ul>
+                        <li><strong>Intent interception:</strong> Malicious app registers for same intent filter</li>
+                        <li><strong>Intent spoofing:</strong> Send crafted intents to exported components</li>
+                        <li><strong>Pending Intent hijacking:</strong> Mutable PendingIntents can be modified</li>
+                        <li><strong>Broadcast sniffing:</strong> Unprotected broadcasts readable by other apps</li>
+                        <li><strong>Data exposure:</strong> Sensitive data in intent extras</li>
+                    </ul>
+                    <p><strong>Testing with adb:</strong></p>
+                    <pre><code># Start activity
+adb shell am start -n com.app/.DeepLinkActivity -d "scheme://path"
+
+# Send broadcast
+adb shell am broadcast -a com.app.ACTION</code></pre>
+                    <p><strong>Mitigations:</strong> Use explicit intents, set permissions, use LocalBroadcastManager</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 14 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q14</span>
+                <span class="question-text">How do you perform static analysis of iOS apps?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Getting the IPA:</strong></p>
+                    <ul>
+                        <li>iTunes (older versions)</li>
+                        <li>iMazing, Apple Configurator</li>
+                        <li>Frida ios-dump (from jailbroken device)</li>
+                        <li>Clutch (decrypt App Store apps)</li>
+                    </ul>
+                    <p><strong>Analysis steps:</strong></p>
+                    <ol>
+                        <li><strong>Extract IPA:</strong>
+                            <pre><code>unzip app.ipa -d extracted/</code></pre>
+                        </li>
+                        <li><strong>Analyze Info.plist:</strong> URL schemes, permissions, configurations</li>
+                        <li><strong>Check binary:</strong>
+                            <pre><code># Check protections
+otool -hv Payload/App.app/App
+# Check for PIE, ARC, stack canaries</code></pre>
+                        </li>
+                        <li><strong>Disassemble:</strong> Hopper, IDA Pro, Ghidra</li>
+                        <li><strong>Class dump:</strong>
+                            <pre><code>class-dump Payload/App.app/App > headers.h</code></pre>
+                        </li>
+                        <li><strong>String analysis:</strong> Look for URLs, keys, secrets</li>
+                    </ol>
+                    <p><strong>Tools:</strong> MobSF, Hopper, IDA, class-dump, otool</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 15 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q15</span>
+                <span class="question-text">What is objection and how do you use it?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>objection</strong> is a runtime mobile exploration toolkit powered by Frida, providing easy-to-use commands for common tasks.</p>
+                    <p><strong>Installation:</strong></p>
+                    <pre><code>pip install objection</code></pre>
+                    <p><strong>Basic usage:</strong></p>
+                    <pre><code># Attach to app
+objection -g com.target.app explore
+
+# Common commands
+android sslpinning disable
+android root disable
+ios sslpinning disable
+ios jailbreak disable
+
+# File system
+env                          # Show app directories
+ls /data/data/com.app/
+file download /path/to/file
+
+# Memory
+memory list modules
+memory search "password"
+
+# Keychain/Storage
+ios keychain dump
+android keystore list
+
+# Hooking
+android hooking list classes
+android hooking watch class com.app.LoginActivity</code></pre>
+                    <p><strong>Patch APK without recompiling:</strong></p>
+                    <pre><code>objection patchapk -s app.apk</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 16 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q16</span>
+                <span class="question-text">How do you test deep links for vulnerabilities?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Deep links</strong> allow external navigation directly to app content via custom URL schemes or App Links/Universal Links.</p>
+                    <p><strong>Find deep links:</strong></p>
+                    <ul>
+                        <li>AndroidManifest.xml: <code>&lt;intent-filter&gt;</code> with <code>&lt;data&gt;</code></li>
+                        <li>iOS Info.plist: CFBundleURLSchemes, Associated Domains</li>
+                    </ul>
+                    <p><strong>Vulnerabilities to test:</strong></p>
+                    <ul>
+                        <li><strong>Open redirect:</strong> <code>app://redirect?url=http://evil.com</code></li>
+                        <li><strong>XSS via WebView:</strong> <code>app://webview?url=javascript:alert(1)</code></li>
+                        <li><strong>Authentication bypass:</strong> Access authenticated screens</li>
+                        <li><strong>Parameter injection:</strong> Modify sensitive parameters</li>
+                        <li><strong>IDOR:</strong> Access other users' resources</li>
+                    </ul>
+                    <p><strong>Testing:</strong></p>
+                    <pre><code># Android
+adb shell am start -a android.intent.action.VIEW -d "scheme://path?param=value"
+
+# iOS (simulator)
+xcrun simctl openurl booted "scheme://path"</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 17 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q17</span>
+                <span class="question-text">What binary protections should mobile apps implement?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Android protections:</strong></p>
+                    <ul>
+                        <li><strong>Code obfuscation:</strong> ProGuard, R8, DexGuard</li>
+                        <li><strong>Native code:</strong> Critical logic in .so files</li>
+                        <li><strong>String encryption:</strong> Encrypt sensitive strings</li>
+                        <li><strong>Integrity checks:</strong> Verify APK signature at runtime</li>
+                        <li><strong>Debugger detection:</strong> Check for debugging flags</li>
+                        <li><strong>Emulator detection:</strong> Detect non-real devices</li>
+                    </ul>
+                    <p><strong>iOS protections:</strong></p>
+                    <ul>
+                        <li><strong>PIE (Position Independent Executable):</strong> ASLR support</li>
+                        <li><strong>ARC (Automatic Reference Counting):</strong> Memory safety</li>
+                        <li><strong>Stack canaries:</strong> Buffer overflow protection</li>
+                        <li><strong>Code obfuscation:</strong> LLVM-based obfuscators</li>
+                        <li><strong>Anti-debugging:</strong> ptrace detection, sysctl checks</li>
+                    </ul>
+                    <p><strong>Check protections:</strong></p>
+                    <pre><code># iOS
+otool -hv binary | grep PIE
+
+# Android - check for obfuscation
+jadx app.apk  # Look for a/b/c class names</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 18 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q18</span>
+                <span class="question-text">How do you intercept traffic from apps that don't respect system proxy?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Apps may bypass proxy by:</strong></p>
+                    <ul>
+                        <li>Using custom HTTP libraries that ignore proxy settings</li>
+                        <li>Hardcoding connections</li>
+                        <li>Using non-HTTP protocols</li>
+                    </ul>
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li><strong>VPN-based interception:</strong>
+                            <ul>
+                                <li>Use ProxyDroid (Android, requires root)</li>
+                                <li>Run transparent proxy on network level</li>
+                            </ul>
+                        </li>
+                        <li><strong>iptables (rooted Android):</strong>
+                            <pre><code>iptables -t nat -A OUTPUT -p tcp --dport 443 -j DNAT --to-destination &lt;proxy-ip&gt;:8080</code></pre>
+                        </li>
+                        <li><strong>Frida hook:</strong> Hook HTTP library to add proxy
+                            <pre><code>// Hook OkHttp client builder to add proxy</code></pre>
+                        </li>
+                        <li><strong>Patch APK:</strong> Modify code to use proxy</li>
+                        <li><strong>Network level:</strong> Run proxy on router/gateway</li>
+                    </ul>
+                    <p><strong>For non-HTTP:</strong> Use Wireshark, tcpdump, or protocol-specific tools</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 19 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q19</span>
+                <span class="question-text">What is the Android Backup vulnerability?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Android Backup</strong> allows extracting app data via adb if <code>android:allowBackup="true"</code> (default).</p>
+                    <p><strong>Exploitation:</strong></p>
+                    <pre><code># Create backup (requires user confirmation on device)
+adb backup -f backup.ab com.target.app
+
+# Extract backup
+java -jar abe.jar unpack backup.ab backup.tar
+tar -xvf backup.tar</code></pre>
+                    <p><strong>What you can extract:</strong></p>
+                    <ul>
+                        <li>SharedPreferences (may contain tokens, credentials)</li>
+                        <li>SQLite databases</li>
+                        <li>Internal files</li>
+                        <li>Cache data</li>
+                    </ul>
+                    <p><strong>Security implications:</strong></p>
+                    <ul>
+                        <li>Physical access to device = data extraction</li>
+                        <li>Malware can trigger backup and steal data</li>
+                        <li>Data persists after logout</li>
+                    </ul>
+                    <p><strong>Mitigation:</strong></p>
+                    <pre><code>&lt;application android:allowBackup="false"&gt;</code></pre>
+                    <p>Or use <code>android:fullBackupContent</code> to exclude sensitive files.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 20 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q20</span>
+                <span class="question-text">How do you analyze native libraries (.so files) in Android apps?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Native libraries</strong> contain compiled C/C++ code, often used for performance-critical or security-sensitive operations.</p>
+                    <p><strong>Analysis workflow:</strong></p>
+                    <ol>
+                        <li><strong>Extract:</strong> From APK's lib/ directory (arm64-v8a, armeabi-v7a, x86)</li>
+                        <li><strong>Identify architecture:</strong>
+                            <pre><code>file libapp.so</code></pre>
+                        </li>
+                        <li><strong>String analysis:</strong>
+                            <pre><code>strings libapp.so | grep -i password
+rabin2 -z libapp.so</code></pre>
+                        </li>
+                        <li><strong>Disassemble:</strong>
+                            <ul>
+                                <li>IDA Pro (industry standard)</li>
+                                <li>Ghidra (free, powerful)</li>
+                                <li>radare2/rizin</li>
+                            </ul>
+                        </li>
+                        <li><strong>Find JNI functions:</strong> Look for Java_com_package_Class_method</li>
+                    </ol>
+                    <p><strong>Dynamic analysis with Frida:</strong></p>
+                    <pre><code>Interceptor.attach(Module.findExportByName("libapp.so", "encrypt"), {
+    onEnter: function(args) {
+        console.log("Input: " + Memory.readUtf8String(args[0]));
+    }
+});</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 21 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q21</span>
+                <span class="question-text">What are iOS URL schemes and their security risks?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>URL Schemes</strong> allow apps to be launched via custom URLs (e.g., <code>myapp://action</code>).</p>
+                    <p><strong>Security risks:</strong></p>
+                    <ul>
+                        <li><strong>Scheme hijacking:</strong> Malicious app registers same scheme, intercepts calls</li>
+                        <li><strong>Sensitive data in URL:</strong> Tokens, credentials in scheme parameters</li>
+                        <li><strong>Action triggering:</strong> Force app to perform actions (payment, data deletion)</li>
+                        <li><strong>XSS in WebView:</strong> Scheme opens WebView with attacker URL</li>
+                    </ul>
+                    <p><strong>Finding schemes (Info.plist):</strong></p>
+                    <pre><code>&lt;key&gt;CFBundleURLTypes&lt;/key&gt;
+&lt;array&gt;
+    &lt;dict&gt;
+        &lt;key&gt;CFBundleURLSchemes&lt;/key&gt;
+        &lt;array&gt;
+            &lt;string&gt;myapp&lt;/string&gt;
+        &lt;/array&gt;
+    &lt;/dict&gt;
+&lt;/array&gt;</code></pre>
+                    <p><strong>Testing:</strong></p>
+                    <pre><code># Safari
+myapp://action?param=value
+
+# Command line
+xcrun simctl openurl booted "myapp://test"</code></pre>
+                    <p><strong>Mitigation:</strong> Use Universal Links (verified domain ownership), validate all inputs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 22 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q22</span>
+                <span class="question-text">How do you test mobile API endpoints?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Mobile API Testing Approach:</strong></p>
+                    <ol>
+                        <li><strong>Discover endpoints:</strong>
+                            <ul>
+                                <li>Proxy traffic (Burp Suite)</li>
+                                <li>Static analysis (strings in APK/IPA)</li>
+                                <li>Decompiled code</li>
+                            </ul>
+                        </li>
+                        <li><strong>Test authentication:</strong>
+                            <ul>
+                                <li>Token expiration and renewal</li>
+                                <li>Session management</li>
+                                <li>Token reuse after logout</li>
+                            </ul>
+                        </li>
+                        <li><strong>Test authorization:</strong>
+                            <ul>
+                                <li>IDOR (change user IDs)</li>
+                                <li>Privilege escalation</li>
+                                <li>Function-level access control</li>
+                            </ul>
+                        </li>
+                        <li><strong>Test input validation:</strong>
+                            <ul>
+                                <li>SQL injection</li>
+                                <li>NoSQL injection</li>
+                                <li>Parameter tampering</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Mobile-specific tests:</strong></p>
+                    <ul>
+                        <li>API versioning (old versions may lack security)</li>
+                        <li>Device binding tokens</li>
+                        <li>Certificate pinning affecting API calls</li>
+                        <li>Offline mode data sync vulnerabilities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 23 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q23</span>
+                <span class="question-text">What is tapjacking and how do you test for it?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Tapjacking</strong> is the mobile equivalent of clickjacking - overlaying malicious UI to trick users into tapping hidden elements.</p>
+                    <p><strong>Android vulnerability:</strong></p>
+                    <ul>
+                        <li>Apps with <code>android:filterTouchesWhenObscured="false"</code> (default)</li>
+                        <li>Attacker creates overlay using SYSTEM_ALERT_WINDOW permission</li>
+                        <li>User sees attacker UI, taps on hidden victim app buttons</li>
+                    </ul>
+                    <p><strong>Testing:</strong></p>
+                    <ol>
+                        <li>Check if app sets <code>filterTouchesWhenObscured="true"</code></li>
+                        <li>Create PoC overlay app</li>
+                        <li>Test if critical actions can be triggered through overlay</li>
+                    </ol>
+                    <p><strong>Android 12+ changes:</strong> Untrusted touch events are blocked by default</p>
+                    <p><strong>Mitigation:</strong></p>
+                    <pre><code>// In XML
+android:filterTouchesWhenObscured="true"
+
+// In code
+view.setFilterTouchesWhenObscured(true);</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 24 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q24</span>
+                <span class="question-text">How do you test for clipboard vulnerabilities?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Clipboard risks:</strong></p>
+                    <ul>
+                        <li>Sensitive data copied to clipboard (passwords, tokens)</li>
+                        <li>Other apps can read clipboard contents</li>
+                        <li>Clipboard history may persist data</li>
+                        <li>Screenshots may capture clipboard indicators</li>
+                    </ul>
+                    <p><strong>Testing approach:</strong></p>
+                    <ol>
+                        <li>Copy sensitive data in app (password, credit card)</li>
+                        <li>Check if app clears clipboard after use</li>
+                        <li>Check clipboard from another app or adb:
+                            <pre><code>adb shell service call clipboard 2 s16 com.app</code></pre>
+                        </li>
+                        <li>Verify clipboard clearing on app background/close</li>
+                    </ol>
+                    <p><strong>Android 10+ restrictions:</strong> Only foreground apps can read clipboard</p>
+                    <p><strong>iOS 14+ indicators:</strong> Banner shown when apps read clipboard</p>
+                    <p><strong>Best practices:</strong></p>
+                    <ul>
+                        <li>Don't allow copying sensitive data</li>
+                        <li>Clear clipboard after paste</li>
+                        <li>Use secure text fields that prevent copy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 25 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q25</span>
+                <span class="question-text">What is MobSF and how do you use it?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>MobSF (Mobile Security Framework)</strong> is an automated mobile app security testing tool supporting static and dynamic analysis.</p>
+                    <p><strong>Features:</strong></p>
+                    <ul>
+                        <li>Static analysis of APK, IPA, APPX</li>
+                        <li>Dynamic analysis (Android emulator)</li>
+                        <li>Web API fuzzing</li>
+                        <li>Malware analysis</li>
+                        <li>PDF/JSON reports</li>
+                    </ul>
+                    <p><strong>Installation:</strong></p>
+                    <pre><code># Docker
+docker pull opensecurity/mobile-security-framework-mobsf
+docker run -it -p 8000:8000 opensecurity/mobile-security-framework-mobsf</code></pre>
+                    <p><strong>Static analysis detects:</strong></p>
+                    <ul>
+                        <li>Hardcoded secrets, API keys</li>
+                        <li>Insecure permissions</li>
+                        <li>Exported components</li>
+                        <li>Weak crypto implementations</li>
+                        <li>Insecure network config</li>
+                        <li>Code vulnerabilities</li>
+                    </ul>
+                    <p><strong>Workflow:</strong> Upload APK/IPA → Automatic analysis → Review findings → Manual verification</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 26 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q26</span>
+                <span class="question-text">How do you test biometric authentication implementation?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Biometric testing areas:</strong></p>
+                    <ul>
+                        <li><strong>Fallback mechanisms:</strong> Can biometric be bypassed with PIN/password?</li>
+                        <li><strong>Crypto binding:</strong> Is biometric tied to cryptographic key?</li>
+                        <li><strong>Event-based vs crypto-based:</strong> Event-based is weaker</li>
+                        <li><strong>Lockout policy:</strong> Multiple failed attempts handling</li>
+                    </ul>
+                    <p><strong>Android testing:</strong></p>
+                    <pre><code>// Hook BiometricPrompt result
+Java.use("androidx.biometric.BiometricPrompt$AuthenticationCallback")
+  .onAuthenticationSucceeded.implementation = function() {
+    // Bypass
+}</code></pre>
+                    <p><strong>iOS testing:</strong></p>
+                    <pre><code>// Hook LAContext
+var LAContext = ObjC.classes.LAContext;
+Interceptor.attach(LAContext["- evaluatePolicy:localizedReason:reply:"].implementation, {
+    // Modify result
+});</code></pre>
+                    <p><strong>Key questions:</strong></p>
+                    <ul>
+                        <li>Does server know about biometric auth or just client?</li>
+                        <li>Can the auth result callback be hooked?</li>
+                        <li>Is sensitive data protected by biometric-bound keys?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 27 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q27</span>
+                <span class="question-text">What are common cryptographic mistakes in mobile apps?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Common cryptographic mistakes:</strong></p>
+                    <ul>
+                        <li><strong>Hardcoded keys:</strong> Encryption keys in source code or assets</li>
+                        <li><strong>Weak algorithms:</strong> MD5, SHA1, DES, RC4</li>
+                        <li><strong>ECB mode:</strong> Reveals patterns in encrypted data</li>
+                        <li><strong>Static IV:</strong> Using same IV for all encryption</li>
+                        <li><strong>Insufficient key length:</strong> RSA < 2048 bits, AES < 128 bits</li>
+                        <li><strong>Custom crypto:</strong> Rolling own implementation</li>
+                        <li><strong>No integrity check:</strong> Encryption without MAC (use GCM or encrypt-then-MAC)</li>
+                        <li><strong>Predictable random:</strong> Using Math.random() for crypto</li>
+                        <li><strong>Key derivation:</strong> Using password directly as key (use PBKDF2, scrypt)</li>
+                    </ul>
+                    <p><strong>What to look for in code:</strong></p>
+                    <pre><code>// Bad patterns
+Cipher.getInstance("AES/ECB/PKCS5Padding")
+SecretKeySpec key = new SecretKeySpec(hardcoded, "AES")
+MessageDigest.getInstance("MD5")</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 28 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q28</span>
+                <span class="question-text">How do you test push notification security?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Push notification security concerns:</strong></p>
+                    <ul>
+                        <li><strong>Token security:</strong> Device tokens should be protected</li>
+                        <li><strong>Sensitive data in notifications:</strong> OTPs, messages visible on lock screen</li>
+                        <li><strong>Authentication:</strong> Push endpoint should validate requests</li>
+                        <li><strong>Deep link injection:</strong> Malicious URLs in notification payload</li>
+                    </ul>
+                    <p><strong>Testing areas:</strong></p>
+                    <ol>
+                        <li><strong>Token enumeration:</strong> Can you send to arbitrary device tokens?</li>
+                        <li><strong>Content injection:</strong> Modify notification content via API</li>
+                        <li><strong>Lock screen display:</strong> Is sensitive data shown when locked?</li>
+                        <li><strong>Action hijacking:</strong> Can notification actions be exploited?</li>
+                    </ol>
+                    <p><strong>iOS notification content:</strong></p>
+                    <ul>
+                        <li>Use <code>UNNotificationContentExtension</code> for sensitive content</li>
+                        <li>Check notification settings in app</li>
+                    </ul>
+                    <p><strong>Best practice:</strong> Send minimal data in push, fetch sensitive content after app opens</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 29 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q29</span>
+                <span class="question-text">What is the difference between MASVS L1 and L2?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>MASVS (Mobile Application Security Verification Standard)</strong> defines security requirements at different levels.</p>
+                    <p><strong>MASVS-L1 (Standard Security):</strong></p>
+                    <ul>
+                        <li>Baseline security for all mobile apps</li>
+                        <li>Focus on common vulnerabilities</li>
+                        <li>Appropriate for apps without sensitive data</li>
+                        <li>Requirements: Secure storage, network security, authentication basics</li>
+                    </ul>
+                    <p><strong>MASVS-L2 (Defense-in-Depth):</strong></p>
+                    <ul>
+                        <li>For apps handling sensitive data</li>
+                        <li>All L1 requirements plus additional controls</li>
+                        <li>Binary protections against reverse engineering</li>
+                        <li>Anti-tampering measures</li>
+                        <li>Runtime protection</li>
+                    </ul>
+                    <p><strong>MASVS-R (Resilience Against Reverse Engineering):</strong></p>
+                    <ul>
+                        <li>Additional requirements focused on client-side protection</li>
+                        <li>Can be added to L1 or L2</li>
+                        <li>Obfuscation, anti-debugging, integrity checks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 30 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q30</span>
+                <span class="question-text">Describe a complex mobile vulnerability you've discovered.</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>How to structure your answer:</strong></p>
+                    <ol>
+                        <li><strong>Context:</strong> App type, what you were testing</li>
+                        <li><strong>Discovery process:</strong> How you found it (static/dynamic analysis)</li>
+                        <li><strong>Technical details:</strong>
+                            <ul>
+                                <li>Root cause</li>
+                                <li>Exploitation steps</li>
+                                <li>Bypasses required (SSL pinning, root detection)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Impact:</strong> What an attacker could achieve</li>
+                        <li><strong>Remediation:</strong> How it should be fixed</li>
+                    </ol>
+                    <p><strong>Good examples to prepare:</strong></p>
+                    <ul>
+                        <li>Authentication bypass via intent manipulation</li>
+                        <li>Sensitive data exposure through backup</li>
+                        <li>Deep link to XSS to token theft</li>
+                        <li>Biometric bypass leading to account takeover</li>
+                        <li>Certificate pinning bypass + API manipulation</li>
+                    </ul>
+                    <p><strong>Tip:</strong> Show depth of understanding, creative thinking, and real-world impact assessment</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SecInterview. Built by security professionals, for security professionals.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

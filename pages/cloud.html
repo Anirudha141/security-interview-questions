@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="30 Cloud Security Interview Questions with detailed answers">
+    <title>Cloud Security Interview Questions | SecInterview</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">SecInterview</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="pentest.html">Pentest</a></li>
+                <li><a href="redteam.html">Red Team</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+                <li><a href="network.html">Network</a></li>
+                <li><a href="cloud.html" class="active">Cloud</a></li>
+                <li><a href="tools.html">Tools</a></li>
+                <li><a href="submit.html">Submit</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Cloud Security</h1>
+        <p>30 interview questions covering AWS, Azure, GCP, IAM, and cloud-native security</p>
+    </header>
+
+    <main class="container questions-container">
+        <a href="../index.html" class="back-link">&larr; Back to Categories</a>
+
+        <!-- Question 1 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q1</span>
+                <span class="question-text">What is the Shared Responsibility Model in cloud security?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Shared Responsibility Model</strong> divides security responsibilities between cloud provider and customer based on service model.</p>
+                    <p><strong>Cloud Provider Responsibilities:</strong></p>
+                    <ul>
+                        <li>Physical security of data centers</li>
+                        <li>Network infrastructure</li>
+                        <li>Hardware maintenance</li>
+                        <li>Hypervisor security (in IaaS)</li>
+                    </ul>
+                    <p><strong>Customer Responsibilities vary by service:</strong></p>
+                    <ul>
+                        <li><strong>IaaS (EC2, VMs):</strong> OS, applications, data, network config, IAM</li>
+                        <li><strong>PaaS (Lambda, App Engine):</strong> Application code, data, IAM</li>
+                        <li><strong>SaaS (Office 365, Salesforce):</strong> Data, user access, configuration</li>
+                    </ul>
+                    <p><strong>Key point:</strong> Moving to cloud shifts some responsibilities but doesn't eliminate security needs - it changes them.</p>
+                    <p><strong>Common misunderstanding:</strong> "The cloud provider handles security" - False, significant responsibility remains with customer.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q2</span>
+                <span class="question-text">Explain AWS IAM and best practices.</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>AWS IAM (Identity and Access Management)</strong> controls who can do what in your AWS environment.</p>
+                    <p><strong>Key components:</strong></p>
+                    <ul>
+                        <li><strong>Users:</strong> Individual identities</li>
+                        <li><strong>Groups:</strong> Collections of users</li>
+                        <li><strong>Roles:</strong> Assumable identities for services/users</li>
+                        <li><strong>Policies:</strong> JSON documents defining permissions</li>
+                    </ul>
+                    <p><strong>Best practices:</strong></p>
+                    <ul>
+                        <li><strong>Root account:</strong> MFA, never use for daily tasks</li>
+                        <li><strong>Least privilege:</strong> Minimum necessary permissions</li>
+                        <li><strong>Use roles over access keys:</strong> For EC2, Lambda, cross-account</li>
+                        <li><strong>Rotate credentials:</strong> Regular key rotation</li>
+                        <li><strong>Use groups:</strong> Assign permissions to groups, not users</li>
+                        <li><strong>Enable MFA:</strong> For all users, especially privileged</li>
+                        <li><strong>Conditions:</strong> Restrict by IP, time, MFA</li>
+                        <li><strong>SCPs:</strong> Use Service Control Policies in Organizations</li>
+                    </ul>
+                    <p><strong>Policy evaluation:</strong> Explicit Deny > Explicit Allow > Implicit Deny</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q3</span>
+                <span class="question-text">What is the AWS Instance Metadata Service (IMDS) and its security risks?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>IMDS</strong> provides EC2 instances with metadata and temporary credentials at <code>169.254.169.254</code>.</p>
+                    <p><strong>Available data:</strong></p>
+                    <ul>
+                        <li>Instance ID, AMI ID, hostname</li>
+                        <li>IAM role credentials (temporary)</li>
+                        <li>User data scripts</li>
+                        <li>Network configuration</li>
+                    </ul>
+                    <p><strong>Security risks:</strong></p>
+                    <ul>
+                        <li><strong>SSRF attacks:</strong> Force server to request metadata URL</li>
+                        <li><strong>Credential theft:</strong> <code>curl http://169.254.169.254/latest/meta-data/iam/security-credentials/role-name</code></li>
+                        <li><strong>Real attack:</strong> Capital One breach (2019) exploited SSRF to steal credentials</li>
+                    </ul>
+                    <p><strong>IMDSv2 (Secure version):</strong></p>
+                    <ul>
+                        <li>Requires session token (PUT request first)</li>
+                        <li>Token has TTL, prevents simple SSRF</li>
+                        <li>Hop limit prevents proxy requests</li>
+                    </ul>
+                    <pre><code># IMDSv2 request
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/</code></pre>
+                    <p><strong>Best practice:</strong> Require IMDSv2, minimize IAM role permissions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q4</span>
+                <span class="question-text">How do you secure S3 buckets?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>S3 Security Controls:</strong></p>
+                    <ul>
+                        <li><strong>Block Public Access:</strong> Enable at account level
+                            <pre><code>aws s3api put-public-access-block --bucket mybucket --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true</code></pre>
+                        </li>
+                        <li><strong>Bucket policies:</strong> Define who can access what</li>
+                        <li><strong>ACLs:</strong> Legacy, prefer bucket policies</li>
+                        <li><strong>Encryption:</strong>
+                            <ul>
+                                <li>SSE-S3 (AWS managed keys)</li>
+                                <li>SSE-KMS (customer managed keys)</li>
+                                <li>Client-side encryption</li>
+                            </ul>
+                        </li>
+                        <li><strong>Versioning:</strong> Protect against accidental deletion</li>
+                        <li><strong>MFA Delete:</strong> Require MFA for deletions</li>
+                        <li><strong>Access logging:</strong> Track bucket access</li>
+                        <li><strong>VPC Endpoints:</strong> Private access without internet</li>
+                    </ul>
+                    <p><strong>Common misconfigurations:</strong></p>
+                    <ul>
+                        <li>Public bucket or objects</li>
+                        <li>Overly permissive bucket policies</li>
+                        <li>ACL granting public access</li>
+                        <li>Missing encryption</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q5</span>
+                <span class="question-text">What is Azure AD and how does it differ from traditional AD?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Azure AD (now Microsoft Entra ID)</strong> is a cloud-based identity and access management service.</p>
+                    <p><strong>Key differences from on-prem AD:</strong></p>
+                    <table>
+                        <tr><th>Traditional AD</th><th>Azure AD</th></tr>
+                        <tr><td>LDAP/Kerberos</td><td>REST APIs/OAuth/SAML/OIDC</td></tr>
+                        <tr><td>Domain Controllers</td><td>Cloud-hosted</td></tr>
+                        <tr><td>Group Policy (GPO)</td><td>Conditional Access/Intune</td></tr>
+                        <tr><td>Organizational Units</td><td>Flat structure</td></tr>
+                        <tr><td>Forest/Domain trusts</td><td>B2B/B2C</td></tr>
+                    </table>
+                    <p><strong>Azure AD security features:</strong></p>
+                    <ul>
+                        <li><strong>Conditional Access:</strong> Risk-based access policies</li>
+                        <li><strong>PIM:</strong> Privileged Identity Management (JIT access)</li>
+                        <li><strong>Identity Protection:</strong> Risk detection</li>
+                        <li><strong>MFA:</strong> Built-in multi-factor</li>
+                        <li><strong>SSPR:</strong> Self-service password reset</li>
+                    </ul>
+                    <p><strong>Hybrid scenarios:</strong> Azure AD Connect syncs on-prem AD to cloud</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q6</span>
+                <span class="question-text">How do you perform cloud security assessments?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Cloud Security Assessment Areas:</strong></p>
+                    <ul>
+                        <li><strong>Identity & Access:</strong>
+                            <ul>
+                                <li>IAM policies and roles</li>
+                                <li>MFA enforcement</li>
+                                <li>Service account permissions</li>
+                                <li>Cross-account access</li>
+                            </ul>
+                        </li>
+                        <li><strong>Network Security:</strong>
+                            <ul>
+                                <li>Security groups / NSGs</li>
+                                <li>Network ACLs</li>
+                                <li>Public exposure</li>
+                                <li>VPC/VNet configuration</li>
+                            </ul>
+                        </li>
+                        <li><strong>Data Protection:</strong>
+                            <ul>
+                                <li>Encryption at rest/in transit</li>
+                                <li>Key management</li>
+                                <li>Public storage</li>
+                            </ul>
+                        </li>
+                        <li><strong>Logging & Monitoring:</strong>
+                            <ul>
+                                <li>CloudTrail/Activity Logs enabled</li>
+                                <li>Log retention</li>
+                                <li>Alerting configured</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Tools:</strong></p>
+                    <ul>
+                        <li><strong>Scout Suite:</strong> Multi-cloud security auditing</li>
+                        <li><strong>Prowler:</strong> AWS security best practices</li>
+                        <li><strong>CloudSploit:</strong> Cloud security scanning</li>
+                        <li><strong>Steampipe:</strong> SQL queries for cloud resources</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q7</span>
+                <span class="question-text">What are common cloud misconfigurations?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Common Cloud Misconfigurations:</strong></p>
+                    <ul>
+                        <li><strong>Storage:</strong>
+                            <ul>
+                                <li>Public S3 buckets/Azure blobs/GCS buckets</li>
+                                <li>Unencrypted storage</li>
+                                <li>Missing versioning/backup</li>
+                            </ul>
+                        </li>
+                        <li><strong>Compute:</strong>
+                            <ul>
+                                <li>Overly permissive security groups (0.0.0.0/0)</li>
+                                <li>SSH/RDP exposed to internet</li>
+                                <li>IMDSv1 enabled</li>
+                                <li>Unencrypted EBS volumes</li>
+                            </ul>
+                        </li>
+                        <li><strong>IAM:</strong>
+                            <ul>
+                                <li>Excessive permissions (*:*)</li>
+                                <li>Long-lived access keys</li>
+                                <li>No MFA on privileged accounts</li>
+                                <li>Root account usage</li>
+                            </ul>
+                        </li>
+                        <li><strong>Logging:</strong>
+                            <ul>
+                                <li>CloudTrail/logging disabled</li>
+                                <li>Logs not centralized</li>
+                                <li>No alerting on critical events</li>
+                            </ul>
+                        </li>
+                        <li><strong>Networking:</strong>
+                            <ul>
+                                <li>Default VPC in use</li>
+                                <li>No network segmentation</li>
+                                <li>Public subnets for private resources</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q8</span>
+                <span class="question-text">How does GCP IAM differ from AWS IAM?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>GCP IAM Key Concepts:</strong></p>
+                    <ul>
+                        <li><strong>Members:</strong> Google accounts, service accounts, groups, domains</li>
+                        <li><strong>Roles:</strong> Collection of permissions
+                            <ul>
+                                <li>Primitive (Owner, Editor, Viewer) - avoid these</li>
+                                <li>Predefined (specific to services)</li>
+                                <li>Custom roles</li>
+                            </ul>
+                        </li>
+                        <li><strong>Resources:</strong> Organization, folders, projects, individual resources</li>
+                    </ul>
+                    <p><strong>Key differences from AWS:</strong></p>
+                    <table>
+                        <tr><th>GCP</th><th>AWS</th></tr>
+                        <tr><td>Hierarchical (Org > Folders > Projects)</td><td>Flat accounts (with Organizations)</td></tr>
+                        <tr><td>Roles bound at resource level</td><td>Policies attached to identities</td></tr>
+                        <tr><td>Service accounts = both identity and resource</td><td>Separate IAM roles and instance profiles</td></tr>
+                        <tr><td>IAM conditions built-in</td><td>Conditions in policies</td></tr>
+                    </table>
+                    <p><strong>GCP-specific security:</strong></p>
+                    <ul>
+                        <li>VPC Service Controls (data exfiltration prevention)</li>
+                        <li>Organization policies (guardrails)</li>
+                        <li>Workload Identity (GKE pods)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q9</span>
+                <span class="question-text">What is a CASB and why is it important?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>CASB (Cloud Access Security Broker)</strong> sits between users and cloud services to enforce security policies.</p>
+                    <p><strong>Four pillars of CASB:</strong></p>
+                    <ul>
+                        <li><strong>Visibility:</strong> Discover shadow IT, track cloud usage</li>
+                        <li><strong>Compliance:</strong> Ensure regulatory compliance (GDPR, HIPAA)</li>
+                        <li><strong>Data Security:</strong> DLP, encryption, tokenization</li>
+                        <li><strong>Threat Protection:</strong> Malware detection, anomaly detection</li>
+                    </ul>
+                    <p><strong>Deployment modes:</strong></p>
+                    <ul>
+                        <li><strong>API-based:</strong> Connect to SaaS via API (post-upload)</li>
+                        <li><strong>Proxy-based:</strong> Inline inspection (real-time)</li>
+                        <li><strong>Log-based:</strong> Analyze firewall/proxy logs</li>
+                    </ul>
+                    <p><strong>Use cases:</strong></p>
+                    <ul>
+                        <li>Discover unsanctioned cloud apps</li>
+                        <li>Prevent sensitive data upload to personal accounts</li>
+                        <li>Detect compromised accounts</li>
+                        <li>Enforce encryption on cloud storage</li>
+                    </ul>
+                    <p><strong>Vendors:</strong> Microsoft Defender for Cloud Apps, Netskope, Zscaler, Palo Alto Prisma</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q10</span>
+                <span class="question-text">How do you secure serverless functions (Lambda, Azure Functions)?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Serverless Security Challenges:</strong></p>
+                    <ul>
+                        <li>Increased attack surface (more functions, more entry points)</li>
+                        <li>Traditional security tools don't work</li>
+                        <li>Event-driven, ephemeral nature</li>
+                        <li>Third-party dependencies</li>
+                    </ul>
+                    <p><strong>Security best practices:</strong></p>
+                    <ul>
+                        <li><strong>Least privilege IAM:</strong> Minimal permissions per function</li>
+                        <li><strong>Input validation:</strong> All event sources (API, S3, SNS, etc.)</li>
+                        <li><strong>Secrets management:</strong> Use Secrets Manager/Parameter Store, not env vars</li>
+                        <li><strong>Dependencies:</strong> Audit packages, use minimal dependencies</li>
+                        <li><strong>VPC:</strong> Run in VPC if accessing private resources</li>
+                        <li><strong>Function URLs:</strong> Secure with IAM auth if using</li>
+                        <li><strong>Timeouts:</strong> Set appropriate limits</li>
+                        <li><strong>Logging:</strong> Enable CloudWatch/equivalent</li>
+                    </ul>
+                    <p><strong>Serverless-specific vulnerabilities:</strong></p>
+                    <ul>
+                        <li>Event injection</li>
+                        <li>Broken authentication on API triggers</li>
+                        <li>Over-privileged function roles</li>
+                        <li>Insecure secrets storage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q11</span>
+                <span class="question-text">What is Infrastructure as Code (IaC) security?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>IaC Security</strong> involves scanning infrastructure definitions (Terraform, CloudFormation, ARM) for misconfigurations before deployment.</p>
+                    <p><strong>Benefits:</strong></p>
+                    <ul>
+                        <li>Shift-left security (catch issues before deployment)</li>
+                        <li>Consistent security policies</li>
+                        <li>Automated compliance checking</li>
+                        <li>Version control for infrastructure</li>
+                    </ul>
+                    <p><strong>Common IaC tools:</strong></p>
+                    <ul>
+                        <li>Terraform</li>
+                        <li>AWS CloudFormation</li>
+                        <li>Azure ARM/Bicep</li>
+                        <li>Pulumi</li>
+                        <li>Google Deployment Manager</li>
+                    </ul>
+                    <p><strong>IaC scanning tools:</strong></p>
+                    <ul>
+                        <li><strong>Checkov:</strong> Multi-framework scanner</li>
+                        <li><strong>tfsec:</strong> Terraform-specific</li>
+                        <li><strong>Terrascan:</strong> Policy as code</li>
+                        <li><strong>KICS:</strong> Keeping Infrastructure as Code Secure</li>
+                        <li><strong>Snyk IaC:</strong> Commercial scanner</li>
+                    </ul>
+                    <p><strong>Example Checkov:</strong></p>
+                    <pre><code>checkov -d /path/to/terraform</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 12 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q12</span>
+                <span class="question-text">How do you secure Kubernetes in the cloud?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Kubernetes Security Areas:</strong></p>
+                    <ul>
+                        <li><strong>Cluster Security:</strong>
+                            <ul>
+                                <li>Private API server endpoint</li>
+                                <li>RBAC properly configured</li>
+                                <li>Network policies enabled</li>
+                                <li>Pod Security Standards/Admission</li>
+                            </ul>
+                        </li>
+                        <li><strong>Node Security:</strong>
+                            <ul>
+                                <li>Minimal base images</li>
+                                <li>Regular patching</li>
+                                <li>Node access restrictions</li>
+                            </ul>
+                        </li>
+                        <li><strong>Pod Security:</strong>
+                            <ul>
+                                <li>Non-root containers</li>
+                                <li>Read-only filesystem</li>
+                                <li>No privileged mode</li>
+                                <li>Resource limits</li>
+                            </ul>
+                        </li>
+                        <li><strong>Secrets Management:</strong>
+                            <ul>
+                                <li>External secrets (Vault, cloud secrets manager)</li>
+                                <li>Encryption at rest for etcd</li>
+                            </ul>
+                        </li>
+                        <li><strong>Image Security:</strong>
+                            <ul>
+                                <li>Private registries</li>
+                                <li>Image scanning</li>
+                                <li>Signed images</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Cloud-specific (EKS/AKS/GKE):</strong></p>
+                    <ul>
+                        <li>Workload Identity (avoid node IAM roles)</li>
+                        <li>Private clusters</li>
+                        <li>Managed node groups with auto-updates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 13 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q13</span>
+                <span class="question-text">What is AWS Organizations and Service Control Policies?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>AWS Organizations</strong> provides centralized management of multiple AWS accounts.</p>
+                    <p><strong>Structure:</strong></p>
+                    <ul>
+                        <li>Management account (root)</li>
+                        <li>Organizational Units (OUs)</li>
+                        <li>Member accounts</li>
+                    </ul>
+                    <p><strong>Service Control Policies (SCPs):</strong></p>
+                    <ul>
+                        <li>Guardrails that limit permissions across accounts</li>
+                        <li>Do NOT grant permissions (only restrict)</li>
+                        <li>Apply to OUs or accounts</li>
+                        <li>Effective permissions = SCP ∩ IAM policy</li>
+                    </ul>
+                    <p><strong>Common SCP patterns:</strong></p>
+                    <pre><code>// Deny leaving organization
+{
+  "Effect": "Deny",
+  "Action": "organizations:LeaveOrganization",
+  "Resource": "*"
+}
+
+// Deny disabling CloudTrail
+{
+  "Effect": "Deny",
+  "Action": "cloudtrail:StopLogging",
+  "Resource": "*"
+}
+
+// Region restriction
+{
+  "Effect": "Deny",
+  "NotAction": ["iam:*", "sts:*"],
+  "Resource": "*",
+  "Condition": {
+    "StringNotEquals": {"aws:RequestedRegion": "us-east-1"}
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 14 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q14</span>
+                <span class="question-text">How do you detect compromised cloud credentials?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Detection Methods:</strong></p>
+                    <ul>
+                        <li><strong>CloudTrail analysis:</strong>
+                            <ul>
+                                <li>Unusual API calls</li>
+                                <li>Access from new IPs/regions</li>
+                                <li>High-volume requests</li>
+                                <li>Reconnaissance APIs (List*, Describe*)</li>
+                            </ul>
+                        </li>
+                        <li><strong>GuardDuty findings:</strong>
+                            <ul>
+                                <li>Compromised credentials indicators</li>
+                                <li>Unusual resource access</li>
+                                <li>Crypto mining detection</li>
+                            </ul>
+                        </li>
+                        <li><strong>Indicators of compromise:</strong>
+                            <ul>
+                                <li>New IAM users/access keys created</li>
+                                <li>S3 bucket policy changes</li>
+                                <li>Security group modifications</li>
+                                <li>EC2 instances in unusual regions</li>
+                                <li>Lambda functions created</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Response actions:</strong></p>
+                    <ol>
+                        <li>Disable compromised credentials</li>
+                        <li>Revoke active sessions</li>
+                        <li>Review CloudTrail for scope of access</li>
+                        <li>Check for persistence (new users, roles, keys)</li>
+                        <li>Scan for created resources</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 15 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q15</span>
+                <span class="question-text">What is cloud security posture management (CSPM)?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>CSPM</strong> continuously monitors cloud infrastructure for misconfigurations and compliance violations.</p>
+                    <p><strong>Key capabilities:</strong></p>
+                    <ul>
+                        <li><strong>Asset discovery:</strong> Inventory all cloud resources</li>
+                        <li><strong>Configuration assessment:</strong> Check against security benchmarks</li>
+                        <li><strong>Compliance monitoring:</strong> CIS, NIST, PCI-DSS, HIPAA</li>
+                        <li><strong>Risk prioritization:</strong> Rank findings by severity</li>
+                        <li><strong>Remediation:</strong> Automated or guided fixes</li>
+                    </ul>
+                    <p><strong>What CSPM detects:</strong></p>
+                    <ul>
+                        <li>Public S3 buckets</li>
+                        <li>Unencrypted databases</li>
+                        <li>Overly permissive security groups</li>
+                        <li>Missing logging</li>
+                        <li>IAM misconfigurations</li>
+                    </ul>
+                    <p><strong>Tools:</strong></p>
+                    <ul>
+                        <li><strong>AWS:</strong> Security Hub, Config</li>
+                        <li><strong>Azure:</strong> Defender for Cloud</li>
+                        <li><strong>GCP:</strong> Security Command Center</li>
+                        <li><strong>Third-party:</strong> Prisma Cloud, Wiz, Orca, Lacework</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 16 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q16</span>
+                <span class="question-text">How do you secure container registries?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Container Registry Security:</strong></p>
+                    <ul>
+                        <li><strong>Access control:</strong>
+                            <ul>
+                                <li>Private registries by default</li>
+                                <li>IAM-based authentication</li>
+                                <li>Principle of least privilege</li>
+                            </ul>
+                        </li>
+                        <li><strong>Image scanning:</strong>
+                            <ul>
+                                <li>Scan for CVEs on push</li>
+                                <li>Block deployment of vulnerable images</li>
+                                <li>Regular rescanning</li>
+                            </ul>
+                        </li>
+                        <li><strong>Image signing:</strong>
+                            <ul>
+                                <li>Sign images with private key</li>
+                                <li>Verify signatures before deployment</li>
+                                <li>Tools: Cosign, Notary</li>
+                            </ul>
+                        </li>
+                        <li><strong>Immutability:</strong>
+                            <ul>
+                                <li>Prevent tag overwriting</li>
+                                <li>Use digest-based references</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Cloud registry options:</strong></p>
+                    <ul>
+                        <li><strong>AWS:</strong> ECR (scanning included)</li>
+                        <li><strong>Azure:</strong> ACR with Defender scanning</li>
+                        <li><strong>GCP:</strong> Artifact Registry with scanning</li>
+                        <li><strong>Third-party:</strong> Harbor, JFrog Artifactory</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 17 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q17</span>
+                <span class="question-text">What is a VPC and how do you secure it?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>VPC (Virtual Private Cloud)</strong> is a logically isolated network in the cloud.</p>
+                    <p><strong>VPC components:</strong></p>
+                    <ul>
+                        <li><strong>Subnets:</strong> Public (internet access) and private</li>
+                        <li><strong>Route tables:</strong> Traffic routing rules</li>
+                        <li><strong>Internet Gateway:</strong> Public internet access</li>
+                        <li><strong>NAT Gateway:</strong> Outbound internet for private subnets</li>
+                        <li><strong>Security Groups:</strong> Instance-level stateful firewall</li>
+                        <li><strong>NACLs:</strong> Subnet-level stateless firewall</li>
+                    </ul>
+                    <p><strong>VPC security best practices:</strong></p>
+                    <ul>
+                        <li>Use private subnets for databases, internal services</li>
+                        <li>Restrictive security groups (no 0.0.0.0/0 inbound)</li>
+                        <li>VPC Flow Logs enabled</li>
+                        <li>VPC endpoints for AWS services (avoid internet)</li>
+                        <li>Network segmentation by environment/function</li>
+                        <li>No default VPC usage</li>
+                        <li>DNS logging</li>
+                    </ul>
+                    <p><strong>VPC Peering/Transit Gateway:</strong> Secure cross-VPC communication</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 18 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q18</span>
+                <span class="question-text">How do you handle secrets in cloud environments?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Secrets Management Services:</strong></p>
+                    <ul>
+                        <li><strong>AWS:</strong> Secrets Manager, Parameter Store</li>
+                        <li><strong>Azure:</strong> Key Vault</li>
+                        <li><strong>GCP:</strong> Secret Manager</li>
+                        <li><strong>HashiCorp Vault:</strong> Multi-cloud option</li>
+                    </ul>
+                    <p><strong>Best practices:</strong></p>
+                    <ul>
+                        <li><strong>Never hardcode:</strong> No secrets in code, configs, or env vars</li>
+                        <li><strong>Rotation:</strong> Automatic secret rotation</li>
+                        <li><strong>Least privilege:</strong> Minimal access to secrets</li>
+                        <li><strong>Audit logging:</strong> Track all secret access</li>
+                        <li><strong>Encryption:</strong> Encrypted at rest with CMK</li>
+                        <li><strong>Short-lived credentials:</strong> Use dynamic secrets when possible</li>
+                    </ul>
+                    <p><strong>Application patterns:</strong></p>
+                    <ul>
+                        <li>Fetch at runtime (SDK/API call)</li>
+                        <li>Inject via sidecar (Kubernetes)</li>
+                        <li>Environment variable injection (controlled)</li>
+                    </ul>
+                    <p><strong>Scanning for exposed secrets:</strong> git-secrets, trufflehog, detect-secrets</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 19 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q19</span>
+                <span class="question-text">What is cloud workload protection (CWPP)?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>CWPP (Cloud Workload Protection Platform)</strong> protects workloads (VMs, containers, serverless) across cloud environments.</p>
+                    <p><strong>Key capabilities:</strong></p>
+                    <ul>
+                        <li><strong>Vulnerability management:</strong> OS and application CVEs</li>
+                        <li><strong>Runtime protection:</strong> Behavior monitoring, threat detection</li>
+                        <li><strong>Container security:</strong> Image scanning, runtime protection</li>
+                        <li><strong>File integrity monitoring:</strong> Detect unauthorized changes</li>
+                        <li><strong>Network security:</strong> Microsegmentation, traffic analysis</li>
+                        <li><strong>Compliance:</strong> Configuration assessment</li>
+                    </ul>
+                    <p><strong>CWPP vs CSPM:</strong></p>
+                    <ul>
+                        <li><strong>CSPM:</strong> Configuration and posture (control plane)</li>
+                        <li><strong>CWPP:</strong> Workload protection (data plane)</li>
+                    </ul>
+                    <p><strong>CNAPP = CSPM + CWPP:</strong> Cloud-Native Application Protection Platform</p>
+                    <p><strong>Vendors:</strong> Palo Alto Prisma Cloud, CrowdStrike, Wiz, Aqua Security, Sysdig</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 20 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q20</span>
+                <span class="question-text">How do you secure CI/CD pipelines in the cloud?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>CI/CD Security Risks:</strong></p>
+                    <ul>
+                        <li>Poisoned pipeline execution (PPE)</li>
+                        <li>Secrets exposure in logs/artifacts</li>
+                        <li>Compromised dependencies</li>
+                        <li>Inadequate access controls</li>
+                    </ul>
+                    <p><strong>Security controls:</strong></p>
+                    <ul>
+                        <li><strong>Source code:</strong>
+                            <ul>
+                                <li>Branch protection rules</li>
+                                <li>Required code reviews</li>
+                                <li>Signed commits</li>
+                            </ul>
+                        </li>
+                        <li><strong>Build:</strong>
+                            <ul>
+                                <li>Isolated build environments</li>
+                                <li>Dependency scanning (SCA)</li>
+                                <li>SAST scanning</li>
+                                <li>No secrets in build scripts</li>
+                            </ul>
+                        </li>
+                        <li><strong>Deploy:</strong>
+                            <ul>
+                                <li>Least privilege deployment roles</li>
+                                <li>Short-lived credentials (OIDC)</li>
+                                <li>Approval gates for production</li>
+                                <li>Artifact signing</li>
+                            </ul>
+                        </li>
+                        <li><strong>Runtime:</strong>
+                            <ul>
+                                <li>Image scanning before deploy</li>
+                                <li>Admission controllers</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>OIDC for CI/CD:</strong> No long-lived credentials, federated identity</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 21 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q21</span>
+                <span class="question-text">What is Azure Conditional Access?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Conditional Access</strong> provides identity-driven access control based on signals like user, device, location, and risk.</p>
+                    <p><strong>Policy components:</strong></p>
+                    <ul>
+                        <li><strong>Assignments (Who):</strong>
+                            <ul>
+                                <li>Users and groups</li>
+                                <li>Cloud apps</li>
+                                <li>Conditions (location, device, risk level)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Access controls (What):</strong>
+                            <ul>
+                                <li>Block access</li>
+                                <li>Grant access with conditions</li>
+                                <li>Require MFA</li>
+                                <li>Require compliant device</li>
+                                <li>Require approved app</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Common policies:</strong></p>
+                    <ul>
+                        <li>Require MFA for all users</li>
+                        <li>Block legacy authentication</li>
+                        <li>Require compliant devices for sensitive apps</li>
+                        <li>Block access from risky locations</li>
+                        <li>Require MFA for risky sign-ins</li>
+                    </ul>
+                    <p><strong>Integration:</strong> Works with Intune for device compliance, Identity Protection for risk signals</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 22 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q22</span>
+                <span class="question-text">How do you investigate cloud security incidents?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Cloud Incident Investigation Steps:</strong></p>
+                    <ol>
+                        <li><strong>Identification:</strong>
+                            <ul>
+                                <li>Alert from GuardDuty/Defender/SCC</li>
+                                <li>Unusual activity in logs</li>
+                                <li>External notification</li>
+                            </ul>
+                        </li>
+                        <li><strong>Containment:</strong>
+                            <ul>
+                                <li>Disable compromised credentials</li>
+                                <li>Isolate affected resources (security groups)</li>
+                                <li>Revoke sessions</li>
+                            </ul>
+                        </li>
+                        <li><strong>Investigation:</strong>
+                            <ul>
+                                <li>CloudTrail/Activity Log analysis</li>
+                                <li>Identify initial access</li>
+                                <li>Map attacker actions</li>
+                                <li>Identify created resources/persistence</li>
+                            </ul>
+                        </li>
+                        <li><strong>Eradication:</strong>
+                            <ul>
+                                <li>Remove unauthorized resources</li>
+                                <li>Remove persistence mechanisms</li>
+                                <li>Rotate all exposed credentials</li>
+                            </ul>
+                        </li>
+                        <li><strong>Recovery:</strong> Restore from known-good state</li>
+                        <li><strong>Lessons learned:</strong> Improve detection and prevention</li>
+                    </ol>
+                    <p><strong>Key log sources:</strong> CloudTrail, VPC Flow Logs, DNS logs, S3 access logs, GuardDuty findings</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 23 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q23</span>
+                <span class="question-text">What is cloud penetration testing scope and rules?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Cloud Provider Policies:</strong></p>
+                    <p><strong>AWS:</strong></p>
+                    <ul>
+                        <li>No pre-approval needed for most services</li>
+                        <li>Prohibited: DDoS, DNS zone walking, port flooding</li>
+                        <li>Must own/have permission for target resources</li>
+                    </ul>
+                    <p><strong>Azure:</strong></p>
+                    <ul>
+                        <li>No pre-approval for owned resources</li>
+                        <li>Follow rules of engagement</li>
+                        <li>No testing against other tenants</li>
+                    </ul>
+                    <p><strong>GCP:</strong></p>
+                    <ul>
+                        <li>Permitted on your own projects</li>
+                        <li>No notification required</li>
+                        <li>Follow Acceptable Use Policy</li>
+                    </ul>
+                    <p><strong>Scope considerations:</strong></p>
+                    <ul>
+                        <li>Only test resources you own/authorized</li>
+                        <li>Exclude shared infrastructure</li>
+                        <li>Document scope clearly</li>
+                        <li>Consider blast radius of actions</li>
+                        <li>Time-bound testing windows</li>
+                    </ul>
+                    <p><strong>What to test:</strong> IAM, storage, compute configs, network security, API security, logging effectiveness</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 24 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q24</span>
+                <span class="question-text">How do you implement data encryption in the cloud?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Encryption at Rest:</strong></p>
+                    <ul>
+                        <li><strong>Server-side encryption:</strong>
+                            <ul>
+                                <li>Provider-managed keys (SSE-S3, Azure Storage encryption)</li>
+                                <li>Customer-managed keys (SSE-KMS, CMK)</li>
+                                <li>Customer-provided keys (SSE-C)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Client-side encryption:</strong> Encrypt before upload</li>
+                    </ul>
+                    <p><strong>Key Management:</strong></p>
+                    <ul>
+                        <li><strong>AWS KMS:</strong> Managed key service</li>
+                        <li><strong>Azure Key Vault:</strong> Keys, secrets, certificates</li>
+                        <li><strong>GCP Cloud KMS:</strong> Managed encryption keys</li>
+                        <li><strong>HSM options:</strong> CloudHSM, Dedicated HSM</li>
+                    </ul>
+                    <p><strong>Encryption in Transit:</strong></p>
+                    <ul>
+                        <li>TLS 1.2+ for all connections</li>
+                        <li>Certificate management (ACM, Let's Encrypt)</li>
+                        <li>VPC endpoints (private connectivity)</li>
+                    </ul>
+                    <p><strong>Best practices:</strong></p>
+                    <ul>
+                        <li>Enable encryption by default</li>
+                        <li>Use CMK for sensitive data</li>
+                        <li>Rotate keys regularly</li>
+                        <li>Separate keys by environment/classification</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 25 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q25</span>
+                <span class="question-text">What are privilege escalation paths in cloud environments?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>AWS Privilege Escalation:</strong></p>
+                    <ul>
+                        <li><strong>IAM:</strong> iam:CreatePolicyVersion, iam:AttachUserPolicy, iam:PutUserPolicy</li>
+                        <li><strong>PassRole + Service:</strong> Lambda, EC2, Glue with overprivileged roles</li>
+                        <li><strong>AssumeRole:</strong> Assume more privileged roles</li>
+                        <li><strong>Instance metadata:</strong> Steal role credentials from EC2</li>
+                        <li><strong>CloudFormation:</strong> Deploy with PassRole to privileged role</li>
+                    </ul>
+                    <p><strong>Azure Privilege Escalation:</strong></p>
+                    <ul>
+                        <li>Service Principal credential reset</li>
+                        <li>Role assignment (User Access Administrator)</li>
+                        <li>Managed Identity abuse</li>
+                        <li>Key Vault access</li>
+                    </ul>
+                    <p><strong>GCP Privilege Escalation:</strong></p>
+                    <ul>
+                        <li>setIamPolicy on resources</li>
+                        <li>Service account key creation</li>
+                        <li>ActAs permission</li>
+                        <li>Deployment Manager with privileged SA</li>
+                    </ul>
+                    <p><strong>Tools:</strong> Pacu (AWS), PMapper, CloudGoat, AzureHound</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 26 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q26</span>
+                <span class="question-text">How do you secure multi-cloud environments?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Multi-Cloud Security Challenges:</strong></p>
+                    <ul>
+                        <li>Different security models per provider</li>
+                        <li>Inconsistent IAM/RBAC</li>
+                        <li>Multiple attack surfaces</li>
+                        <li>Complex visibility</li>
+                    </ul>
+                    <p><strong>Strategies:</strong></p>
+                    <ul>
+                        <li><strong>Unified identity:</strong>
+                            <ul>
+                                <li>Centralized IdP (Okta, Azure AD)</li>
+                                <li>Federation to all cloud providers</li>
+                                <li>Consistent MFA policies</li>
+                            </ul>
+                        </li>
+                        <li><strong>Centralized visibility:</strong>
+                            <ul>
+                                <li>Multi-cloud SIEM</li>
+                                <li>CSPM spanning all providers</li>
+                                <li>Unified logging</li>
+                            </ul>
+                        </li>
+                        <li><strong>Consistent policies:</strong>
+                            <ul>
+                                <li>Policy-as-code (OPA, Sentinel)</li>
+                                <li>Unified compliance frameworks</li>
+                                <li>Cross-cloud security standards</li>
+                            </ul>
+                        </li>
+                        <li><strong>Network security:</strong>
+                            <ul>
+                                <li>Secure cross-cloud connectivity</li>
+                                <li>Consistent network controls</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Tools:</strong> Multi-cloud CSPM (Wiz, Prisma Cloud), Terraform for IaC</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 27 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q27</span>
+                <span class="question-text">What is AWS GuardDuty and how does it work?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>AWS GuardDuty</strong> is a managed threat detection service that continuously monitors for malicious activity.</p>
+                    <p><strong>Data sources:</strong></p>
+                    <ul>
+                        <li>CloudTrail management events</li>
+                        <li>CloudTrail S3 data events</li>
+                        <li>VPC Flow Logs</li>
+                        <li>DNS logs</li>
+                        <li>EKS audit logs</li>
+                        <li>RDS login activity</li>
+                        <li>Lambda network activity</li>
+                    </ul>
+                    <p><strong>Finding types:</strong></p>
+                    <ul>
+                        <li><strong>Recon:</strong> Port scanning, unusual API calls</li>
+                        <li><strong>Instance compromise:</strong> Crypto mining, C2 communication</li>
+                        <li><strong>Account compromise:</strong> Credential exfiltration indicators</li>
+                        <li><strong>Bucket compromise:</strong> Unusual S3 access patterns</li>
+                    </ul>
+                    <p><strong>Response automation:</strong></p>
+                    <ul>
+                        <li>EventBridge rules trigger on findings</li>
+                        <li>Lambda functions for automated response</li>
+                        <li>Security Hub integration</li>
+                    </ul>
+                    <p><strong>Setup:</strong> Enable with one click, no agents needed</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 28 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q28</span>
+                <span class="question-text">How do you secure cloud databases?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Cloud Database Security:</strong></p>
+                    <ul>
+                        <li><strong>Network isolation:</strong>
+                            <ul>
+                                <li>Private subnets only</li>
+                                <li>No public accessibility</li>
+                                <li>Security groups restrictive</li>
+                                <li>VPC endpoints for access</li>
+                            </ul>
+                        </li>
+                        <li><strong>Authentication:</strong>
+                            <ul>
+                                <li>IAM authentication when available</li>
+                                <li>Strong passwords</li>
+                                <li>Disable default accounts</li>
+                            </ul>
+                        </li>
+                        <li><strong>Encryption:</strong>
+                            <ul>
+                                <li>Encryption at rest (mandatory)</li>
+                                <li>TLS for connections</li>
+                                <li>Customer-managed keys for sensitive data</li>
+                            </ul>
+                        </li>
+                        <li><strong>Backup security:</strong>
+                            <ul>
+                                <li>Encrypted backups</li>
+                                <li>Separate backup account</li>
+                                <li>Test restoration</li>
+                            </ul>
+                        </li>
+                        <li><strong>Monitoring:</strong>
+                            <ul>
+                                <li>Audit logging enabled</li>
+                                <li>Slow query logging</li>
+                                <li>Connection monitoring</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>Services:</strong> RDS, Aurora (AWS), Azure SQL, Cloud SQL (GCP)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 29 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q29</span>
+                <span class="question-text">What are cloud security compliance frameworks?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Common Compliance Frameworks:</strong></p>
+                    <ul>
+                        <li><strong>CIS Benchmarks:</strong> Technical configuration standards for cloud services</li>
+                        <li><strong>SOC 2:</strong> Service organization controls for security, availability, processing integrity</li>
+                        <li><strong>PCI DSS:</strong> Payment card data protection</li>
+                        <li><strong>HIPAA:</strong> Healthcare data protection</li>
+                        <li><strong>GDPR:</strong> EU data protection regulation</li>
+                        <li><strong>FedRAMP:</strong> US government cloud security</li>
+                        <li><strong>ISO 27001:</strong> Information security management</li>
+                        <li><strong>NIST CSF:</strong> Cybersecurity framework</li>
+                    </ul>
+                    <p><strong>Cloud provider compliance:</strong></p>
+                    <ul>
+                        <li>Providers maintain certifications (AWS, Azure, GCP all SOC 2, ISO 27001, etc.)</li>
+                        <li>Customer responsible for their workloads</li>
+                        <li>Shared responsibility for compliance</li>
+                    </ul>
+                    <p><strong>Tools for compliance:</strong></p>
+                    <ul>
+                        <li>AWS Audit Manager, Config</li>
+                        <li>Azure Policy, Compliance Manager</li>
+                        <li>GCP Security Command Center</li>
+                        <li>Third-party: Drata, Vanta, Secureframe</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 30 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q30</span>
+                <span class="question-text">Describe a cloud security project you've worked on.</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>How to structure your answer:</strong></p>
+                    <ol>
+                        <li><strong>Context:</strong> Organization, cloud environment, your role</li>
+                        <li><strong>Challenge:</strong> Security problem or goal</li>
+                        <li><strong>Approach:</strong> Technical solution design</li>
+                        <li><strong>Implementation:</strong> Tools, services, processes used</li>
+                        <li><strong>Results:</strong> Measurable outcomes</li>
+                        <li><strong>Lessons:</strong> What you learned</li>
+                    </ol>
+                    <p><strong>Good examples to prepare:</strong></p>
+                    <ul>
+                        <li>Multi-account AWS security architecture</li>
+                        <li>CSPM implementation and remediation</li>
+                        <li>Cloud security incident response</li>
+                        <li>Container security pipeline</li>
+                        <li>IAM least privilege project</li>
+                        <li>Cloud security assessment findings</li>
+                        <li>Compliance automation implementation</li>
+                    </ul>
+                    <p><strong>Key points to highlight:</strong></p>
+                    <ul>
+                        <li>Technical depth and breadth</li>
+                        <li>Problem-solving approach</li>
+                        <li>Business impact understanding</li>
+                        <li>Collaboration with teams</li>
+                        <li>Continuous improvement mindset</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SecInterview. Built by security professionals, for security professionals.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

