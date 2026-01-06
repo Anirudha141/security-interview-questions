@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Thank you for your submission">
+    <title>Thank You | SecInterview</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .thank-you-container {
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .thank-you-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s ease;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .thank-you-container h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .thank-you-container p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg-primary);
+        }
+        
+        .btn-primary:hover {
+            background: #00d4aa;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">SecInterview</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="pentest.html">Pentest</a></li>
+                <li><a href="redteam.html">Red Team</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+                <li><a href="network.html">Network</a></li>
+                <li><a href="cloud.html">Cloud</a></li>
+                <li><a href="tools.html">Tools</a></li>
+                <li><a href="submit.html">Submit</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="thank-you-container">
+            <div class="thank-you-icon">✓</div>
+            <h1>Thank You for Your Submission!</h1>
+            <p>
+                Your interview question has been successfully submitted and will be reviewed shortly. 
+                We appreciate your contribution to helping the cybersecurity community prepare for interviews!
+            </p>
+            <p>
+                You should receive a confirmation email at <strong>anibrahme141@gmail.com</strong> with the details of your submission.
+            </p>
+            
+            <div class="action-buttons">
+                <a href="submit.html" class="btn btn-secondary">Submit Another Question</a>
+                <a href="../index.html" class="btn btn-primary">Back to Home</a>
+            </div>
+            
+            <div style="margin-top: 50px; padding: 25px; background-color: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color); text-align: left;">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">What Happens Next?</h3>
+                <ul style="color: var(--text-secondary); line-height: 1.8;">
+                    <li>Your submission will be reviewed within 1-2 business days</li>
+                    <li>We'll verify the question is appropriate and relevant</li>
+                    <li>If we need clarification, we'll reach out via email</li>
+                    <li>Once approved, it will be added to the relevant category</li>
+                    <li>You'll be credited if you provided your name</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 SecInterview. Built by security professionals, for security professionals.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
