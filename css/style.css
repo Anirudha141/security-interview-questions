@@ -664,6 +664,7 @@ a:hover {
     border-left: 3px solid var(--primary);
     padding: 20px;
     margin-bottom: 25px;
+    overflow: hidden;
 }
 
 .question-label {
@@ -679,6 +680,18 @@ a:hover {
     font-size: 1.1rem;
     line-height: 1.6;
     margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.question-text code {
+    display: block;
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    word-break: break-all;
+    font-size: 0.85rem;
 }
 
 .challenge-input-group {
