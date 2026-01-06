@@ -6,24 +6,36 @@
 }
 
 :root {
-    --primary: #00d4aa;
-    --primary-dark: #00b894;
-    --bg-dark: #0a0a0f;
-    --bg-card: #12121a;
-    --bg-card-hover: #1a1a25;
-    --text-primary: #ffffff;
-    --text-secondary: #a0a0b0;
-    --border-color: #2a2a3a;
-    --success: #00d4aa;
-    --warning: #ffd93d;
+    --primary: #00ff41;
+    --primary-dark: #00cc33;
+    --secondary: #ff0055;
+    --bg-dark: #0d0208;
+    --bg-card: #1a0f1a;
+    --bg-card-hover: #2a1f2a;
+    --text-primary: #00ff41;
+    --text-secondary: #39ff14;
+    --text-muted: #808080;
+    --border-color: #00ff41;
+    --success: #00ff41;
+    --warning: #ffff00;
+    --danger: #ff0055;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
     background-color: var(--bg-dark);
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 65, 0.03) 2px,
+            rgba(0, 255, 65, 0.03) 4px
+        );
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
 }
 
 a {
@@ -44,14 +56,15 @@ a:hover {
 
 /* Navbar */
 .navbar {
-    background-color: rgba(10, 10, 15, 0.95);
+    background-color: rgba(13, 2, 8, 0.95);
     backdrop-filter: blur(10px);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 2px 20px rgba(0, 255, 65, 0.2);
 }
 
 .nav-container {
@@ -68,6 +81,18 @@ a:hover {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
+    animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    41.99% { opacity: 1; }
+    42% { opacity: 0.8; }
+    43% { opacity: 1; }
+    45.99% { opacity: 1; }
+    46% { opacity: 0.7; }
+    46.5% { opacity: 1; }
 }
 
 .nav-links {
@@ -77,10 +102,11 @@ a:hover {
 }
 
 .nav-links a {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-weight: 500;
     padding: 8px 0;
     position: relative;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.3);
 }
 
 .nav-links a:hover,
@@ -120,24 +146,43 @@ a:hover {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a0f1a 100%);
     padding: 150px 20px 80px;
     text-align: center;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 5px 30px rgba(0, 255, 65, 0.2);
 }
 
 .hero-content h1 {
     font-size: 3rem;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, var(--primary), #00ff88);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
+    text-shadow: 
+        0 0 10px var(--primary),
+        0 0 20px var(--primary),
+        0 0 30px var(--primary);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 
+            0 0 10px var(--primary),
+            0 0 20px var(--primary),
+            0 0 30px var(--primary);
+    }
+    to {
+        text-shadow: 
+            0 0 20px var(--primary),
+            0 0 30px var(--primary),
+            0 0 40px var(--primary),
+            0 0 50px var(--primary);
+    }
 }
 
 .hero-content p {
     font-size: 1.25rem;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto;
 }
@@ -161,13 +206,14 @@ a:hover {
 
 .category-card {
     background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
     border-radius: 12px;
     padding: 30px;
     text-align: center;
     transition: all 0.3s ease;
     display: block;
     color: var(--text-primary);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
 }
 
 .category-card:hover {
@@ -175,6 +221,9 @@ a:hover {
     border-color: var(--primary);
     transform: translateY(-5px);
     color: var(--text-primary);
+    box-shadow: 
+        0 0 20px rgba(0, 255, 65, 0.4),
+        inset 0 0 20px rgba(0, 255, 65, 0.1);
 }
 
 .card-icon {
@@ -189,19 +238,21 @@ a:hover {
 }
 
 .category-card p {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     margin-bottom: 15px;
     font-size: 0.95rem;
 }
 
 .question-count {
     display: inline-block;
-    background-color: rgba(0, 212, 170, 0.15);
+    background-color: rgba(0, 255, 65, 0.2);
     color: var(--primary);
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
 }
 
 .submit-card {
@@ -221,17 +272,18 @@ a:hover {
 }
 
 .about p {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     max-width: 700px;
     margin: 0 auto 15px;
 }
 
 /* Questions Page Styles */
 .page-header {
-    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a0f1a 100%);
     padding: 120px 20px 50px;
     text-align: center;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 5px 30px rgba(0, 255, 65, 0.2);
 }
 
 .page-header h1 {
@@ -241,64 +293,55 @@ a:hover {
 }
 
 .page-header p {
-    color: var(--text-secondary);
+    color: var(--text-muted);
 }
 
-/* Search Bar Styles */
-.search-container {
-    max-width: 600px;
-    margin: 30px auto 0;
+/* Hacker Theme Enhancements */
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, transparent 0%, rgba(0, 255, 65, 0.05) 50%, transparent 100%);
+    animation: scan 4s linear infinite;
+}
+
+@keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+.page-header {
     position: relative;
 }
 
-.search-box {
-    width: 100%;
-    padding: 15px 50px 15px 20px;
-    background-color: var(--bg-card);
-    border: 2px solid var(--border-color);
-    border-radius: 30px;
-    color: var(--text-primary);
-    font-size: 1rem;
-    transition: all 0.3s ease;
+.page-header h1 {
+    position: relative;
 }
 
-.search-box:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 20px rgba(0, 212, 170, 0.2);
+.page-header h1::before {
+    content: '> ';
+    color: var(--primary);
+    opacity: 0.7;
 }
 
-.search-box::placeholder {
-    color: var(--text-secondary);
+.page-header h1::after {
+    content: '_';
+    animation: blink 1s infinite;
+    margin-left: 5px;
 }
 
-.search-icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-    font-size: 1.2rem;
-    pointer-events: none;
-}
-
-.search-results-info {
-    text-align: center;
-    margin: 20px 0;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-.no-results {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--text-secondary);
-}
-
-.no-results h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: var(--text-primary);
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 
 .questions-container {
@@ -307,10 +350,16 @@ a:hover {
 
 .question-card {
     background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
     border-radius: 10px;
     margin-bottom: 20px;
     overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+    transition: all 0.3s ease;
+}
+
+.question-card:hover {
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
 }
 
 .question-header {
@@ -352,7 +401,7 @@ a:hover {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
-    background-color: rgba(0, 212, 170, 0.05);
+    background-color: rgba(0, 255, 65, 0.05);
 }
 
 .question-card.active .answer-content {
@@ -361,7 +410,7 @@ a:hover {
 
 .answer-text {
     padding: 20px 25px;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     border-top: 1px solid var(--border-color);
     line-height: 1.8;
 }
@@ -391,18 +440,21 @@ a:hover {
 }
 
 .difficulty-easy {
-    background-color: rgba(0, 212, 170, 0.2);
-    color: #00d4aa;
+    background-color: rgba(0, 255, 65, 0.2);
+    color: var(--primary);
+    border: 1px solid var(--primary);
 }
 
 .difficulty-medium {
-    background-color: rgba(255, 217, 61, 0.2);
-    color: #ffd93d;
+    background-color: rgba(255, 255, 0, 0.2);
+    color: var(--warning);
+    border: 1px solid var(--warning);
 }
 
 .difficulty-hard {
-    background-color: rgba(255, 107, 107, 0.2);
-    color: #ff6b6b;
+    background-color: rgba(255, 0, 85, 0.2);
+    color: var(--danger);
+    border: 1px solid var(--danger);
 }
 
 /* Submit Form Styles */
@@ -458,19 +510,24 @@ a:hover {
 .submit-btn {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    border: none;
+    background: transparent;
+    border: 2px solid var(--primary);
     border-radius: 8px;
-    color: var(--bg-dark);
+    color: var(--primary);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px var(--primary);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
 }
 
 .submit-btn:hover {
+    background: var(--primary);
+    color: var(--bg-dark);
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(0, 212, 170, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+    text-shadow: none;
 }
 
 /* Footer */
@@ -483,7 +540,7 @@ a:hover {
 }
 
 .footer p {
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-size: 0.9rem;
 }
 
@@ -493,12 +550,13 @@ a:hover {
     align-items: center;
     gap: 8px;
     margin-bottom: 30px;
-    color: var(--text-secondary);
+    color: var(--text-muted);
     font-weight: 500;
 }
 
 .back-link:hover {
     color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
 }
 
 /* Responsive Design */
